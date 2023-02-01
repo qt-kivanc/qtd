@@ -187,6 +187,17 @@ const ScrollWrapper = styled.div`
   .os-viewport {
     -ms-overflow-style: scrollbar !important;
   }
+  .os-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .os-viewport {
+    padding: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0px !important;
+    margin-left: 0px !important;
+    width: 100% !important;
+    overflow-y: scroll !important;
+  }
 
   [data-overlayscrollbars-initialize],
   [data-overlayscrollbars~=scrollbarHidden],
