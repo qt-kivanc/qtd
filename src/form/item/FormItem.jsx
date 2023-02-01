@@ -18,13 +18,20 @@ export default function FormItem({
 }) {
 
   const ref = useRef();
-  const form = Form.useFormAPI();
+  const { 
+    register, 
+    updateField, 
+    setFieldError, 
+    getFieldValue, 
+    getFieldInstance, 
+    formId
+  } = Form.useForm();
 
   const [isRegistered, SetIsRegistered] = useState(false);
 
   useEffect( () => {
 
-    form.register(
+    register(
       name, 
       ref,
       checkIsValid(ref.current.getValue()),
@@ -44,7 +51,7 @@ export default function FormItem({
   
     if ( !isRegistered ) return;
     
-    form.updateField(
+    updateField(
       name,
       value,
       update,
@@ -57,14 +64,14 @@ export default function FormItem({
 
   const checkIsValid = (value, validation = true) => {
 
-    const errors = CheckValidations(rules, value, form);
+    const errors = CheckValidations(rules, value, getFieldValue);
 
     if ( errors.length > 0 ) {
-      form.setFieldError(name, errors[0], validation);
+      setFieldError(name, errors[0], validation);
       return false;
     }
 
-    form.setFieldError(name, null);
+    setFieldError(name, null);
     return true;
 
   };
@@ -74,10 +81,10 @@ export default function FormItem({
     if ( dependency === "" )
       return;
 
-    if ( form.getFieldValue(dependency) === "" )
+    if ( getFieldValue(dependency) === "" )
       return;
 
-    form.getFieldInstance(dependency).forceUpdate();
+    getFieldInstance(dependency).forceUpdate();
 
   }
 
@@ -86,7 +93,7 @@ export default function FormItem({
     const props = {
       label: label,
       placeholder: placeholder,
-      id: form.formId + "_" + name,
+      id: formId + "_" + name,
       onUpdate: handleItemUpdate,
       ref: ref
     }

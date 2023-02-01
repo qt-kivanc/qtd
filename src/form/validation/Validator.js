@@ -8,7 +8,7 @@ const Validator = () => {
 
 }
 
-export function CheckValidations(rules, value, form) {
+export function CheckValidations(rules, value, getFieldValue) {
 
   let errors = [];
 
@@ -43,7 +43,7 @@ export function CheckValidations(rules, value, form) {
       }
 
       if ( rule.type === 'same' ) {
-        if ( !checkSame(value, form.getFieldValue(rule.field)) ) {
+        if ( !checkSame(value, getFieldValue(rule.field)) ) {
           errors.push(rule.message);
         }
       }
