@@ -1,0 +1,35 @@
+.option {
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  min-width: max-content;
+  padding: 10px 30px 10px 15px;
+
+  &:not(:last-child) {
+    margin-bottom: 1px;
+  }
+
+  &:hover {
+    background-color: #1D264980;
+  }
+
+}
+
+.selected {
+
+  .single, .option span {
+    color: #ffffff;
+  }
+
+}
+
+.single, .option span {
+
+  color: #ffffffAA;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  white-space: nowrap;
+
+}

@@ -1,0 +1,73 @@
+.menu {
+
+  background-color: #050A20;
+  border-radius: 0 5px 5px 5px;
+  overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0,0,0,.25);
+
+  transform-origin: 50% 1%;
+  transform-box: fill-box;
+  transition-timing-function: cubic-bezier(.75,-0.5,0,1.25);
+  
+  ul {
+
+    min-width: max-content;
+
+  }
+  
+}
+
+.bodyWrapper {
+
+  height: 204px;
+
+}
+
+.bodyWrapperLong {
+
+  height: 300px;
+
+}
+
+.bottom {
+  top: calc(100%);
+}
+
+.left {
+  left: 0;
+}
+
+/* -------------------------------- */
+
+.menuEnter {
+  opacity: 0;
+  height: 50px;
+}
+.menuEnterActive {
+  opacity: 1;
+  height: 204px;
+  transition: height 150ms ease-out;
+}
+.menuExit {
+  opacity: 1;
+}
+.menuExitActive {
+  opacity: 0;
+  height: 204px;
+  transition: height 150ms ease-out;
+}
+
+/* -------------------------------- */
+
+.menuEnterActiveLong {
+  opacity: 1;
+  height: 300px;
+  transition: height 150ms ease-out;
+}
+.menuExitActiveLong {
+  opacity: 0;
+  height: 300px;
+  transition: height 150ms ease-out;
+}
