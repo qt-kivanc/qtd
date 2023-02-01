@@ -1,6 +1,6 @@
 {
   "name": "@quan-tech/qt-design",
-  "version": "1.2.410",
+  "version": "1.2.416",
   "description": "Quan Tech Design libraries for desktop.",
   "author": "Kivanc",
   "license": "ISC",
@@ -64,6 +64,7 @@
     "@rollup/plugin-commonjs": "24.0.1",
     "@rollup/plugin-json": "6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "babel-plugin-styled-components": "^2.0.7",
     "copy-webpack-plugin": "^11.0.0",
     "customize-cra": "^1.0.0",
     "esm": "^3.2.25",

@@ -1,5 +1,6 @@
+/* eslint-disable import/no-anonymous-default-export */
 import styles from "rollup-plugin-styles";
-const autoprefixer = require('autoprefixer');
+import autoprefixer from "autoprefixer";
 import babel from '@rollup/plugin-babel';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import commonjs from '@rollup/plugin-commonjs';
@@ -123,17 +124,22 @@ MODE.map((m) => {
       babel({
         exclude: 'node_modules/**',
         plugins: [
-          '@babel/transform-runtime'
+          '@babel/transform-runtime',
+          ['babel-plugin-styled-components', {
+            namespace: 'qtd',
+            displayName: !production,
+            fileName: !production
+          }]
         ],
         babelHelpers: 'runtime'
       }),
 
       styles({
         autoModules: /\.module\.\S+$/,
-        namedExports: false,
-        minimize: true,
+        namedExports: !production,
+        minimize: production,
         modules: {
-          generateScopedName: "qtd__[local]__[hash:8]"
+          generateScopedName: production ? "qtd__[hash:8]" : "qtd__[local]__[hash:8]"
         },
         postcss: {
           extract: true,
