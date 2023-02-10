@@ -6,7 +6,7 @@ import {
   addWebpackAlias, 
   addWebpackPlugin 
 } from 'customize-cra';
-import hotLoader from 'react-app-rewire-hot-loader';
+//import hotLoader from 'react-app-rewire-hot-loader';
 //import { theme } from './src/config/theme/themeVariables';
 const { resolve } = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -48,7 +48,7 @@ const jessLoaderConfig = () => {
 
 const babelImportsConfig = () => {
   return {
-    libraryName: 'antd',
+    libraryName: 'qtd',
     libraryDirectory: 'es',
     style: true,
     modules: true,
@@ -62,8 +62,8 @@ const babelImportsConfig = () => {
 
 const aliasConfig = () => {
   return {
-    ['@app']: resolve(sourcePath, ``),
-    ['@context']: resolve(sourcePath, `context`)
+    '@context': resolve(sourcePath, `context`),
+    '@types': resolve(sourcePath, `types`)
   }
 }
 
@@ -90,7 +90,7 @@ module.exports = {
         ])
     ),
     (config, env) => {
-      return hotLoader(config, env);
+      //return hotLoader(config, env);
     }
   ),
   devServer: overrideDevServer(

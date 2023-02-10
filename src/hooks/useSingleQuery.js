@@ -30,11 +30,14 @@ const useSingleQuery = (props) => {
 
   }
 
-  const get = (type = "search", _default = "") => {
+  const get = (type = "search", _default = "", _minLength = 0) => {
 
     let value = searchParams.get(type);
 
     if ( value === null || value === undefined || value === "" ) {
+      return _default;
+    }
+    else if ( _minLength > 0 && value.length < _minLength ) {
       return _default;
     }
     else if (value.indexOf(",") > -1 || value.indexOf("%2C") > -1) {

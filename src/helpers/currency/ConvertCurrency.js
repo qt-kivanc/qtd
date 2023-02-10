@@ -17,7 +17,7 @@ export default function ConvertCurrency(balance, currency) {
   
 }
 
-const getBalance = (balance, currency, symbol) => {
+const getBalance = (balance, symbol) => {
 
   let isNegative = false;
   let _balance = parseFloat(balance).toFixed(2);

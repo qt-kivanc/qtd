@@ -8,11 +8,12 @@ import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
 import json from '@rollup/plugin-json';
+import typescript from 'rollup-plugin-typescript2';
 
 //import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
-//import alias from '@rollup/plugin-alias';
 import copy from 'rollup-plugin-copy';
+import localResolve from 'rollup-plugin-local-resolve';
 
 import pkg from "./package.json";
 
@@ -30,13 +31,13 @@ var MODE = [
   { 
     file: pkg.main,
     format: 'cjs',
-    sourcemap: true,
+    sourcemap: !production,
     name: '@quan-tech/qt-design'
   },
   { 
     file: pkg.module,
     format: 'esm',
-    sourcemap: true
+    sourcemap: !production
   }
 ]
 
@@ -106,6 +107,15 @@ MODE.map((m) => {
     external: getDependencies(),
     plugins: [
 
+      resolve(),
+      localResolve(),
+      typescript(
+        {
+          sourceMap: !production,
+          inlineSourceMap: !production
+        }
+      ),
+
       copy({
         targets: [
           //{ src: 'src/index.html', dest: 'dist' },
@@ -113,8 +123,6 @@ MODE.map((m) => {
           // { src: 'assets/images/**/*', dest: 'dist/public/images' }
         ]
       }),
-
-      resolve(),
 
       commonjs({
         exclude: ["src/**"],
@@ -150,7 +158,10 @@ MODE.map((m) => {
       builtins(),
       globals(),
       
-    ]
+    ],
+    watch: {
+      clearScreen: false
+    }
   }
   config.push(conf)
 })

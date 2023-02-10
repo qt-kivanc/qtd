@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ConsoleLog from "../logger/index";
+import ConsoleLog from "../logger";
 
 /**
  * 

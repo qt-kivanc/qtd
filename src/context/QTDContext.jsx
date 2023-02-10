@@ -10,10 +10,10 @@ const QTDContext = createContext();
 export const QTDProvider = ({ children }) => {
   
   const [theme, SetTheme] = useState("dark");
-  const [brokenImage, SetBrokenImage] = useState("");
-  const [dummyTeamImage, SetDummyTeamImage] = useState("");
   const [dateFormat, SetDateFormat] = useState("");
   const [locale, SetLocale] = useState("en");
+  const [brokenImage, SetBrokenImage] = useState("");
+  const [dummyTeamImage, SetDummyTeamImage] = useState("");
 
   const changeTheme = (value) => {
     SetTheme(value);

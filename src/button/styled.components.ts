@@ -1,9 +1,9 @@
-import styled, {css} from 'styled-components';
+import styled, {css, FlattenSimpleInterpolation} from 'styled-components';
 
 import ALink from '../alink/index.jsx';
 import CoreImage from '../image/index.jsx';
 
-const getStyleByType = (type) => {
+const getStyleByType = (type:string):FlattenSimpleInterpolation => {
 
   if ( type === "default" ) {
     return css`
@@ -114,9 +114,11 @@ const getStyleByType = (type) => {
     `
   }
 
+  return css``;
+
 }
 
-const getSelectedStyleByType = (type) => {
+const getSelectedStyleByType = (type: string) => {
 
   if ( type === "primary" ) {
     return css`
@@ -146,7 +148,7 @@ const getSelectedStyleByType = (type) => {
 
 }
 
-const getSVGStyleBySize = (size) => {
+const getSVGStyleBySize = (size:string) => {
 
   if ( size === "small" ) {
     return css`
@@ -176,7 +178,7 @@ const getSVGStyleBySize = (size) => {
 
 }
 
-const getIconStyleBySize = (size) => {
+const getIconStyleBySize = (size:string) => {
 
   if ( size === "small" ) {
     return css`
@@ -206,7 +208,17 @@ const getIconStyleBySize = (size) => {
 
 }
 
-const WrapperContent = css`
+const WrapperContent = css<{ 
+  stretch: boolean, 
+  shape: string, 
+  icon: string, 
+  disabled: boolean, 
+  svg: boolean, 
+  $loading: boolean, 
+  selected: boolean, 
+  type: string,
+  size: string
+}>`
 
   height: 40px;
   display: flex;
@@ -271,8 +283,8 @@ const WrapperContent = css`
     `
   } 
 
-  ${({ svg, shape, loading }) =>
-    (svg && shape !== "circle" && loading) &&
+  ${({ svg, shape, $loading }) =>
+    (svg && shape !== "circle" && $loading) &&
     css`
       padding-left: 34px;
     `
@@ -283,7 +295,7 @@ const WrapperContent = css`
   ${({ selected, type }) => selected && getSelectedStyleByType(type)}
 
 `
-const SVG = styled.div`
+const SVG = styled.div<{ singleIcon: boolean, size: string }>`
   
   ${({ size }) => getSVGStyleBySize(size)}
 
@@ -301,8 +313,8 @@ const Image = styled(CoreImage)`
   height: 20px;
   `
 
-const Hide = styled.span`
-  opacity: ${props => (props.loading) ? '0' : '1'};
+const Hide = styled.span<{ $loading: boolean }>`
+  opacity: ${$loading => ($loading) ? '0' : '1'};
   `
 
 const CoreButton = styled.button`
@@ -317,7 +329,7 @@ const A = styled.a`
   ${WrapperContent}
   `
 
-const Icon = styled.div`
+const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
 
   color: #ffffff;
   

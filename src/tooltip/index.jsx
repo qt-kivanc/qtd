@@ -8,11 +8,11 @@ const TooltipContext = React.createContext(null);
 
 export const TooltipProvider = ({ children }) => {
 
-  const [tooltips, setTooltips] = useState([]);
+  const [tooltips, SetTooltips] = useState([]);
 
   const addTooltip = useCallback((id, item) => {
 
-    setTooltips((tooltips) => [
+    SetTooltips((tooltips) => [
       ...tooltips,
       {
         id: id,
@@ -20,22 +20,30 @@ export const TooltipProvider = ({ children }) => {
       }
     ]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTooltips]);
+  }, [tooltips]);
 
   const removeTooltip = useCallback((id) => {
 
-    setTooltips((tooltips) => tooltips.filter((n) => n.id !== id));
+    SetTooltips((tooltips) => tooltips.filter((n) => n.id !== id));
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTooltips]);
+  }, [tooltips]);
+
+  const showTooltip = (id) => {
+    console.log("showTooltip: " + id);
+  }
+
+  const hideTooltip = (id) => {
+    console.log("hideTooltip: " + id);
+  }
 
   return (
 
     <TooltipContext.Provider
       value={{
         addTooltip,
-        removeTooltip
+        removeTooltip,
+        showTooltip,
+        hideTooltip
       }}
     >
       <Container tooltips={tooltips} />
@@ -54,7 +62,7 @@ const Tooltip = React.forwardRef(({
   type = "default"
 }, ref) => {
 
-  const { addTooltip } = useContext(TooltipContext);
+  const { addTooltip, removeTooltip, showTooltip, hideTooltip } = useContext(TooltipContext);
   const id = v4();
 
   useEffect(() => {
@@ -71,12 +79,17 @@ const Tooltip = React.forwardRef(({
 
     addTooltip(id, tooltip);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return(() => {
+      removeTooltip(id);
+    });
+
   }, []);
 
   return React.Children.map(children, child => 
     React.cloneElement(child, {
-      ...child.props
+      ...child.props,
+      onPointerOver: () => showTooltip(id),
+      onPointerOut: () => hideTooltip(id)
     })
   )
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 } from 'uuid';
+
 import Image from '../../image/index.jsx';
 
 import s from './style.module.scss';
