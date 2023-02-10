@@ -28,7 +28,6 @@ const Image = (props) => {
       
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.src]);
 
   useEffect( () => {
@@ -40,7 +39,6 @@ const Image = (props) => {
     SetShow(false);
     load();
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme]);
 
   const load = () => {

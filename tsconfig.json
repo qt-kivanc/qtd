@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es6",
+    "module": "esnext",
+    "checkJs": false,
+    "jsx": "react",
+    "baseUrl": "./",
+    "sourceMap": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // we can explicitly declare `any`, but we don't want to infer `any`
+    "noImplicitAny": false,
+    // Allow default imports from modules with no default export.
+    "allowSyntheticDefaultImports": true,
+    // allows importing of json files, needed for locales as of right now
+    "resolveJsonModule": true,
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    // Process & infer types from .js files.
+    "allowJs": true,
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true,
+    // Disallow features that require cross-file information for emit.
+    "isolatedModules": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "skipLibCheck": false,
+    "strict": false,
+    "paths": {
+      "context/*": ["src/context/*"],
+      "types/*": ["src/types/*"],
+      "./*": ["./node_modules/"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["**/node_modules", "dist", "rollup.config.js"]
+}

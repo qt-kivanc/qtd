@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Spin from '../spin/index.jsx';
 import { SVG, Hide, Image, CoreButton, Link, A, Icon } from './styled.components';
 
-export default function Button(props) {
+function Button(props: any) {
 
   const {
     disabled = false,
@@ -26,21 +26,13 @@ export default function Button(props) {
     onClick = null
   } = props;
 
-  useEffect( () => {
-
-    return () => {
-
-    }
-
-  },[]);
-
   /**
    * 
    * @returns 
    */
-  const getIcon = () => {
+  const getIcon = (): JSX.Element | null => {
 
-    if ( loading ) return;
+    if ( loading ) return null;
 
     if ( icon ) {
       return (
@@ -66,19 +58,19 @@ export default function Button(props) {
 
   }
 
-  const getChildren = () => {
+  const getChildren = (): JSX.Element | null => {
     
-    if ( !children ) return;
+    if ( !children ) return null;
 
     return (
-      <Hide loading={loading ? 1 : 0}>
+      <Hide $loading={loading}>
         {children}
       </Hide>
     );
 
   }
 
-  const getButtonContent = () => (
+  const getButtonContent = (): JSX.Element => (
     <>
       { getIcon() }
       { getSpin() }
@@ -86,7 +78,7 @@ export default function Button(props) {
     </>
   );
 
-  const getSpin = () => {
+  const getSpin = (): JSX.Element | null => {
     if ( !loading ) return null;
     return (
       <Spin />
@@ -97,7 +89,7 @@ export default function Button(props) {
    * 
    * @returns 
    */
-  const ClickButton = () => (
+  const ClickButton = (): JSX.Element => (
 
     <A 
       className={className} 
@@ -110,7 +102,7 @@ export default function Button(props) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      loading={loading ? 1 : 0}
+      $loading={loading}
     >
       { getButtonContent() }
     </A>
@@ -121,7 +113,7 @@ export default function Button(props) {
    * 
    * @returns 
    */
-  const HrefButton = () => (
+  const HrefButton = ():JSX.Element => (
 
     <Link 
       className={className} 
@@ -135,7 +127,7 @@ export default function Button(props) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      loading={loading ? 1 : 0}
+      $loading={loading}
     >
       { getIcon() }
       <span>{children}</span>
@@ -147,7 +139,7 @@ export default function Button(props) {
    * 
    * @returns 
    */
-  const SubmitButton = () => (
+  const SubmitButton = (): JSX.Element => (
 
     <CoreButton 
       className={className} 
@@ -160,14 +152,14 @@ export default function Button(props) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      loading={loading ? 1 : 0}
+      $loading={loading}
     >
       { getButtonContent() }
     </CoreButton>
 
   );
 
-  const getButton = () => {
+  const getButton = (): JSX.Element => {
     
     if ( htmlType === "submit" ) {
       return <SubmitButton />;
@@ -180,3 +172,5 @@ export default function Button(props) {
   return getButton();
 
 }
+
+export default Button;

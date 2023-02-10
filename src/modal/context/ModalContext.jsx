@@ -1,7 +1,6 @@
 import { createContext } from "react";
 
 const ModalContext = createContext();
-      ModalContext.displayName = "QTDContext";
-
+      ModalContext.displayName = "QTDModalContext";
 
 export default ModalContext;
