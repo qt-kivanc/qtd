@@ -214,7 +214,7 @@ const WrapperContent = css<{
   icon: string, 
   disabled: boolean, 
   svg: boolean, 
-  $loading: boolean, 
+  loading: boolean, 
   selected: boolean, 
   type: string,
   size: string
@@ -283,8 +283,8 @@ const WrapperContent = css<{
     `
   } 
 
-  ${({ svg, shape, $loading }) =>
-    (svg && shape !== "circle" && $loading) &&
+  ${({ svg, shape, loading }) =>
+    (svg && shape !== "circle" && loading) &&
     css`
       padding-left: 34px;
     `
@@ -313,8 +313,12 @@ const Image = styled(CoreImage)`
   height: 20px;
   `
 
-const Hide = styled.span<{ $loading: boolean }>`
-  opacity: ${$loading => ($loading) ? '0' : '1'};
+const Hide = styled.span<{ loading: boolean }>`
+  ${({ loading }) =>
+    loading === "true" &&
+    css`
+      opacity: 0;
+    `}
   `
 
 const CoreButton = styled.button`
@@ -340,7 +344,6 @@ const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
     css`
       margin-right: 7px;
     `}
-
   `
 
 export { SVG, Hide, Image, CoreButton, Link, A, Icon };

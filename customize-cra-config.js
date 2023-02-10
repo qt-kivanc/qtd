@@ -63,7 +63,9 @@ const babelImportsConfig = () => {
 const aliasConfig = () => {
   return {
     '@context': resolve(sourcePath, `context`),
-    '@types': resolve(sourcePath, `types`)
+    '@types': resolve(sourcePath, `types`),
+    '@utils': resolve(sourcePath, `utils`),
+    '@venom': resolve(sourcePath, `venom`)
   }
 }
 

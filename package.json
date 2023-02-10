@@ -1,6 +1,6 @@
 {
   "name": "@quan-tech/qt-design",
-  "version": "1.2.435",
+  "version": "1.2.443",
   "description": "Quan Tech Design libraries for desktop.",
   "author": "Kivanc",
   "license": "ISC",
@@ -64,6 +64,7 @@
     "@rollup/plugin-json": "6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "babel-plugin-styled-components": "^2.0.7",
+    "clsx": "^1.2.1",
     "copy-webpack-plugin": "^11.0.0",
     "customize-cra": "^1.0.0",
     "esm": "^3.2.25",
@@ -89,7 +90,7 @@
     "sass": "1.58.0",
     "source-map-loader": "4.0.1",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.6.0"
   },
   "bugs": {
     "url": "https://github.com/quantechltd/qt-design/issues"

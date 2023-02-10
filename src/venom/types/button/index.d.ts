@@ -1,4 +1,4 @@
-import {AriaLabelingProps, FocusableDOMProps, FocusableProps, PressEvents, StyleProps} from 'types/shared';
+import {AriaLabelingProps, FocusableDOMProps, FocusableProps, PressEvents, StyleProps} from 'venom/types/shared';
 import {ElementType, JSXElementConstructor, ReactNode} from 'react';
 
 interface ButtonProps extends PressEvents, FocusableProps {

@@ -62,7 +62,7 @@ const getDependencies = () => {
 
 }
 
-MODE.map((m) => {
+MODE.forEach((m) => {
 
   var conf = {
     input: input,

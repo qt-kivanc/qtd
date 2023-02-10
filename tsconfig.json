@@ -2,7 +2,6 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "es6",
-    "module": "esnext",
     "checkJs": false,
     "jsx": "react",
     "baseUrl": "./",
@@ -41,6 +40,8 @@
     "paths": {
       "context/*": ["src/context/*"],
       "types/*": ["src/types/*"],
+      "utils/*": ["src/utils/*"],
+      "venom/*": ["src/venom/*"],
       "./*": ["./node_modules/"]
     }
   },
