@@ -1,25 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Wrapper } from './styled.components';
 
 const Container = ({ tooltips }) => {
 
-  const root = document.getElementById('qtd-tooltip-root');
+  const portalId = "qtd-tooltip-root";
   const element = document.createElement('div');
+
+  const [root, SetRoot] = useState(null);
 
   useEffect(() => {
 
-    root.appendChild(element);
-
+    if (!document.getElementById(portalId)) {
+      let _root = document.createElement('div');
+          _root.id = portalId;
+          _root.appendChild(element);
+      document.body.appendChild(_root);
+      SetRoot(_root);
+    }
+  
     return(() => {
-      root.removeChild(element);
+      if (root) document.body.removeChild(root);
     });
-
+  
   }, []);
 
-  return createPortal(
-    <div>
+  const Portal = ({ root }) => {
+
+    let jsx = (
       <Wrapper>
         {
           tooltips.map(tooltip => {
@@ -27,8 +36,14 @@ const Container = ({ tooltips }) => {
           })
         }
       </Wrapper>
-    </div>,
-    root
+    );
+
+    return (!root) ? null : createPortal(jsx, root);
+
+  };
+
+  return (
+    <Portal root={root} />
   );
 
 };

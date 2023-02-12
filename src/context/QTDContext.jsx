@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 import { ModalProvider } from "../modal/index.jsx";
 import { NotificationProvider } from "../notification/index.jsx";
@@ -11,7 +11,8 @@ export const QTDProvider = ({ children }) => {
   
   const [theme, SetTheme] = useState("dark");
   const [dateFormat, SetDateFormat] = useState("");
-  const [locale, SetLocale] = useState("en");
+  const [locale, SetLocale] = useState("en-US");
+  const [language, SetLanguage] = useState("en");
   const [brokenImage, SetBrokenImage] = useState("");
   const [dummyTeamImage, SetDummyTeamImage] = useState("");
 
@@ -35,16 +36,22 @@ export const QTDProvider = ({ children }) => {
     SetLocale(value);
   };
 
+  const changeLanguage = (value) => {
+    SetLanguage(value);
+  };
+
   const value = {
     theme,
     brokenImage,
     dummyTeamImage,
     dateFormat,
+    language,
     locale,
     changeTheme,
     changeBrokenImage,
     changeDummyTeamImage,
     changeDateFormat,
+    changeLanguage,
     changeLocale
   };
 

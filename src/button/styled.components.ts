@@ -10,11 +10,9 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       color: #ffffff;
       border: 1px solid #505A7D99;  
       transition: border-color 0.2s ease-out;
-
       span {
         font-weight: 400;
       }
-
       &:hover {
         border-color: #3598FE;
       }
@@ -24,14 +22,11 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
   if ( type === "link" ) {
     return css`
       span {
-
         font-weight: 600;
         color: #ffffff99;
-
         &:hover {
           color: #ffffff;
         }
-
       }
     `
   }
@@ -41,7 +36,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #ffffff;
       }
-
       background: linear-gradient(-45deg,#1d74ce,#3598fe);
       
       &:hover {
@@ -55,7 +49,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #ffffff;
       }
-
       background-color: #1D2649;
       
       &:hover {
@@ -69,7 +62,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #1D2649;
       }
-
       background: linear-gradient(45deg,#fbda61,#f76b1c 94%);
       
       &:hover {
@@ -83,7 +75,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #ffffff;
       }
-
       background: linear-gradient(45deg,#870F0F,#BC2222 94%);
       
       &:hover {
@@ -97,7 +88,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #ffffff99;
       }
-
       background-color: #1F2952;
       cursor: default;
     `
@@ -108,7 +98,6 @@ const getStyleByType = (type:string):FlattenSimpleInterpolation => {
       span {
         color: #ffffff4D;
       }
-
       background-color: #1F295280;
       cursor: default;
     `
@@ -135,7 +124,6 @@ const getSelectedStyleByType = (type: string) => {
   if ( type === "default" ) {
     return css`
       border: 2px solid #3598FE;
-
       span {
         color: #3598FE;
         font-weight: 600;
@@ -214,18 +202,16 @@ const WrapperContent = css<{
   icon: string, 
   disabled: boolean, 
   svg: boolean, 
-  $loading: boolean, 
+  loading: boolean, 
   selected: boolean, 
   type: string,
   size: string
 }>`
-
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
   border-radius: 5px;
   padding: 0 10px;
   cursor: pointer;
@@ -233,7 +219,6 @@ const WrapperContent = css<{
   svg {
     fill: #ffffff;
   }
-
   span {
     color: #ffffff;
     font-weight: bold;
@@ -242,28 +227,24 @@ const WrapperContent = css<{
     user-select: none;
     transition: color 0.2s ease-out;
   }
-
   ${({ stretch }) =>
     stretch &&
     css`
       width: 100%;
     `
   }
-
   ${({ shape }) =>
     shape === "circle" &&
     css`
       border-radius: 100%;
     `
   }
-
   ${({ icon }) =>
     icon &&
     css`
       padding: 0 12px 0 10px;
     `
   }
-
   ${({ disabled }) =>
     disabled &&
     css`
@@ -272,7 +253,6 @@ const WrapperContent = css<{
       opacity: .5;
     `
   }
-
   ${({ type }) =>
     (type !== "default" && type !== "link") &&
     css`
@@ -282,29 +262,24 @@ const WrapperContent = css<{
       }
     `
   } 
-
-  ${({ svg, shape, $loading }) =>
-    (svg && shape !== "circle" && $loading) &&
+  ${({ svg, shape, loading }) =>
+    (svg && shape !== "circle" && loading) &&
     css`
       padding-left: 34px;
     `
   }
-
   ${({ size, svg }) => !svg && getSVGStyleBySize(size)}
   ${({ type }) => getStyleByType(type)}
   ${({ selected, type }) => selected && getSelectedStyleByType(type)}
-
 `
 const SVG = styled.div<{ singleIcon: boolean, size: string }>`
   
   ${({ size }) => getSVGStyleBySize(size)}
-
   ${({ singleIcon }) =>
     !singleIcon &&
     css`
       margin-right: 7px;
     `}
-
   `
 
 const Image = styled(CoreImage)`
@@ -313,8 +288,12 @@ const Image = styled(CoreImage)`
   height: 20px;
   `
 
-const Hide = styled.span<{ $loading: boolean }>`
-  opacity: ${$loading => ($loading) ? '0' : '1'};
+const Hide = styled.span<{ loading: boolean }>`
+  ${({ loading }) =>
+    loading === "true" &&
+    css`
+      opacity: 0;
+    `}
   `
 
 const CoreButton = styled.button`
@@ -330,17 +309,14 @@ const A = styled.a`
   `
 
 const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
-
   color: #ffffff;
   
   ${({ size }) => getIconStyleBySize(size)}
-
   ${({ useIconPadding }) =>
     useIconPadding &&
     css`
       margin-right: 7px;
     `}
-
   `
 
 export { SVG, Hide, Image, CoreButton, Link, A, Icon };

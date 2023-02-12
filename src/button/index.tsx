@@ -4,27 +4,45 @@ import { ReactSVG } from 'react-svg';
 import Spin from '../spin/index.jsx';
 import { SVG, Hide, Image, CoreButton, Link, A, Icon } from './styled.components';
 
-function Button(props: any) {
+interface ButtonProps {
+  disabled: boolean,
+  loading: boolean,
+  selected: boolean,
+  useIconPadding: boolean,
+  stretch: boolean,
+  type: string,
+  size: string,
+  shape: string,
+  target: string,
+  icon?: string,
+  image?: string,
+  svg?: string,
+  href?: string,
+  htmlType?: string,
+  className?: string,
+  onClick(): void | null,
+  children?: React.ReactNode
+}
 
-  const {
-    disabled = false,
-    loading = false,
-    selected = false,
-    useIconPadding = true,
-    stretch = false,
-    type = "primary",
-    size = "small",
-    shape = "",
-    target = "_self",
-    icon = null,
-    image = null,
-    svg = null,
-    href = null,
-    htmlType = null,
-    children = null,
-    className = null,
-    onClick = null
-  } = props;
+function Button({
+  disabled = false,
+  loading = false,
+  selected = false,
+  useIconPadding = true,
+  stretch = false,
+  type = "primary",
+  size = "small",
+  shape = "",
+  target = "_self",
+  icon = "",
+  image = "",
+  svg = "",
+  href = "",
+  htmlType = "",
+  className = "",
+  children = null,
+  onClick = () => null,
+}:ButtonProps) {
 
   /**
    * 
@@ -34,19 +52,19 @@ function Button(props: any) {
 
     if ( loading ) return null;
 
-    if ( icon ) {
+    if ( icon !== "" ) {
       return (
         <Icon className={icon} size={size} useIconPadding={useIconPadding} />
       )
     }
 
-    if ( image ) {
+    if ( image !== "" ) {
       return (
         <Image src={image} height="20" brokenHeight="20" />
       )
     }
 
-    if ( svg ) {
+    if ( svg !== "" ) {
       return (
         <SVG singleIcon={!children} size={size}>
           <ReactSVG src={svg} />
@@ -63,7 +81,7 @@ function Button(props: any) {
     if ( !children ) return null;
 
     return (
-      <Hide $loading={loading}>
+      <Hide loading={loading ? "true" : "false"}>
         {children}
       </Hide>
     );
@@ -102,7 +120,7 @@ function Button(props: any) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      $loading={loading}
+      loading={loading ? "true" : "false"}
     >
       { getButtonContent() }
     </A>
@@ -127,7 +145,7 @@ function Button(props: any) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      $loading={loading}
+      loading={loading ? "true" : "false"}
     >
       { getIcon() }
       <span>{children}</span>
@@ -152,7 +170,7 @@ function Button(props: any) {
       stretch={stretch ? stretch : undefined}
       svg={svg}
       size={size}
-      $loading={loading}
+      loading={loading ? "true" : "false"}
     >
       { getButtonContent() }
     </CoreButton>
@@ -165,7 +183,7 @@ function Button(props: any) {
       return <SubmitButton />;
     }
 
-    return href ? <HrefButton /> : <ClickButton />;
+    return href !== "" ? <HrefButton /> : <ClickButton />;
 
   }
 

@@ -13,21 +13,27 @@ const Container = ({
   Content = null
 }) => {
 
-  const root = document.getElementById('qtd-modal-root');
+  const portalId = "qtd-modal-root";
   const element = document.createElement('div');
 
+  const [root, SetRoot] = useState(null);
   const [showOverlay, SetShowOverlay] = useState(false);
   const { showModal, removeModal } = useContext(ModalContext);
 
   useEffect(() => {
-    
-    root.appendChild(element);
-    
-    return(() => {
-      root.removeChild(element);
-    })
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!document.getElementById(portalId)) {
+      let _root = document.createElement('div');
+          _root.id = portalId;
+          _root.appendChild(element);
+      document.body.appendChild(_root);
+      SetRoot(_root);
+    }
+  
+    return(() => {
+      if (root) document.body.removeChild(root);
+    });
+  
   }, []);
 
   useEffect(() => {
@@ -60,18 +66,22 @@ const Container = ({
 
   );
 
-  const getWrapper = () => (
+  const Portal = ({ root, content }) => {
 
-    <Wrapper>
-      <Overlay show={showOverlay} />
-      { getModal() }   
-    </Wrapper>
+    let jsx = (
+      <Wrapper>
+        <Overlay show={showOverlay} />
+        { getModal() }   
+      </Wrapper>
+    );
 
-  )
+    if ( !content ) jsx = null;
+    return (!root) ? null : createPortal(jsx, root);
 
-  return createPortal(
-    Content !== null ? getWrapper() : null,
-    root
+  };
+
+  return (
+    <Portal root={root} content={Content} />
   );
 
 };

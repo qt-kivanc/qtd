@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTransition } from "react-spring";
 
@@ -8,18 +8,25 @@ import { Wrapper } from './styled.components';
 
 const Container = ({ notifications, onRemove }) => {
 
-  const root = document.getElementById('qtd-notification-root');
+  const portalId = "qtd-notification-root";
   const element = document.createElement('div');
+
+  const [root, SetRoot] = useState(null);
 
   useEffect(() => {
 
-    root.appendChild(element);
-
+    if (!document.getElementById(portalId)) {
+      let _root = document.createElement('div');
+          _root.id = portalId;
+          _root.appendChild(element);
+      document.body.appendChild(_root);
+      SetRoot(_root);
+    }
+  
     return(() => {
-      root.removeChild(element);
-    })
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (root) document.body.removeChild(root);
+    });
+  
   }, []);
 
   const topRight = {
@@ -77,24 +84,33 @@ const Container = ({ notifications, onRemove }) => {
       description={item.description}
       onRemove={onRemove}
     />
-  ))
+  ));
 
-  return createPortal(
-    <div>
-      <Wrapper position="topRight">
-        { topRightTransitions(getItem) }
-      </Wrapper>
-      <Wrapper position="topLeft">
-        { topLeftTransitions(getItem) }
-      </Wrapper>
-      <Wrapper position="bottomRight">
-        { bottomRightTransitions(getItem) }
-      </Wrapper>
-      <Wrapper position="bottomLeft">
-        { bottomLeftTransitions(getItem) }
-      </Wrapper>
-    </div>,
-    root
+  const Portal = ({ root }) => {
+
+    let jsx = (
+      <div>
+        <Wrapper position="topRight">
+          { topRightTransitions(getItem) }
+        </Wrapper>
+        <Wrapper position="topLeft">
+          { topLeftTransitions(getItem) }
+        </Wrapper>
+        <Wrapper position="bottomRight">
+          { bottomRightTransitions(getItem) }
+        </Wrapper>
+        <Wrapper position="bottomLeft">
+          { bottomLeftTransitions(getItem) }
+        </Wrapper>
+      </div>
+    );
+
+    return (!root) ? null : createPortal(jsx, root);
+
+  };
+
+  return (
+    <Portal root={root} />
   );
 
 };
