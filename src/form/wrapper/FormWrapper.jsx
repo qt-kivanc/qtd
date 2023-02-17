@@ -127,6 +127,9 @@ const FormWrapper = forwardRef(({
 
     const isEmpty = !Object.values(initialValues).some(x => x !== null && x !== '');
     
+    /**
+     * Eğer Query String değerleri boş ise başlatır.
+     */
     if ( isEmpty && !initialized ){
       SetInitialized(true);
     }
@@ -151,7 +154,6 @@ const FormWrapper = forwardRef(({
    */
   const setQueryStringInitialValues = () => {
 
-    let initialQueryValues = {};
     const fields = form.getFields();
     const isEmpty = !Object.values(fields).some(x => singleQuery.get(x.query, "") !== "");
     const isQueriesEmpty = Object.values(fields).some(x => x.query === null || x.query === '');;
@@ -191,7 +193,9 @@ const FormWrapper = forwardRef(({
      * değişkenine ekler ve forma başlangıç değerleri olarak iletir.
      */
     if ( !isEmpty && !initialized ){
-        
+      
+      let initialQueryValues = {};
+      
       Object.keys(fields).forEach(key => {
         initialQueryValues[key] = singleQuery.get(fields[key].query, "");
       });
@@ -209,7 +213,7 @@ const FormWrapper = forwardRef(({
    * "form.updated" güncellendiğinde çalışır.
    * 
    * "formValues" değişkeninden gelen tüm değerleri "newQueries" değişkenine 
-   * kayıt eder ve eski "queries" değişkeni ile deep equal uygular. Eğer değerler
+   * kayıt eder ve eski "queries" değişkeni ile "isDeepEqual" uygular. Eğer değerler
    * birebir aynı ise çalışmasını durdurur.
    * 
    * Eğer değerler değişti ise, tüm form öğelerinin değerlerini array olarak 
@@ -327,6 +331,14 @@ const FormWrapper = forwardRef(({
 
   }
 
+  /**
+   * 
+   * Hem useQueryString hem de initialValues için form ilk oluşturulduğunda
+   * çalışır. Tüm form elemanları bulur ve array'e kayıt eder. Bu array daha
+   * sonradan tüm form elemanlarının register olup olmadığını kontrol eder
+   * ve tüm form elemanları register olduğunun kontrolü için kullanılır.
+   * 
+   */
   const setChildrens = () => {
 
     let items = [];
