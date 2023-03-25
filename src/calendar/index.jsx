@@ -12,7 +12,7 @@ import { Wrapper, Days, WeekShortDays, Separator } from './styled.components';
 
 const Calendar = forwardRef((props, ref) => {
 
-  const { dateFormat, locale } = useContext(QTDContext);
+  const { dateFormat, language } = useContext(QTDContext);
 
   const {
     value = "",
@@ -70,7 +70,7 @@ const Calendar = forwardRef((props, ref) => {
 
   const load = () => {
 
-    axios.get(`/locales/${locale}/calendar.json`,)
+    axios.get(`/locales/${language}/calendar.json`,)
       .then((response) => {
         success(response.data)
       })
