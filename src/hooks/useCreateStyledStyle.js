@@ -70,10 +70,23 @@ const useCreateStyledStyle = (styled, handler = null) => {
 
     let rules = [];
 
-    // TODO: Burası sadece bir tane &: destekliyor. geliştirilmeli.
+    /**
+     * Çoklu style destekleme. hover, before vs gibi sınıfları
+     * css olarak böler.
+     */
     if ( styles.split("&").length > 1 ) {
-      rules.push("." + id + styles.split("&")[1]);
-      rules.push("." + id + "{" + styles.split("&")[0] + "}");
+
+      let _styles = styles.split("&");
+
+      for ( var i = 0; i < _styles.length; i++ ) {
+        if ( i === 0 ) {
+          rules.push("." + id + "{" + _styles[0] + "}");
+        }
+        else {
+          rules.push("." + id + _styles[i]);    
+        }
+      }
+
     }
     else {
       rules.push("." + id + " {" + styles + "} ");
