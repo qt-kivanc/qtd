@@ -381,7 +381,7 @@ const Input = forwardRef(({
     if ( !prefix ) return null;
 
     return (
-      <div className={s.prefix}>
+      <div className={"qtd-input-prefix " + s.prefix}>
         {prefix}
       </div>
     );
@@ -393,12 +393,13 @@ const Input = forwardRef(({
    */
   const getSuffix = () => (
 
-    <div className={s.suffix}>
+    <div className={"qtd-input-suffix " + s.suffix}>
       { suffix ? suffix : (locked ? <LockIcon width="18" height="18" className={s.lockIcon} /> : null) }
       { getErrors() }
     </div>
 
   )
+  
   /**
    * 
    */
@@ -406,7 +407,7 @@ const Input = forwardRef(({
 
     if ( errorMessage !== null ) {
       return (
-        <div className={s.errorBorder} />
+        <div className={"qtd-error-border " + s.errorBorder} />
       );
     }
 

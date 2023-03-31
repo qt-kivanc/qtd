@@ -262,12 +262,14 @@ const WrapperContent = css<{
       }
     `
   } 
+  /*
   ${({ svg, shape, loading }) =>
     (svg && shape !== "circle" && loading) &&
     css`
       padding-left: 34px;
     `
   }
+  */
   ${({ size, svg }) => !svg && getSVGStyleBySize(size)}
   ${({ type }) => getStyleByType(type)}
   ${({ selected, type }) => selected && getSelectedStyleByType(type)}
