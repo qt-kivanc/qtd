@@ -142,7 +142,11 @@ const Select = forwardRef((props, ref) => {
   const getOptions = () => {
 
     return React.Children.map(children, child => {
-      
+
+      if ( !child ) return;
+      if ( !child.hasOwnProperty("type") ) return;
+      if ( child.type === null || child.type === undefined ) return;
+
       if (child.type === Option) {
 
         return React.cloneElement(child, {

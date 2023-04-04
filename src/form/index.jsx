@@ -60,11 +60,11 @@ const Form = forwardRef((props, ref) => {
 const useForm = () => useContext(FormContext);
 const useFormAPI = () => form;
 
-Form.Item = FormItem;
-Form.Group = FieldGroup;
-Form.Control = ControlGroup;
-Form.useForm = useForm;
-Form.useFormAPI = useFormAPI;
+Form.Item         = FormItem;
+Form.Group        = FieldGroup;
+Form.Control      = ControlGroup;
+Form.useForm      = useForm;
+Form.useFormAPI   = useFormAPI;
 
 export { FormItem, FieldGroup, ControlGroup, useForm, useFormAPI };
 export default Form;
