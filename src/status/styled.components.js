@@ -95,6 +95,18 @@ const getByStatus = (status) => {
     )
   }
 
+  if ( status === "timeout" ) {
+    return (
+      css`
+        span {
+          color: #ffffff;
+        }
+
+        background-color: #DF2561;
+      `
+    )
+  }
+
   return (
     css`
       span {
