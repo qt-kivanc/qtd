@@ -16,11 +16,17 @@ const Image = (props) => {
   } = useContext(QTDContext);
 
   const [show, SetShow] = useState(false);
-  const [fallback, SetFallback] = useState("");
+  const [fallback, SetFallback] = useState(null);
   const [properties, SetProperties] = useState({});
   const [hasError, SetHasError] = useState(false);
 
   useEffect( () => {
+    
+    if ( !props.src ) return;
+
+    if ( props.src === "") {
+      throw new Error("You must pass the src attribute!");
+    }
     
     load();
     
