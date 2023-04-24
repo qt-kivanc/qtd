@@ -132,12 +132,12 @@ function Button({
     names += " qtd-button-" + type;
     names += " qtd-button-" + getSize();
 
-    if ( selected )     names += " qtd-button-" + "selected";
-    if ( stretch )      names += " qtd-button-" + "stretch";
-    if ( shape  !== "" && shape !== null ) names += " " + "qtd-button-" + shape;
-    if ( svg    !== "" && svg   !== null ) names += " " + "qtd-svg";
-    if ( icon   !== "" && icon  !== null ) names += " " + "qtd-icon";
-    if ( image  !== "" && image !== null ) names += " " + "qtd-image";
+    if ( selected )     names += " qtd-button-selected";
+    if ( stretch )      names += " qtd-button-stretch";
+    if ( shape  !== "" && shape !== null ) names += " qtd-button-" + shape;
+    if ( svg    !== "" && svg   !== null ) names += " qtd-svg";
+    if ( icon   !== "" && icon  !== null ) names += " qtd-icon";
+    if ( image  !== "" && image !== null ) names += " qtd-image";
     if ( className !== "" && className !== null ) names += " " + className;
 
     return names;

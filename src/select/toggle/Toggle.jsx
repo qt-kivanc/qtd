@@ -17,7 +17,7 @@ export default function Toggle({
   onChange = null,
   icon = null,
   image = null,
-  size = "medium", 
+  size = "normal", 
   variant = "filled"
   
 }) {
@@ -30,7 +30,7 @@ export default function Toggle({
 
     SetOpen(isOpen);
     SetVariantStyle(variant ? variant : "filled");
-    SetSizeStyle(size ? size : "medium");
+    SetSizeStyle(size ? size : "normal");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -59,12 +59,12 @@ export default function Toggle({
     
     if ( icon )
       return (
-        <PreIcon className={icon} />
+        <PreIcon className={"qtd-icon " + icon} />
       )
     
     if ( image )
       return (
-        <Image src={image} height="20" brokenHeight="20" />
+        <Image src={image} height="20" brokenHeight="20" className="qtd-image" />
       )
 
     return null;
@@ -74,7 +74,7 @@ export default function Toggle({
   const getInput = () => {
     
     return ( 
-      <Label>
+      <Label className="qtd-select-selection-item">
         {
           placeholder  
             ?
@@ -111,13 +111,14 @@ export default function Toggle({
       variant={variantStyle}
       size={sizeStyle}
       onClick={(e) => onButtonClick(e)}
+      className="qtd-select-selector"
     >
 
       { getIcon() }
       { getInput() }
       { getErrorBorder() }
 
-      <Icon open={open}>
+      <Icon open={open} className="qtd-select-arrow">
         <Arrow/>
       </Icon>
       

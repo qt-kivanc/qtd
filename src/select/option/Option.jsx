@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Checkbox from '../../checkbox/index.jsx';
-import useComponentSize from '../../hooks/useComponentSize.js';
+//import useComponentSize from '../../hooks/useComponentSize.js';
 
 import { Wrapper, ImageWrapper, PreIcon, Single } from './styled.components';
 
@@ -17,9 +17,25 @@ const Option = (props) => {
     children = null
   } = props;
 
+  const [buttonHoverState, SetButtonHoverState] = useState(false);
+
   const onButtonClick = (event) => {
 
     onChange(value, !checked, children);
+    event.stopPropagation();
+
+  }
+
+  const onButtonOver = (event) => {
+
+    SetButtonHoverState(true);
+    event.stopPropagation();
+
+  }
+
+  const onButtonOut = (event) => {
+
+    SetButtonHoverState(false);
     event.stopPropagation();
 
   }
@@ -65,12 +81,26 @@ const Option = (props) => {
     }
 
   }
+
+  const getClassNames = () => {
+
+    let names = "qtd-select-item qtd-select-item-option";
+
+    if ( checked ) names += " qtd-select-item-option-selected";
+    if ( buttonHoverState ) names += " qtd-select-item-option-active";
+
+    return names;
+
+  }
   
   return(
 
     <Wrapper 
       selected={checked} 
       onClick={(e) => onButtonClick(e)} 
+      onMouseEnter={(e) => onButtonOver(e)}
+      onMouseLeave={(e) => onButtonOut(e)}
+      className={ getClassNames() }
     >
 
       { getChildren() }

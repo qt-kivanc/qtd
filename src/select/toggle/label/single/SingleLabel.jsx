@@ -37,7 +37,7 @@ export default function SingleLabel(props) {
 
   const getInput = () => (
 
-    <Wrapper>
+    <Wrapper className="qtd-select-selection-item-single">
       <Label size={sizeStyle}>
         {labelTitle} 
       </Label>

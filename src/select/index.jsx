@@ -13,9 +13,14 @@ const Select = forwardRef((props, ref) => {
     
     defaultValue = "",
     value = "",
-    position = "",
-    direction = "",
+    position = "bottom",
+    direction = "right",
     mode = "single",
+    size = "normal",
+    variant = "filled",
+    className = "",
+    icon = null,
+    image = null,
     disabled = false,
     children = null,
     onChange = null,
@@ -160,9 +165,42 @@ const Select = forwardRef((props, ref) => {
 
   }
 
+  const getSize = () => {
+    if ( size === "small" )   return "sm";
+    if ( size === "medium" )  return "md";
+    if ( size === "normal" )  return "nm";
+    if ( size === "large" )   return "lg";
+    return "nm";
+  }
+
+  const getClassNames = () => {
+
+    let names = "qtd-select";
+
+    names += " qtd-select-" + getSize();
+
+    names += " qtd-select-" + mode;
+    names += " qtd-select-" + direction;
+    names += " qtd-select-" + position;
+    names += " qtd-select-" + variant;
+    
+    if ( isOpen ) names += " qtd-select-open";
+    if ( errorMessage ) names += " qtd-select-status-error";
+    if ( icon   !== "" && icon  !== null ) names += " qtd-icon";
+    if ( image  !== "" && image !== null ) names += " qtd-image";
+    if ( className !== "" && className !== null ) names += " " + className;
+
+    return names;
+
+  }
+  
   return(
 
-    <Wrapper disabled={disabled} ref={wrapperRef}>
+    <Wrapper 
+      disabled={disabled} 
+      ref={wrapperRef} 
+      className={getClassNames()}
+    >
 
       <Toggle
         {...{...props,

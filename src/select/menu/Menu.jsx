@@ -25,7 +25,7 @@ export default function Menu(props) {
   const [positionType, SetPositionType] = useState("bottom");
   const [directionType, SetDirectionType] = useState("right");
   const [selected, SetSelected] = useState([]);
-  const [maxItemWidth, SetMaxItemWidth] = useState(0);
+  //const [maxItemWidth, SetMaxItemWidth] = useState(0);
 
   /**
    * Styled Components
@@ -129,6 +129,7 @@ export default function Menu(props) {
       position={positionType} 
       direction={directionType} 
       ref={nodeRef}
+      className="qtd-select-dropdown"
     >
       <BodyWrapper as={TinyScrollbar}>
         <ul>
