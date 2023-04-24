@@ -16,7 +16,7 @@ const Image = (props) => {
   } = useContext(QTDContext);
 
   const [show, SetShow] = useState(false);
-  const [fallback, SetFallback] = useState(null);
+  const [fallback, SetFallback] = useState("");
   const [properties, SetProperties] = useState({});
   const [hasError, SetHasError] = useState(false);
 

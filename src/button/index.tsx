@@ -30,8 +30,8 @@ function Button({
   selected = false,
   useIconPadding = true,
   stretch = false,
-  type = "primary",
-  size = "small",
+  type = "default",
+  size = "normal",
   shape = "",
   target = "_self",
   icon = "",
@@ -103,24 +103,57 @@ function Button({
     )
   }
 
+  const getSize = (): string => {
+    if ( size === "small" )   return "sm";
+    if ( size === "medium" )  return "md";
+    if ( size === "normal" )  return "nm";
+    if ( size === "large" )   return "lg";
+    return "nm";
+  }
+
+  const getProps = (): object => {
+
+    let props = {
+      loading: "false",
+      disabled: false
+    };
+
+    if ( loading ) props.loading = "true";
+    if ( disabled ) props.disabled = true;
+    
+    return props;
+
+  }
+
+  const getClassNames = (): string => {
+
+    let names = "qtd-button";
+
+    names += " qtd-button-" + type;
+    names += " qtd-button-" + getSize();
+
+    if ( selected )     names += " qtd-button-" + "selected";
+    if ( stretch )      names += " qtd-button-" + "stretch";
+    if ( shape  !== "" && shape !== null ) names += " " + "qtd-button-" + shape;
+    if ( svg    !== "" && svg   !== null ) names += " " + "qtd-svg";
+    if ( icon   !== "" && icon  !== null ) names += " " + "qtd-icon";
+    if ( image  !== "" && image !== null ) names += " " + "qtd-image";
+    if ( className !== "" && className !== null ) names += " " + className;
+
+    return names;
+
+  }
+
   /**
    * 
    * @returns 
    */
-  const ClickButton = (): JSX.Element => (
+  const clickButton = (): JSX.Element => (
 
     <A 
-      className={className} 
+      className={getClassNames()} 
+      {...getProps()}
       onClick={(!loading ? onClick : null)}
-      shape={shape}
-      icon={icon}
-      disabled={disabled}
-      selected={selected}
-      type={type}
-      stretch={stretch ? stretch : undefined}
-      svg={svg}
-      size={size}
-      loading={loading ? "true" : "false"}
     >
       { getButtonContent() }
     </A>
@@ -131,21 +164,13 @@ function Button({
    * 
    * @returns 
    */
-  const HrefButton = ():JSX.Element => (
+  const hrefButton = ():JSX.Element => (
 
     <Link 
-      className={className} 
+      className={getClassNames()}
+      {...getProps()}
       to={href} 
       target={target}
-      shape={shape}
-      icon={icon}
-      disabled={disabled}
-      selected={selected}
-      type={type}
-      stretch={stretch ? stretch : undefined}
-      svg={svg}
-      size={size}
-      loading={loading ? "true" : "false"}
     >
       { getIcon() }
       <span>{children}</span>
@@ -157,20 +182,12 @@ function Button({
    * 
    * @returns 
    */
-  const SubmitButton = (): JSX.Element => (
+  const submitButton = (): JSX.Element => (
 
     <CoreButton 
-      className={className} 
+      className={getClassNames()}
+      {...getProps()}
       //type="submit"
-      shape={shape}
-      icon={icon}
-      disabled={disabled}
-      selected={selected}
-      type={type}
-      stretch={stretch ? stretch : undefined}
-      svg={svg}
-      size={size}
-      loading={loading ? "true" : "false"}
     >
       { getButtonContent() }
     </CoreButton>
@@ -180,10 +197,10 @@ function Button({
   const getButton = (): JSX.Element => {
     
     if ( htmlType === "submit" ) {
-      return <SubmitButton />;
+      return submitButton();
     }
 
-    return href !== "" ? <HrefButton /> : <ClickButton />;
+    return href !== "" ? hrefButton() : clickButton();
 
   }
 

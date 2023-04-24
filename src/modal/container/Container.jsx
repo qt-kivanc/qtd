@@ -70,7 +70,7 @@ const Container = ({
 
     let jsx = (
       <Wrapper>
-        <Overlay show={showOverlay} />
+        <Overlay className="qtd-modal-overlay" show={showOverlay} />
         { getModal() }   
       </Wrapper>
     );

@@ -9,12 +9,12 @@ const ALink = ({ children, to, active, ...props }) => {
     //let match = useMatch({ path: resolved.pathname, end: true });
 
     return (
-        <NavLink
-          to={to}
-          {...props}
-        >
-          {children}
-        </NavLink>
+      <NavLink
+        to={to}
+        {...props}
+      >
+        {children}
+      </NavLink>
     );
       
   }
