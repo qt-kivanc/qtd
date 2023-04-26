@@ -63,7 +63,8 @@ const babelImportsConfig = () => {
 const aliasConfig = () => {
   return {
     '@context': resolve(sourcePath, `context`),
-    '@types': resolve(sourcePath, `types`)
+    '@types': resolve(sourcePath, `types`),
+    '@hooks': resolve(sourcePath, `hooks`),
   }
 }
 

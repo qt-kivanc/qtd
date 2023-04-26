@@ -37,14 +37,12 @@ export default function Panel({
       content.current.style = `${content.current.scrollHeight}px`;
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
 
     if ( !hasOpen ) SetIsOpen(false);
   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasOpen]);
 
   useEffect(() => {
@@ -57,7 +55,6 @@ export default function Panel({
       !isOpen ? "0px" : `${content.current.scrollHeight}px`
     );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useEffect(() => {
@@ -66,7 +63,6 @@ export default function Panel({
       SetIsOpen(true);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const hasLinkFound = () => {

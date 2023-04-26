@@ -116,7 +116,7 @@ const HiddenVisually = styled.span`
 
   `
 
-const Label = styled.div`
+const Label = styled.span`
   
   color: #ffffffD9;
   position: absolute;

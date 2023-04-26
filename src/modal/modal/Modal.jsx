@@ -52,7 +52,6 @@ export default function Modal({
       onRemoveModal();
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useOnClickOutside(contentRef, () => {

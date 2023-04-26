@@ -38,7 +38,7 @@ export default function FloatingLabel({
 
   const getInput = () => (
 
-    <Wrapper className="qtd-select-selection-item-floating">
+    <Wrapper className="qtd-select-selection-label qtd-select-selection-item-floating">
       <Label size={sizeStyle}>
         {labelTitle} 
       </Label>

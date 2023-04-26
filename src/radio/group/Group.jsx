@@ -30,7 +30,6 @@ const Group = forwardRef(({
       sendUpdates(defaultValue);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -38,7 +37,6 @@ const Group = forwardRef(({
     SetSelected(value);
     sendUpdates(value);
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const sendUpdates = (value, update = true, validation = true) => {

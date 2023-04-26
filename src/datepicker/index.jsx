@@ -64,7 +64,6 @@ const DatePicker = forwardRef((props, ref) => {
       addRemoveListeners(false);
     })
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -89,7 +88,6 @@ const DatePicker = forwardRef((props, ref) => {
       }
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const sendUpdates = (dateValue, update = true, validation = true, skipControl = false) => {

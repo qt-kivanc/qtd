@@ -44,7 +44,6 @@ export default function SubMenu({
       content.current.style = `${content.current.scrollHeight}px`;
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -53,7 +52,6 @@ export default function SubMenu({
       SetIsOpen(false);
     }
   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSelected]);
 
   useEffect(() => {
@@ -66,7 +64,6 @@ export default function SubMenu({
       !isOpen ? "0px" : `${content.current.scrollHeight}px`
     );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useEffect(() => {
@@ -76,7 +73,6 @@ export default function SubMenu({
     SetIsActive(hasFound);
     if ( hasFound ) SetIsOpen(true);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const hasLinkFound = () => {

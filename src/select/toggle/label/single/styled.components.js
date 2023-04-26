@@ -25,7 +25,7 @@ const InputWrapper = styled.input`
 
   `
 
-const Label = styled.div`
+const Label = styled.span`
   
   color: #ffffff;
   font-weight: 400;

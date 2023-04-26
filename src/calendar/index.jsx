@@ -40,21 +40,18 @@ const Calendar = forwardRef((props, ref) => {
     load();
     formatAndSaveDay(defaultValue);
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
 
     formatAndSaveDay(value);
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
 
     getDays();
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateObject]);
 
   const formatAndSaveDay = (_day) => {

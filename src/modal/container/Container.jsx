@@ -42,7 +42,6 @@ const Container = ({
       SetShowOverlay(true);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Content]);
 
   const handleShowModal = (data) => {

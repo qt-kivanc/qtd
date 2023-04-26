@@ -73,7 +73,6 @@ const Input = forwardRef(({
 
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   /**
@@ -83,7 +82,6 @@ const Input = forwardRef(({
 
     sendUpdates(value, true, value !== "");
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[value]);
 
   /**

@@ -49,7 +49,6 @@ const useAddExternalCSS = (link, temporary = false) => {
 
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link]);
 
   const createLink = () => {

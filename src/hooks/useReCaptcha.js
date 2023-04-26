@@ -21,7 +21,6 @@ const useReCaptcha = (handler) => {
       document.body.removeChild(script);
     };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const executeReCaptcha = (handler) => {

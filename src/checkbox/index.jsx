@@ -20,7 +20,6 @@ const Checkbox = forwardRef(({
     SetIsChecked(checked);
     sendUpdates(checked);
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checked]);
 
   /**

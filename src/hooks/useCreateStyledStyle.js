@@ -42,7 +42,6 @@ const useCreateStyledStyle = (styled, handler = null) => {
 
     };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [style]);
 
   const injectStyles = () => {

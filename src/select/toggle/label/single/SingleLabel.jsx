@@ -20,7 +20,6 @@ export default function SingleLabel(props) {
 
     SetSizeStyle(size);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   */
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function SingleLabel(props) {
 
   const getInput = () => (
 
-    <Wrapper className="qtd-select-selection-item-single">
+    <Wrapper className="qtd-select-selection-label qtd-select-selection-item-single">
       <Label size={sizeStyle}>
         {labelTitle} 
       </Label>

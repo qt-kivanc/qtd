@@ -44,7 +44,7 @@ const Option = (props) => {
 
     if ( image ) {
       return (
-        <ImageWrapper>
+        <ImageWrapper className="qtd-select-item-image">
           <img src={image} height="20" alt={value} />
         </ImageWrapper>
       );
@@ -52,7 +52,7 @@ const Option = (props) => {
 
     if ( icon ) {
       return (
-        <ImageWrapper>
+        <ImageWrapper className="qtd-select-item-icon">
           <PreIcon className={icon}></PreIcon>
         </ImageWrapper>
       )

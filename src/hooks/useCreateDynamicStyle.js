@@ -22,7 +22,6 @@ const useCreateDynamicStyle = (style, handler, id = nanoid(11)) => {
     
     return () => remove();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initialize = () => {

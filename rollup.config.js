@@ -17,7 +17,7 @@ import localResolve from 'rollup-plugin-local-resolve';
 
 import pkg from "./package.json";
 
-const input = 'src/index.js'
+const input = 'src/index.ts'
 const production = !process.env.ROLLUP_WATCH;
 
 const EXTERNALS = [
@@ -62,7 +62,7 @@ const getDependencies = () => {
 
 }
 
-MODE.map((m) => {
+MODE.forEach((m) => {
 
   var conf = {
     input: input,
