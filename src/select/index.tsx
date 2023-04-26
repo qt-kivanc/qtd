@@ -1,13 +1,47 @@
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle, ReactElement } from 'react';
 
 import Option from './option/Option.jsx';
 import Toggle from './toggle/Toggle.jsx';
 import Menu from './menu/Menu.jsx';
 import useOnClickOutside from '../hooks/useOnClickOutside.js';
 
-import { Wrapper } from './styled.components';
+// https://github.com/ant-design/ant-design/blob/master/components/select/index.tsx#L3
+// https://github.com/react-component/select/blob/master/package.json
 
-const Select = forwardRef((props, ref) => {
+import { Wrapper } from './styled.components.js';
+
+export type SelectRefType = {
+  reset: (update: boolean, validation: boolean) => void,
+  setValue: (value: string, update: boolean, validation: boolean) => void,
+  getValue: () => void,
+  setError: (message: string | null) => void
+};
+
+interface SelectProps {
+
+  defaultValue: string,
+  value: string,
+  position: string,
+  direction: string,
+  mode: string,
+  size: string,
+  variant: string,
+  className?: string,
+  icon?: string | null,
+  image?: string | null,
+  disabled: boolean,
+  children?: React.ReactElement,
+  reset(update: boolean, validation: boolean):void,
+  onChange(value: string): void | null,
+  onUpdate(value: string, update: boolean, validation: boolean): void | null
+  
+}
+
+interface SelectComponent extends React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLDivElement>> {
+  Option: React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>;
+}
+
+const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref): JSX.Element => {
 
   const {
     
@@ -23,32 +57,26 @@ const Select = forwardRef((props, ref) => {
     image = null,
     disabled = false,
     children = null,
-    onChange = null,
-    onUpdate = null
+    onChange = () => null,
+    onUpdate = () => null
   
   } = props;
 
   const wrapperRef = useRef(null);
 
-  const [isOpen, SetIsOpen] = useState(false);
-  const [currentValue, SetCurrentValue] = useState(mode === "single" ? "" : []);
-  const [errorMessage, SetErrorMessage] = useState(null);
+  const [isOpen, SetIsOpen] = useState<boolean>(false);
+  const [currentValue, SetCurrentValue] = useState<object | string>(mode === "single" ? "" : []);
+  const [errorMessage, SetErrorMessage] = useState<null | string>(null);
 
   useEffect(() => {
-
     checkAndSetNewValue(defaultValue);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-
     checkAndSetNewValue(value);
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, children]);
 
-  const checkAndSetNewValue = (value) => {
+  const checkAndSetNewValue = (value: string) => {
   
     if ( mode === "single" ) {
       SetCurrentValue(value);
@@ -68,16 +96,20 @@ const Select = forwardRef((props, ref) => {
    * Toogle sınıfında Select'in açık veya kapalı
    * durumu değiştiyse tetiklenir.
    * 
-   * @param {*} event Zorunlu değil
+   * @param {boolean} open Dropdown'u açıp/kapalı.
    * 
    */
-  const onHandleToggleChange = (open) => {
-
+  const onHandleToggleChange = (open: boolean) => {
     SetIsOpen(open);
-  
   }
 
-  const sendUpdates = (value, update = true, validation = true) => {
+  /**
+   * 
+   * @param value 
+   * @param update 
+   * @param validation 
+   */
+  const sendUpdates = (value: string, update: boolean = true, validation: boolean = true) => {
 
     if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
@@ -86,18 +118,16 @@ const Select = forwardRef((props, ref) => {
 
   /**
    * 
-   * 
-   * 
    */
   useImperativeHandle(ref, () => ({
 
-    reset(update = true, validation = true) {
+    reset(update: boolean = true, validation: boolean = true) {
       SetCurrentValue(defaultValue);  
       SetErrorMessage(null);
       sendUpdates(defaultValue, update, validation);
     },
 
-    setValue(value, update = true, validation = true) {
+    setValue(value: string, update: boolean = true, validation: boolean = true) {
       SetCurrentValue(value);
       sendUpdates(value, update, validation);
     },
@@ -106,7 +136,7 @@ const Select = forwardRef((props, ref) => {
       return currentValue;
     },
 
-    setError(message) {
+    setError(message: string | null) {
       SetErrorMessage(message);
     }
 
@@ -128,7 +158,7 @@ const Select = forwardRef((props, ref) => {
    * değer olarak tanımlar.
    * 
    */
-  const onHandleChange = (value) => {
+  const onHandleChange = (value: string) => {
     
     SetErrorMessage(null);
     sendUpdates(value);
@@ -146,7 +176,7 @@ const Select = forwardRef((props, ref) => {
   
   const getOptions = () => {
 
-    return React.Children.map(children, child => {
+    return React.Children.map(children, (child:ReactElement) => {
 
       if ( !child ) return;
       if ( !child.hasOwnProperty("type") ) return;
@@ -161,6 +191,8 @@ const Select = forwardRef((props, ref) => {
 
       }
 
+      return null;
+
     });
 
   }
@@ -173,9 +205,9 @@ const Select = forwardRef((props, ref) => {
     return "nm";
   }
 
-  const getClassNames = () => {
+  const getClassNames = (): string => {
 
-    let names = "qtd-select";
+    let names: string = "qtd-select";
 
     names += " qtd-select-" + getSize();
 
@@ -229,9 +261,9 @@ const Select = forwardRef((props, ref) => {
 
   );
 
-});
-
-Select.Option = Option;
+}) as SelectComponent;
 
 export { Option };
+Select.Option = Option;
+
 export default Select;

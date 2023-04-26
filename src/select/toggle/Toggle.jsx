@@ -7,21 +7,23 @@ import Arrow from '../../icons/Arrow.jsx';
 
 import { Wrapper, Label, Icon, PreIcon, ErrorBorder } from './styled.components';
 
-export default function Toggle({
+export default function Toggle(props) {
 
-  label = "",
-  value = "",
-  errorMessage = "",
-  isOpen = false,
-  placeholder = null,
-  onChange = null,
-  icon = null,
-  image = null,
-  size = "normal", 
-  variant = "filled"
+  const {
+
+    label = "",
+    value = "",
+    errorMessage = "",
+    isOpen = false,
+    placeholder = null,
+    onChange = null,
+    icon = null,
+    image = null,
+    size = "normal", 
+    variant = "filled"
+    
+  } = props;
   
-}) {
-
   const [open, SetOpen] = useState(false);
   const [sizeStyle, SetSizeStyle] = useState("");
   const [variantStyle, SetVariantStyle] = useState("");

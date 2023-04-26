@@ -1,12 +1,15 @@
 //import { StrictMode } from "react";
 //import { createRoot } from "react-dom/client";
 
+export { Option } from './select/index';
+
 //import App from './App.js';
 //import reportWebVitals from './reportWebVitals';
 
 export { QTDProvider } from './context/QTDContext.jsx';
 export { default as QTDContext } from './context/QTDContext.jsx';
-export { default as Select } from './select/index.jsx';
+export { default as Button } from './button/index';
+export { default as Select } from './select/index';
 export { default as MultiSelect } from './multiselect/index.jsx';
 export { default as Form } from './form/index.jsx';
 export { default as Radio } from './radio/index.jsx';
@@ -16,7 +19,6 @@ export { default as Collapse } from './collapse/index.jsx';
 export { default as Menu } from './menu/index.jsx';
 
 export { default as ALink } from './alink/index.jsx';
-export { default as Button } from './button/index.jsx';
 export { default as Calendar } from './calendar/index.jsx';
 export { default as DatePicker } from './datepicker/index.jsx';
 export { default as Input } from './input/index.jsx';
@@ -50,24 +52,24 @@ export { default as useOnResize } from './hooks/useOnResize.js';
 export { default as useConnectionStatus } from './hooks/useConnectionStatus.js';
 export { default as useComponentSize } from './hooks/useComponentSize.js';
 
-export { default as DetermineNewHeight } from './helpers/aspectratio/DetermineNewHeight';
-export { default as DetermineNewWidth } from './helpers/aspectratio/DetermineNewWidth';
-export { default as FindSelector } from './helpers/css/FindSelector';
-export { default as GetCountryCodeByCurrencyCode } from './helpers/country/GetCountryCodeByCurrencyCode';
-export { default as GetCountryCodeByLanguage } from './helpers/country/GetCountryCodeByLanguage';
-export { default as ConvertCurrency } from './helpers/currency/ConvertCurrency';
-export { default as GetByCurrency } from './helpers/currency/GetByCurrency';
-export { default as GetCurrencyFormat } from './helpers/currency/GetCurrencyFormat';
-export { default as GetCurrencySymbol } from './helpers/currency/GetCurrencySymbol';
-export { default as GetDecimalByCurrency } from './helpers/currency/GetDecimalByCurrency';
-export { default as AddDefaultThemeStyle } from './helpers/theme/AddDefaultThemeStyle';
-export { default as UpdateThemeStyle } from './helpers/theme/UpdateThemeStyle';
-export { default as IsValidJSON } from './helpers/json/IsValidJSON';
-export { default as AddZero } from './helpers/math/AddZero';
-export { default as RemoveUnits } from './helpers/remover/RemoveUnits';
-export { default as ChunkArray } from './helpers/array/ChunkArray';
-export { default as FileChecker } from './helpers/checker/FileChecker';
-export { default as UniUpperCase } from './helpers/string/UniUpperCase';
+export { default as DetermineNewHeight } from './helpers/aspectratio/DetermineNewHeight.js';
+export { default as DetermineNewWidth } from './helpers/aspectratio/DetermineNewWidth.js';
+export { default as FindSelector } from './helpers/css/FindSelector.js';
+export { default as GetCountryCodeByCurrencyCode } from './helpers/country/GetCountryCodeByCurrencyCode.js';
+export { default as GetCountryCodeByLanguage } from './helpers/country/GetCountryCodeByLanguage.js';
+export { default as ConvertCurrency } from './helpers/currency/ConvertCurrency.js';
+export { default as GetByCurrency } from './helpers/currency/GetByCurrency.js';
+export { default as GetCurrencyFormat } from './helpers/currency/GetCurrencyFormat.js';
+export { default as GetCurrencySymbol } from './helpers/currency/GetCurrencySymbol.js';
+export { default as GetDecimalByCurrency } from './helpers/currency/GetDecimalByCurrency.js';
+export { default as AddDefaultThemeStyle } from './helpers/theme/AddDefaultThemeStyle.js';
+export { default as UpdateThemeStyle } from './helpers/theme/UpdateThemeStyle.js';
+export { default as IsValidJSON } from './helpers/json/IsValidJSON.js';
+export { default as AddZero } from './helpers/math/AddZero.js';
+export { default as RemoveUnits } from './helpers/remover/RemoveUnits.js';
+export { default as ChunkArray } from './helpers/array/ChunkArray.js';
+export { default as FileChecker } from './helpers/checker/FileChecker.js';
+export { default as UniUpperCase } from './helpers/string/UniUpperCase.js';
 
 
 /*
