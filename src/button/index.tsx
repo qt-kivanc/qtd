@@ -31,7 +31,7 @@ function Button({
   useIconPadding = true,
   stretch = false,
   type = "default",
-  size = "normal",
+  size = "default",
   shape = "",
   target = "_self",
   icon = "",
@@ -54,19 +54,19 @@ function Button({
 
     if ( icon !== "" ) {
       return (
-        <Icon className={icon} size={size} useIconPadding={useIconPadding} />
+        <Icon className={"qtd-icon " + icon} size={size} useIconPadding={useIconPadding} />
       )
     }
 
     if ( image !== "" ) {
       return (
-        <Image src={image} height="20" brokenHeight="20" />
+        <Image className="qtd-image" src={image} height="20" brokenHeight="20" />
       )
     }
 
     if ( svg !== "" ) {
       return (
-        <SVG singleIcon={!children} size={size}>
+        <SVG className="qtd-svg" singleIcon={!children} size={size}>
           <ReactSVG src={svg} />
         </SVG>
       )
@@ -88,6 +88,13 @@ function Button({
 
   }
 
+  const getSpin = (): JSX.Element | null => {
+    if ( !loading ) return null;
+    return (
+      <Spin />
+    )
+  }
+
   const getButtonContent = (): JSX.Element => (
     <>
       { getIcon() }
@@ -96,19 +103,12 @@ function Button({
     </>
   );
 
-  const getSpin = (): JSX.Element | null => {
-    if ( !loading ) return null;
-    return (
-      <Spin />
-    )
-  }
-
   const getSize = (): string => {
-    if ( size === "small" )   return "sm";
-    if ( size === "medium" )  return "md";
-    if ( size === "normal" )  return "nm";
-    if ( size === "large" )   return "lg";
-    return "nm";
+    if ( size === "default" )   return "";
+    if ( size === "small" )     return "sm";
+    if ( size === "medium" )    return "md";
+    if ( size === "large" )     return "lg";
+    return "";
   }
 
   const getProps = (): object => {
@@ -130,10 +130,10 @@ function Button({
     let names = "qtd-button";
 
     names += " qtd-button-" + type;
-    names += " qtd-button-" + getSize();
 
-    if ( selected )     names += " qtd-button-selected";
-    if ( stretch )      names += " qtd-button-stretch";
+    if ( getSize() !== "" ) names += " qtd-button-" + getSize();
+    if ( selected )         names += " qtd-button-selected";
+    if ( stretch )          names += " qtd-button-stretch";
     if ( shape  !== "" && shape !== null ) names += " qtd-button-" + shape;
     if ( svg    !== "" && svg   !== null ) names += " qtd-svg";
     if ( icon   !== "" && icon  !== null ) names += " qtd-icon";

@@ -20,17 +20,13 @@ const getSize = () => {
       span { font-size: 12px; line-height: 12px; }
     }
 
-    &.qtd-button-nm {
-      height: 40px;
-      span { font-size: 12px; line-height: 12px; }
-    }
-
     &.qtd-button-lg {
       height: 46px;
       span { font-size: 18px; line-height: 18px; font-weight: 500; }
     }
 
-    &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-nm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+    /* DEFAULT */
+    &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
     {
       height: 40px;
       span { font-size: 12px; line-height: 12px; }
@@ -56,15 +52,12 @@ const getCircle = () => {
         width: 32px;
       }
 
-      &.qtd-button-nm {
-        width: 40px;
-      }
-
       &.qtd-button-lg {
         width: 46px;
       }
 
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-nm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      /* DEFAULT */
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
       {
         width: 40px;
       }
@@ -91,15 +84,12 @@ const getIcon = () => {
         ${Icon} { font-size: 18px; }
       }
 
-      &.qtd-button-nm {
-        ${Icon} { font-size: 20px; }
-      }
-
       &.qtd-button-lg {
         ${Icon} { font-size: 26px; }
       }
 
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-nm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      /* DEFAULT */
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
       {
         ${Icon} { font-size: 20px; }
       }
@@ -123,10 +113,6 @@ const getSVG = () => {
         svg { width: 14px; }
       }
 
-      &.qtd-button-nm {
-        svg { width: 16px; }
-      }
-
       &.qtd-button-md {
         svg { width: 18px; }
       }
@@ -135,7 +121,8 @@ const getSVG = () => {
         svg { width: 20px; }
       }
 
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-nm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      /* DEFAULT */
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
       {
         svg { width: 16px; }
       }
@@ -148,7 +135,7 @@ const getDefaultButton = () => {
   return css`
     &.qtd-button-default {
       border: 1px solid #505A7D99;
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff;
         font-weight: 400;
       }
@@ -165,7 +152,7 @@ const getDefaultButton = () => {
       }
       &[disabled] {
         border: 1px solid #505A7D4D;
-        span, div {
+        span, div.qtd-icon {
           color: #ffffff4D;
         }
       }
@@ -176,14 +163,14 @@ const getDefaultButton = () => {
 const getLinkButton = () => {
   return css`
     &.qtd-button-link {
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff99;
         font-weight: 600;
         &:hover {
           color: #ffffff;
         }
         &[disabled] {
-          span, div {
+          span, div.qtd-icon {
             color: #ffffff4D;
           }
         }
@@ -196,21 +183,23 @@ const getPrimaryButton = () => {
   return css`
     &.qtd-button-primary {
       background: linear-gradient(-45deg,#1d74ce,#3598fe);
-      span, div {
+      span, div.qtd-icon {
+        font-weight: bold;
         color: #ffffff;
       }
       &:hover {
         background: linear-gradient(-45deg,#197ADD,#6CB5FF);
       }
       &.qtd-button-selected {
-        background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        background: linear-gradient(-45deg,#6CB5FF,#197ADD);
+        outline: 2px solid #6CB5FF;
+        span, div.qtd-icon {
           color: #ffffff;
         }
       }
       &[disabled] {
-        background: linear-gradient(-45deg,#C3C3C3,#E3E3E3);
-        span, div {
+        background: linear-gradient(-45deg,#477db4,#215283);
+        span, div.qtd-icon {
           color: #ffffff4D;
         }
       }
@@ -222,7 +211,7 @@ const getGenericButton = () => {
   return css` 
     &.qtd-button-generic {
       background-color: #1D2649;
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff;
       }
       &:hover {
@@ -230,13 +219,13 @@ const getGenericButton = () => {
       }
       &.qtd-button-selected {
         background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           color: #ffffff;
         }
       }
       &[disabled] {
         background: #C3C3C3;
-        span, div {
+        span, div.qtd-icon {
           color: #ffffff4D;
         }
       }
@@ -248,7 +237,7 @@ const getApprovedButton = () => {
   return css`
     &.qtd-button-approved {
       background: linear-gradient(45deg,#fbda61,#f76b1c 94%);
-      span, div {
+      span, div.qtd-icon {
         color: #1D2649;
       }
       &:hover {
@@ -256,13 +245,13 @@ const getApprovedButton = () => {
       }
       &.qtd-button-selected {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
       &[disabled] {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
@@ -274,7 +263,7 @@ const getRejectedButton = () => {
   return css`
     &.qtd-button-rejected {
       background: linear-gradient(45deg,#870F0F,#BC2222 94%);
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff;
       }
       &:hover {
@@ -282,13 +271,13 @@ const getRejectedButton = () => {
       }
       &.qtd-button-selected {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
       &[disabled] {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
@@ -301,7 +290,7 @@ const getPendingButton = () => {
     &.qtd-button-pending {
       cursor: default;
       background-color: #1F2952;
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff99;
       }
       &:hover {
@@ -309,13 +298,13 @@ const getPendingButton = () => {
       }
       &.qtd-button-selected {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
       &[disabled] {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
@@ -328,7 +317,7 @@ const getRequestedButton = () => {
     &.qtd-button-requested {
       cursor: default;
       background-color: #1F295280;
-      span, div {
+      span, div.qtd-icon {
         color: #ffffff4D;
       }
       &:hover {
@@ -336,13 +325,13 @@ const getRequestedButton = () => {
       }
       &.qtd-button-selected {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
       &[disabled] {
         //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-        span, div {
+        span, div.qtd-icon {
           //color: #ffffff;
         }
       }
@@ -353,11 +342,6 @@ const getRequestedButton = () => {
 const getSelected = () => {
   return css`
     &.qtd-button-selected {
-
-      &:not(&.qtd-button-default):not(&.qtd-button-link):not(&.qtd-button-primary):not(&.qtd-button-generic):not(&.qtd-button-approved):not(&.qtd-button-rejected):not(&.qtd-button-pending):not(&.qtd-button-requested)
-      {
-        background: linear-gradient(-45deg,#197ADD,#6CB5FF);
-      }
 
     }
   `
