@@ -6,7 +6,7 @@ import CoreImage from '../image/index.jsx';
 const getSize = () => {
   return css`
     &.qtd-button-xs {
-      height: 25px;
+      height: 24px;
       span { font-size: 12px; line-height: 12px; }
     }
 
@@ -41,7 +41,7 @@ const getCircle = () => {
       border-radius: 100%;
 
       &.qtd-button-xs {
-        width: 25px;
+        width: 24px;
       }
 
       &.qtd-button-sm {
@@ -169,6 +169,9 @@ const getLinkButton = () => {
         &:hover {
           color: #ffffff;
         }
+        &.qtd-button-selected {
+          color: #3396FB;
+        }
         &[disabled] {
           span, div.qtd-icon {
             color: #ffffff4D;
@@ -189,6 +192,9 @@ const getPrimaryButton = () => {
       }
       &:hover {
         background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        span, div.qtd-icon {
+          color: #ffffff;
+        }
       }
       &.qtd-button-selected {
         background: linear-gradient(-45deg,#6CB5FF,#197ADD);
@@ -207,6 +213,37 @@ const getPrimaryButton = () => {
   `
 }
 
+const getSecondaryButton = () => {
+  return css`
+    &.qtd-button-secondary {
+      background: linear-gradient(-45deg,#E4E4E4,#B7B7B7);
+      span, div.qtd-icon {
+        font-weight: bold;
+        color: #1D2649;
+      }
+      &:hover {
+        background: linear-gradient(-45deg,#EFEFEF,#D8D8D8);
+        span, div.qtd-icon {
+          color: #1D2649;
+        }
+      }
+      &.qtd-button-selected {
+        background: linear-gradient(-45deg,#B7B7B7,#E4E4E4);
+        outline: 2px solid #6CB5FF;
+        span, div.qtd-icon {
+          color: #1D2649;
+        }
+      }
+      &[disabled] {
+        background: linear-gradient(-45deg,#E4E4E4,#B7B7B7);
+        span, div.qtd-icon {
+          color: rgb(29, 38, 73, 30);
+        }
+      }
+    }
+  `
+}
+
 const getGenericButton = () => {
   return css` 
     &.qtd-button-generic {
@@ -215,18 +252,22 @@ const getGenericButton = () => {
         color: #ffffff;
       }
       &:hover {
-        background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: #3396fb;
+        span, div.qtd-icon {
+          color: #ffffff;
+        }
       }
       &.qtd-button-selected {
-        background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: #3396fb;
+        outline: 2px solid #6CB5FF;
         span, div.qtd-icon {
           color: #ffffff;
         }
       }
       &[disabled] {
-        background: #C3C3C3;
+        background: #151B33;
         span, div.qtd-icon {
-          color: #ffffff4D;
+          color: rgb(255, 255, 255, 30);
         }
       }
     }
@@ -236,23 +277,27 @@ const getGenericButton = () => {
 const getApprovedButton = () => {
   return css`
     &.qtd-button-approved {
-      background: linear-gradient(45deg,#fbda61,#f76b1c 94%);
+      background: linear-gradient(45deg,#fbda61,#f76b1c);
       span, div.qtd-icon {
         color: #1D2649;
       }
       &:hover {
         background: linear-gradient(45deg,#F9FB61,#F79E1C);
+        span, div.qtd-icon {
+          color: #1D2649;
+        }
       }
       &.qtd-button-selected {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: linear-gradient(-45deg,#F79E1C,#F9FB61);
+        outline: 2px solid #FACA57;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: #1D2649;
         }
       }
       &[disabled] {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: linear-gradient(-45deg,#B49E4D,#9D4513);
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: rgb(29, 38, 73, 30);
         }
       }
     }
@@ -262,23 +307,27 @@ const getApprovedButton = () => {
 const getRejectedButton = () => {
   return css`
     &.qtd-button-rejected {
-      background: linear-gradient(45deg,#870F0F,#BC2222 94%);
+      background: linear-gradient(45deg,#870F0F,#BC2222);
       span, div.qtd-icon {
         color: #ffffff;
       }
       &:hover {
         background: linear-gradient(45deg,#9F1111,#E22020);
+        span, div.qtd-icon {
+          color: #ffffff;
+        }
       }
       &.qtd-button-selected {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: linear-gradient(-45deg,#E22020,#9F1111);
+        outline: 2px solid #DF1F1F;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: #ffffff;
         }
       }
       &[disabled] {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background: linear-gradient(-45deg,#640B0B,#9B1414);
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: rgb(29, 38, 73, 30);
         }
       }
     }
@@ -294,18 +343,21 @@ const getPendingButton = () => {
         color: #ffffff99;
       }
       &:hover {
-        //background: linear-gradient(45deg,#9F1111,#E22020);
+        background-color: #1F2952;
+        span, div.qtd-icon {
+          color: #ffffff99;
+        }
       }
       &.qtd-button-selected {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background-color: #1F2952;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: #ffffff99;
         }
       }
       &[disabled] {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background-color: #1F2952;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: rgb(29, 38, 73, 30);
         }
       }
     }
@@ -321,18 +373,21 @@ const getRequestedButton = () => {
         color: #ffffff4D;
       }
       &:hover {
-        //background: linear-gradient(45deg,#9F1111,#E22020);
+        background-color: #1F295280;
+        span, div.qtd-icon {
+          color: #ffffff4D;
+        }
       }
       &.qtd-button-selected {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background-color: #1F295280;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: #ffffff4D;
         }
       }
       &[disabled] {
-        //background: linear-gradient(-45deg,#197ADD,#6CB5FF);
+        background-color: #1F295280;
         span, div.qtd-icon {
-          //color: #ffffff;
+          color: rgb(29, 38, 73, 30);
         }
       }
     }
@@ -437,6 +492,9 @@ const WrapperContent = css<{
   
   /* PRIMARY */
   ${ () => getPrimaryButton() }
+  
+  /* SECONDARY */
+  ${ () => getSecondaryButton() }
   
   /* GENERIC */
   ${ () => getGenericButton() }
