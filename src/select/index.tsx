@@ -25,7 +25,7 @@ interface SelectProps {
   direction: string,
   mode: string,
   size: string,
-  variant: string,
+  type: string,
   className?: string,
   icon?: string | null,
   image?: string | null,
@@ -50,8 +50,8 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     position = "bottom",
     direction = "right",
     mode = "single",
-    size = "normal",
-    variant = "filled",
+    size = "default",
+    type = "default",
     className = "",
     icon = null,
     image = null,
@@ -197,25 +197,25 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
 
   }
 
-  const getSize = () => {
-    if ( size === "small" )   return "sm";
-    if ( size === "medium" )  return "md";
-    if ( size === "normal" )  return "nm";
-    if ( size === "large" )   return "lg";
-    return "nm";
+  const getSize = (): string => {
+    if ( size === "default" )   return "";
+    if ( size === "small" )     return "sm";
+    if ( size === "medium" )    return "md";
+    if ( size === "large" )     return "lg";
+    return "";
   }
 
   const getClassNames = (): string => {
 
     let names: string = "qtd-select";
 
-    names += " qtd-select-" + getSize();
+    names += " qtd-select-" + type;
 
     names += " qtd-select-" + mode;
     names += " qtd-select-" + direction;
     names += " qtd-select-" + position;
-    names += " qtd-select-" + variant;
     
+    if ( getSize() !== "" ) names += " qtd-select-" + getSize();
     if ( isOpen ) names += " qtd-select-open";
     if ( errorMessage ) names += " qtd-select-status-error";
     if ( icon   !== "" && icon  !== null ) names += " qtd-icon";

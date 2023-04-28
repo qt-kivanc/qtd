@@ -19,20 +19,20 @@ export default function Toggle(props) {
     onChange = null,
     icon = null,
     image = null,
-    size = "normal", 
-    variant = "filled"
+    size = "default", 
+    type = "default"
     
   } = props;
   
   const [open, SetOpen] = useState(false);
   const [sizeStyle, SetSizeStyle] = useState("");
-  const [variantStyle, SetVariantStyle] = useState("");
+  const [typeStyle, SetTypeStyle] = useState("");
 
   useEffect(() => {
 
     SetOpen(isOpen);
-    SetVariantStyle(variant ? variant : "filled");
-    SetSizeStyle(size ? size : "normal");
+    SetTypeStyle(type ? type : "default");
+    SetSizeStyle(placeholder ? "medium" : (size ? size : "default"));
 
   }, []);
 
@@ -109,7 +109,7 @@ export default function Toggle(props) {
   return(
 
     <Wrapper 
-      variant={variantStyle}
+      type={typeStyle}
       size={sizeStyle}
       onClick={(e) => onButtonClick(e)}
       className="qtd-select-selector"

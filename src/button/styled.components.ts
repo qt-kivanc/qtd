@@ -198,7 +198,7 @@ const getPrimaryButton = () => {
       }
       &.qtd-button-selected {
         background: linear-gradient(-45deg,#6CB5FF,#197ADD);
-        outline: 2px solid #6CB5FF;
+        border: 2px solid #6CB5FF;
         span, div.qtd-icon {
           color: #ffffff;
         }
@@ -216,28 +216,28 @@ const getPrimaryButton = () => {
 const getSecondaryButton = () => {
   return css`
     &.qtd-button-secondary {
-      background: linear-gradient(-45deg,#E4E4E4,#B7B7B7);
+      background: linear-gradient(-45deg,#ebebeb,#ffffff);
       span, div.qtd-icon {
         font-weight: bold;
-        color: #1D2649;
+        color: #000000;
       }
       &:hover {
-        background: linear-gradient(-45deg,#EFEFEF,#D8D8D8);
+        background: linear-gradient(-45deg,#CDCDCD,#ebebeb);
         span, div.qtd-icon {
-          color: #1D2649;
+          color: #000000;
         }
       }
       &.qtd-button-selected {
-        background: linear-gradient(-45deg,#B7B7B7,#E4E4E4);
-        outline: 2px solid #6CB5FF;
+        background: linear-gradient(-45deg,#d8d8d8,#e2e2e2);
+        border: 2px solid #6CB5FF;
         span, div.qtd-icon {
-          color: #1D2649;
+          color: #000000;
         }
       }
       &[disabled] {
-        background: linear-gradient(-45deg,#E4E4E4,#B7B7B7);
+        background: linear-gradient(-45deg,#CDCDCD,#A7A7A7);
         span, div.qtd-icon {
-          color: rgb(29, 38, 73, 30);
+          color: rgb(0, 0, 0, 30);
         }
       }
     }
@@ -259,7 +259,7 @@ const getGenericButton = () => {
       }
       &.qtd-button-selected {
         background: #3396fb;
-        outline: 2px solid #6CB5FF;
+        border: 2px solid #6CB5FF;
         span, div.qtd-icon {
           color: #ffffff;
         }
@@ -289,7 +289,7 @@ const getApprovedButton = () => {
       }
       &.qtd-button-selected {
         background: linear-gradient(-45deg,#F79E1C,#F9FB61);
-        outline: 2px solid #FACA57;
+        border: 2px solid #FACA57;
         span, div.qtd-icon {
           color: #1D2649;
         }
@@ -319,7 +319,7 @@ const getRejectedButton = () => {
       }
       &.qtd-button-selected {
         background: linear-gradient(-45deg,#E22020,#9F1111);
-        outline: 2px solid #DF1F1F;
+        border: 2px solid #DF1F1F;
         span, div.qtd-icon {
           color: #ffffff;
         }

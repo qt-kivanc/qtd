@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   }
 
   ${({ size }) => getBySize(size)}
-  ${({ variant }) => getByVariant(variant)}
+  ${({ type }) => getByType(type)}
 
   `
   
@@ -98,37 +98,42 @@ const getBySize = (size) => {
 
 }
 
-const getByVariant = (variant) => {
+const getByType = (type) => {
 
-  if ( variant === "filled" ) {
-    return (css`
-      transition: background-color 0.2s ease;
-      background-color: #0E153180;
+  if ( type === "primary" ) {
+    return (
+      css`
+        transition: background-color 0.2s ease;
+        background-color: #0E153180;
 
-      &:hover {
-        background-color: #0E1531BF;
-      }
-    `)
+        &:hover {
+          background-color: #0E1531BF;
+        }
+      `
+    )
   }
 
-  if ( variant === "inverted" ) {
-    return (css`
+  if ( type === "default" ) {
+    return (
+      css`
+        border: 1px solid #505A7D99;
+
+        &:hover {
+          border-color: #3598FE;
+        }
+      `
+    )
+  }
+
+  return (
+    css`
       border: 1px solid #505A7D99;
 
-    &:hover {
-      border-color: #3598FE;
-    }
-    `)
-  }
-
-  return (css`
-    transition: background-color 0.2s ease;
-    background-color: #0E153180;
-
-    &:hover {
-      background-color: #0E1531BF;
-    }
-  `)
+      &:hover {
+        border-color: #3598FE;
+      }
+    `
+  )
 
 }
 
