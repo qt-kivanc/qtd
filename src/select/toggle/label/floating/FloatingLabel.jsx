@@ -8,10 +8,10 @@ export default function FloatingLabel({
   value = "",
   label = "",
   placeholder = "",
-  size = "small"
+  size = "default"
 }) {
 
-  const [sizeStyle, SetSizeStyle] = useState("small");
+  const [sizeStyle, SetSizeStyle] = useState("default");
   const [labelValue, SetLabelValue] = useState("");
   const [labelTitle, SetLabelTitle] = useState("");
   const [placeholderValue, SetPlaceholderValue] = useState("");
@@ -38,8 +38,12 @@ export default function FloatingLabel({
 
   const getInput = () => (
 
-    <Wrapper className="qtd-select-selection-label qtd-select-selection-item-floating">
-      <Label size={sizeStyle}>
+    <Wrapper 
+      className="qtd-select-selection-label qtd-select-selection-item-floating"
+    >
+      <Label
+        size={sizeStyle}
+      >
         {labelTitle} 
       </Label>
       <InputWrapper 
@@ -49,7 +53,11 @@ export default function FloatingLabel({
         type="text" 
         disabled={true}
       />
-      <InputLabel filled={value !== ""} htmlFor={id} data-content={placeholder} >
+      <InputLabel 
+        filled={value !== ""} 
+        htmlFor={id} 
+        data-content={placeholder}
+      >
         <HiddenVisually>
           {placeholder}
         </HiddenVisually>

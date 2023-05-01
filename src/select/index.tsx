@@ -205,6 +205,18 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     return "";
   }
 
+  const getProps = (): object => {
+
+    let props = {
+      disabled: false
+    };
+
+    if ( disabled ) props.disabled = true;
+    
+    return props;
+
+  }
+
   const getClassNames = (): string => {
 
     let names: string = "qtd-select";
@@ -229,9 +241,9 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
   return(
 
     <Wrapper 
-      disabled={disabled} 
-      ref={wrapperRef} 
-      className={getClassNames()}
+      ref = {wrapperRef} 
+      className = {getClassNames()}
+      {...getProps()}
     >
 
       <Toggle

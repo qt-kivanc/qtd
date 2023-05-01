@@ -126,12 +126,15 @@ export default function Menu(props) {
   const getContent = () => (
 
     <Wrapper 
-      position={positionType} 
-      direction={directionType} 
+      data-position={positionType} 
+      data-direction={directionType} 
       ref={nodeRef}
       className="qtd-select-dropdown"
     >
-      <BodyWrapper as={TinyScrollbar}>
+      <BodyWrapper 
+        className="qtd-select-dropdown-body"
+        as={TinyScrollbar}
+      >
         <ul>
           {
 

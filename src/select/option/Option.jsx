@@ -44,16 +44,16 @@ const Option = (props) => {
 
     if ( image ) {
       return (
-        <ImageWrapper className="qtd-select-item-image">
-          <img src={image} height="20" alt={value} />
+        <ImageWrapper className="qtd-image">
+          <img className="qtd-select-option-image" src={image} height="20" alt={value} />
         </ImageWrapper>
       );
     }
 
     if ( icon ) {
       return (
-        <ImageWrapper className="qtd-select-item-icon">
-          <PreIcon className={icon}></PreIcon>
+        <ImageWrapper className="qtd-image">
+          <PreIcon className={"qtd-select-option-icon " + icon}></PreIcon>
         </ImageWrapper>
       )
     }
@@ -66,7 +66,7 @@ const Option = (props) => {
 
     if ( mode === "single" ) {
       return (
-        <Single>
+        <Single className="qtd-item-single">
           { getImage() }
           <span>{children}</span>
         </Single>
@@ -74,7 +74,7 @@ const Option = (props) => {
     }
     else {
       return (
-        <Checkbox checked={checked}>
+        <Checkbox className="qtd-item-multi" checked={checked}>
           {children}
         </Checkbox>
       )
@@ -96,7 +96,6 @@ const Option = (props) => {
   return(
 
     <Wrapper 
-      selected={checked} 
       onClick={(e) => onButtonClick(e)} 
       onMouseEnter={(e) => onButtonOver(e)}
       onMouseLeave={(e) => onButtonOut(e)}

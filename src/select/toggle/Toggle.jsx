@@ -60,12 +60,19 @@ export default function Toggle(props) {
     
     if ( icon )
       return (
-        <PreIcon className={"qtd-icon " + icon} />
+        <PreIcon 
+          className={"qtd-icon " + icon} 
+        />
       )
     
     if ( image )
       return (
-        <Image src={image} height="20" brokenHeight="20" className="qtd-image" />
+        <Image 
+          src={image} 
+          height="20"
+          brokenHeight="20" 
+          className="qtd-image" 
+        />
       )
 
     return null;
@@ -100,7 +107,7 @@ export default function Toggle(props) {
 
     if ( errorMessage !== null ) {
       return (
-        <ErrorBorder />
+        <ErrorBorder className="qtd-select-status-error" />
       );
     }
 
