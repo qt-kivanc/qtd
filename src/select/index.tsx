@@ -199,6 +199,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
 
   const getSize = (): string => {
     if ( size === "default" )   return "";
+    if ( size === "x-small" )   return "xs";
     if ( size === "small" )     return "sm";
     if ( size === "medium" )    return "md";
     if ( size === "large" )     return "lg";
@@ -222,7 +223,6 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     let names: string = "qtd-select";
 
     names += " qtd-select-" + type;
-
     names += " qtd-select-" + mode;
     names += " qtd-select-" + direction;
     names += " qtd-select-" + position;

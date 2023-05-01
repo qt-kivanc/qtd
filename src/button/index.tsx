@@ -105,6 +105,7 @@ function Button({
 
   const getSize = (): string => {
     if ( size === "default" )   return "";
+    if ( size === "x-small" )   return "xs";
     if ( size === "small" )     return "sm";
     if ( size === "medium" )    return "md";
     if ( size === "large" )     return "lg";

@@ -54,7 +54,7 @@ export default function FloatingLabel({
         disabled={true}
       />
       <InputLabel 
-        filled={value !== ""} 
+        data-filled={value !== ""} 
         htmlFor={id} 
         data-content={placeholder}
       >

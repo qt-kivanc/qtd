@@ -432,6 +432,29 @@ const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
     
 `
 
+const SVG = styled.div<{ singleIcon: boolean, size: string }>`
+  
+  ${({ singleIcon }) =>
+    !singleIcon &&
+    css`
+      margin-right: 7px;
+    `}
+  `
+
+const Image = styled(CoreImage)`
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  `
+
+const Hide = styled.span<{ loading: boolean }>`
+  ${({ loading }) =>
+    loading === "true" &&
+    css`
+      opacity: 0;
+    `}
+  `
+
 const WrapperContent = css<{ 
   stretch: boolean, 
   shape: string, 
@@ -469,78 +492,87 @@ const WrapperContent = css<{
     letter-spacing: -.21px;
   }
 
-  /* STRECT */
+  /* ------------------------ */
+  // STRECT
+  /* ------------------------ */
   ${ () => getStrect() }
   
-  /* SIZE */
+  /* ------------------------ */
+  // SIZE
+  /* ------------------------ */
   ${ () => getSize() }
   
-  /* CIRCLE */
+  /* ------------------------ */
+  // CIRCLE
+  /* ------------------------ */
   ${ () => getCircle() }
   
-  /* ICON */
+  /* ------------------------ */
+  // ICON
+  /* ------------------------ */
   ${ () => getIcon() }
 
-  /* SVG */
+  /* ------------------------ */
+  // SVG
+  /* ------------------------ */
   ${ () => getSVG() }
 
-  /* DEFAULT */
+  /* ------------------------ */
+  // DEFAULT
+  /* ------------------------ */
   ${ () => getDefaultButton() }
 
-  /* LINK */
+  /* ------------------------ */
+  // LINK
+  /* ------------------------ */
   ${ () => getLinkButton() }
   
-  /* PRIMARY */
+  /* ------------------------ */
+  // PRIMARY
+  /* ------------------------ */
   ${ () => getPrimaryButton() }
   
-  /* SECONDARY */
+  /* ------------------------ */
+  // SECONDARY
+  /* ------------------------ */
   ${ () => getSecondaryButton() }
   
-  /* GENERIC */
+  /* ------------------------ */
+  // GENERIC
+  /* ------------------------ */
   ${ () => getGenericButton() }
   
-  /* APPROVED */
+  /* ------------------------ */
+  // APPROVED
+  /* ------------------------ */
   ${ () => getApprovedButton() }
   
-  /* REJECTED */
+  /* ------------------------ */
+  // REJECTED
+  /* ------------------------ */
   ${ () => getRejectedButton() }
   
-  /* PENDING */
+  /* ------------------------ */
+  // PENDING
+  /* ------------------------ */
   ${ () => getPendingButton() }
   
-  /* REQUESTED */
+  /* ------------------------ */
+  // REQUESTED
+  /* ------------------------ */
   ${ () => getRequestedButton() }
   
-  /* SELECTED */
+  /* ------------------------ */
+  // SELECTED
+  /* ------------------------ */
   ${ () => getSelected() }
   
-  /* DISABLED */
+  /* ------------------------ */
+  // DISABLED
+  /* ------------------------ */
   ${ () => getDisabled() }
 
 `
-
-const SVG = styled.div<{ singleIcon: boolean, size: string }>`
-  
-  ${({ singleIcon }) =>
-    !singleIcon &&
-    css`
-      margin-right: 7px;
-    `}
-  `
-
-const Image = styled(CoreImage)`
-  margin-right: 5px;
-  width: 20px;
-  height: 20px;
-  `
-
-const Hide = styled.span<{ loading: boolean }>`
-  ${({ loading }) =>
-    loading === "true" &&
-    css`
-      opacity: 0;
-    `}
-  `
 
 const CoreButton = styled.button`
   ${WrapperContent}
