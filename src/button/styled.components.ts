@@ -3,23 +3,33 @@ import styled, {css} from 'styled-components';
 import ALink from '../alink/index.jsx';
 import CoreImage from '../image/index.jsx';
 
+const ICON_MARGIN_RIGHT = "7px";
+const BORDER_RADIUS = "5px";
+
+/**
+ * SIZE
+ */
 const getSize = () => {
   return css`
+    /* X-SMALL */
     &.qtd-button-xs {
       height: 24px;
       span { font-size: 12px; line-height: 12px; }
     }
 
+    /* SMALL */
     &.qtd-button-sm {
       height: 28px;
       span { font-size: 12px; line-height: 12px; }
     }
 
+    /* MEDIUM */
     &.qtd-button-md {
       height: 32px;
       span { font-size: 12px; line-height: 12px; }
     }
 
+    /* LARGE */
     &.qtd-button-lg {
       height: 46px;
       span { font-size: 18px; line-height: 18px; font-weight: 500; }
@@ -34,24 +44,31 @@ const getSize = () => {
   `
 }
 
+/**
+ * CIRCLE
+ */
 const getCircle = () => {
   return css`
     &.qtd-button-circle {
 
       border-radius: 100%;
 
+      /* X-SMALL */
       &.qtd-button-xs {
         width: 24px;
       }
 
+      /* SMALL */
       &.qtd-button-sm {
         width: 28px;
       }
 
+      /* MEDIUM */
       &.qtd-button-md {
         width: 32px;
       }
 
+      /* LARGE */
       &.qtd-button-lg {
         width: 46px;
       }
@@ -66,24 +83,31 @@ const getCircle = () => {
   `
 }
 
+/**
+ * ICON
+ */
 const getIcon = () => {
   return css`
     &.qtd-icon {
       
       padding: 0 12px 0 12px;
 
+      /* X-SMALL */
       &.qtd-button-xs {
         ${Icon} { font-size: 14px; }
       }
 
+      /* SMALL */
       &.qtd-button-sm {
         ${Icon} { font-size: 16px; }
       }
 
+      /* MEDIUM */
       &.qtd-button-md {
         ${Icon} { font-size: 18px; }
       }
 
+      /* LARGE */
       &.qtd-button-lg {
         ${Icon} { font-size: 26px; }
       }
@@ -98,6 +122,9 @@ const getIcon = () => {
   `
 }
 
+/**
+ * SVG
+ */
 const getSVG = () => {
   return css`
     &.qtd-svg {
@@ -105,18 +132,22 @@ const getSVG = () => {
       padding: 0 12px 0 12px;
       svg { fill: #ffffff; }
 
+      /* X-SMALL */
       &.qtd-button-xs {
         svg { width: 12px; }
       }
 
+      /* SMALL */
       &.qtd-button-sm {
         svg { width: 14px; }
       }
 
+      /* MEDIUM */
       &.qtd-button-md {
         svg { width: 18px; }
       }
 
+      /* LARGE */
       &.qtd-button-lg {
         svg { width: 20px; }
       }
@@ -131,6 +162,9 @@ const getSVG = () => {
   `
 }
 
+/**
+ * DEFAULT BUTTON
+ */
 const getDefaultButton = () => {
   return css`
     &.qtd-button-default {
@@ -160,6 +194,9 @@ const getDefaultButton = () => {
   `
 }
 
+/**
+ * LINK BUTTON
+ */
 const getLinkButton = () => {
   return css`
     &.qtd-button-link {
@@ -182,6 +219,9 @@ const getLinkButton = () => {
   `
 }
 
+/**
+ * PRIMARY BUTTON
+ */
 const getPrimaryButton = () => {
   return css`
     &.qtd-button-primary {
@@ -213,6 +253,9 @@ const getPrimaryButton = () => {
   `
 }
 
+/**
+ * SECONDARY BUTTON
+ */
 const getSecondaryButton = () => {
   return css`
     &.qtd-button-secondary {
@@ -244,6 +287,9 @@ const getSecondaryButton = () => {
   `
 }
 
+/**
+ * GENERIC BUTTON
+ */
 const getGenericButton = () => {
   return css` 
     &.qtd-button-generic {
@@ -274,6 +320,9 @@ const getGenericButton = () => {
   `
 }
 
+/**
+ * APPROVED BUTTON
+ */
 const getApprovedButton = () => {
   return css`
     &.qtd-button-approved {
@@ -304,6 +353,9 @@ const getApprovedButton = () => {
   `
 }
 
+/**
+ * REJECTED BUTTON
+ */
 const getRejectedButton = () => {
   return css`
     &.qtd-button-rejected {
@@ -334,6 +386,9 @@ const getRejectedButton = () => {
   `
 }
 
+/**
+ * PENDING BUTTON
+ */
 const getPendingButton = () => {
   return css`
     &.qtd-button-pending {
@@ -364,6 +419,9 @@ const getPendingButton = () => {
   `
 }
 
+/**
+ * REQUESTED BUTTON
+ */
 const getRequestedButton = () => {
   return css`
     &.qtd-button-requested {
@@ -394,6 +452,9 @@ const getRequestedButton = () => {
   `
 }
 
+/**
+ * SELECTED
+ */
 const getSelected = () => {
   return css`
     &.qtd-button-selected {
@@ -402,6 +463,9 @@ const getSelected = () => {
   `
 }
 
+/**
+ * DISABLED
+ */
 const getDisabled = () => {
   return css`
     &[disabled] {
@@ -413,6 +477,9 @@ const getDisabled = () => {
   `
 }
 
+/**
+ * STRECT
+ */
 const getStrect = () => {
   return css`
     &.qtd-button-stretch {
@@ -427,7 +494,7 @@ const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
   ${({ useIconPadding }) =>
     useIconPadding &&
     css`
-      margin-right: 7px;
+      margin-right: ${ICON_MARGIN_RIGHT};
     `}
     
 `
@@ -437,7 +504,7 @@ const SVG = styled.div<{ singleIcon: boolean, size: string }>`
   ${({ singleIcon }) =>
     !singleIcon &&
     css`
-      margin-right: 7px;
+      margin-right: ${ICON_MARGIN_RIGHT};
     `}
   `
 
@@ -469,7 +536,7 @@ const WrapperContent = css<{
   align-items: center;
   justify-content: center;
   position: relative;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS};
   padding: 0 10px;
   cursor: pointer;
   transition: all .2s ease-out;

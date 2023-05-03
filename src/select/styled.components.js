@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components';
 
+const ICON_MARGIN_RIGHT = "7px";
+const ICON_SIZE = "20px";
+const BORDER_RADIUS = "5px";
+
+/**
+ * SIZE
+ */
 const getBySize = () => {
   return css`
 
@@ -42,9 +49,13 @@ const getBySize = () => {
   `
 }
 
+/**
+ * LABEL
+ */
 const getLabelBySize = () => {
   return css`
       
+    /* X-SMALL */
     &.qtd-select-xs {
       
       .qtd-select-selector {
@@ -72,6 +83,7 @@ const getLabelBySize = () => {
       
     }
 
+    /* SMALL */
     &.qtd-select-sm {
 
       .qtd-select-selector {
@@ -99,6 +111,7 @@ const getLabelBySize = () => {
 
     }
 
+    /* MEDIUM */
     &.qtd-select-md {
 
       .qtd-select-selector {
@@ -126,6 +139,7 @@ const getLabelBySize = () => {
 
     }
 
+    /* LARGE */
     &.qtd-select-lg {
 
       .qtd-select-selector {
@@ -158,7 +172,7 @@ const getLabelBySize = () => {
       
       .qtd-select-selector {
         .qtd-icon {
-          font-size: 20px;
+          font-size: ${ICON_SIZE};
         }
       }
 
@@ -183,6 +197,9 @@ const getLabelBySize = () => {
   `
 }
 
+/**
+ * TYPE
+ */
 const getByType = () => {
   return css`
 
@@ -210,6 +227,9 @@ const getByType = () => {
   `
 }
 
+/**
+ * POSITION
+ */
 const getByPosition = () => {
   return css`
 
@@ -224,6 +244,9 @@ const getByPosition = () => {
   `
 }
 
+/**
+ * DIRECTION
+ */
 const getByDirection = () => {
   return css`
 
@@ -238,39 +261,42 @@ const getByDirection = () => {
   `
 }
 
+/**
+ * TOGGLE STYLES
+ */
 const getToggleStyles = () => {
   return css`
     .qtd-select-selector {
 
-      border-radius: 6px;
+      border-radius: ${BORDER_RADIUS};
       transition: border-color 0.2s ease-out;
 
       img {
-        width: 20px;
-        height: 20px;
+        width: ${ICON_SIZE};
+        height: ${ICON_SIZE};
         pointer-events: none;
-        margin-right: 7px;
+        margin-right: ${ICON_MARGIN_RIGHT};
       }
 
       .qtd-select-arrow {
         transition: transform .25s ease-out;
 
         svg {
-          width: 20px;
-          height: 20px;
+          width: ${ICON_SIZE};
+          height: ${ICON_SIZE};
           fill: #ffffff;
         }
       }
 
       .qtd-icon {
         color: #ffffff;
-        margin-right: 7px;
-        font-size: 20px;
+        margin-right: ${ICON_MARGIN_RIGHT};
+        font-size: ${ICON_SIZE};
       }
 
       .qtd-select-status-error {
         border: 1px solid #870f0f;
-        border-radius: 6px;
+        border-radius: ${BORDER_RADIUS};
       }
 
       .qtd-select-selection-item {
@@ -280,7 +306,7 @@ const getToggleStyles = () => {
           &.qtd-select-selection-item-single {
 
             transition: background-color 0.2s ease;
-            border-radius: 6px;
+            border-radius: ${BORDER_RADIUS};
 
             [type=text] {
               font-size: 13px;
@@ -291,7 +317,7 @@ const getToggleStyles = () => {
             span {
               color: #ffffff;
               font-weight: 400;
-              margin-right: 7px;
+              margin-right: ${ICON_MARGIN_RIGHT};
             }
 
           }
@@ -299,7 +325,7 @@ const getToggleStyles = () => {
           &.qtd-select-selection-item-floating {
 
             transition: background-color 0.2s ease;
-            border-radius: 6px;
+            border-radius: ${BORDER_RADIUS};
 
             [type=text] {
               font-size: 13px;
@@ -350,12 +376,15 @@ const getToggleStyles = () => {
   `
 }
 
+/**
+ * DROPDOWN STYLES
+ */
 const getDropdownStyles = () => {
   return css`
     .qtd-select-dropdown {
 
       background-color: #1D2649;
-      border-radius: 5px;
+      border-radius: ${BORDER_RADIUS};
       box-shadow: 0 0 10px rgba(0,0,0,.25);
       transition-timing-function: cubic-bezier(.75,-0.5,0,1.25);
 
@@ -369,7 +398,8 @@ const getDropdownStyles = () => {
       .qtd-select-item.qtd-select-item-option {
 
         transition: border-color 0.2s ease-out;
-        padding: 10px 30px 10px 15px;
+        padding: 0 30px 0 15px;
+        height: 40px;
 
         &:hover {
           background-color: #3598FE20;
@@ -390,20 +420,20 @@ const getDropdownStyles = () => {
 
           .qtd-image {
 
-            width: 20px;
-            height: 20px;
-            margin-right: 7px;
+            width: ${ICON_SIZE};
+            height: ${ICON_SIZE};
+            margin-right: ${ICON_MARGIN_RIGHT};
 
             .qtd-select-option-image {
-              width: 20px;
-              height: 20px;
+              width: ${ICON_SIZE};
+              height: ${ICON_SIZE};
               pointer-events: none;
             }
 
             .qtd-select-option-icon {
               color: #ffffff;
-              margin-right: 7px;
-              font-size: 20px;
+              margin-right: ${ICON_MARGIN_RIGHT};
+              font-size: ${ICON_SIZE};
             }
 
           }
@@ -416,15 +446,22 @@ const getDropdownStyles = () => {
   `
 }
 
+/**
+ * DISABLED
+ */
+const getDisabled = () => {
+  return css`
+    &[disabled] {
+      opacity: .75;
+      cursor: not-allowed;
+      pointer-events: none;
+    } 
+  `
+}
+
 const Wrapper = styled.div`
 
   position: relative;
-
-  &[disabled] {
-    opacity: .75;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
 
   /* ------------------------ */
   // TOGGLE
@@ -450,6 +487,11 @@ const Wrapper = styled.div`
   // LABEL SIZE
   /* ------------------------ */
   ${ () => getLabelBySize() }
+
+  /* ------------------------ */
+  // DISABLED
+  /* ------------------------ */
+  ${ () => getDisabled() }
 
 `
   
