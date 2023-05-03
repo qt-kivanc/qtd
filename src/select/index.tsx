@@ -29,6 +29,7 @@ interface SelectProps {
   className?: string,
   icon?: string | null,
   image?: string | null,
+  floating?: boolean | null,
   disabled: boolean,
   children?: React.ReactElement,
   reset(update: boolean, validation: boolean):void,
@@ -56,6 +57,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     icon = null,
     image = null,
     disabled = false,
+    floating = false,
     children = null,
     onChange = () => null,
     onUpdate = () => null
@@ -248,6 +250,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
 
       <Toggle
         {...{...props,
+          labelType: floating ? "floating" : "single",
           value: currentValue,
           onChange: onHandleToggleChange,
           isOpen: isOpen,

@@ -34,7 +34,7 @@ const getBySize = () => {
     &.qtd-select-lg {
       .qtd-select-selector {
         height: 46px; 
-        padding: 0px 6px 0px 10px;
+        padding: 0px 10px 0px 15px;
       }
     }
 
@@ -403,7 +403,7 @@ const getDropdownStyles = () => {
         padding: 0 30px 0 15px;
         height: 40px;
 
-        &:hover {
+        &.qtd-select-item-option-active {
           background-color: #3598FE20;
         }
 

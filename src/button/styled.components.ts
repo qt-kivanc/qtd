@@ -3,7 +3,8 @@ import styled, {css} from 'styled-components';
 import ALink from '../alink/index.jsx';
 import CoreImage from '../image/index.jsx';
 
-const ICON_MARGIN_RIGHT = "7px";
+const ICON_MARGIN = "7px";
+const ICON_MARGIN_SPACE_BETWEEN = "-7px";
 const BORDER_RADIUS = "5px";
 
 /**
@@ -488,31 +489,70 @@ const getStrect = () => {
   `
 }
 
-const Icon = styled.div<{ useIconPadding: boolean, size: string }>`
+const getByContentPosition = (contentPosition: string, justify: string) => {
+
+  if ( justify === "space-between" ) {
+    return css`
+      margin-right: ${ICON_MARGIN_SPACE_BETWEEN};
+    `
+  }
+  else {
+    if ( contentPosition === "left" ) {
+      return css`
+        margin-right: ${ICON_MARGIN};
+      `
+    }
+    else {
+      return css`
+        margin-left: ${ICON_MARGIN};
+      `
+    }
+  }
+
+}
+
+const Icon = styled.div<{ 
+  useIconPadding: boolean, 
+  contentPosition: string, 
+  justify: string, 
+  size: string 
+}>`
+
   color: #ffffff;
   
-  ${({ useIconPadding }) =>
-    useIconPadding &&
-    css`
-      margin-right: ${ICON_MARGIN_RIGHT};
-    `}
+  ${({ useIconPadding, contentPosition, justify }) => {
+    if ( useIconPadding ) {
+      return getByContentPosition(contentPosition, justify);
+    }
+  }}
     
 `
 
-const SVG = styled.div<{ singleIcon: boolean, size: string }>`
+const SVG = styled.div<{ 
+  singleIcon: boolean, 
+  contentPosition: string, 
+  justify: string, 
+  size: string 
+}>`
+
+  ${({ singleIcon, contentPosition, justify }) => {
+      if ( singleIcon ) {
+        return getByContentPosition(contentPosition, justify);
+      }
+    }}
   
-  ${({ singleIcon }) =>
-    !singleIcon &&
-    css`
-      margin-right: ${ICON_MARGIN_RIGHT};
-    `}
   `
 
 const Image = styled(CoreImage)`
-  margin-right: 5px;
+
   width: 20px;
   height: 20px;
-  `
+
+  ${({ contentPosition, justify }) => {
+    return getByContentPosition(contentPosition, justify);
+  }}
+
+`
 
 const Hide = styled.span<{ loading: boolean }>`
   ${({ loading }) =>
@@ -523,18 +563,12 @@ const Hide = styled.span<{ loading: boolean }>`
   `
 
 const WrapperContent = css<{ 
-  stretch: boolean, 
-  shape: string, 
-  icon: string,  
-  svg: boolean, 
-  loading: boolean, 
-  type: string,
-  size: string
+  justify: string
 }>`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${({justify}) => justify};
   position: relative;
   border-radius: ${BORDER_RADIUS};
   padding: 0 10px;

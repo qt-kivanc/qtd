@@ -16,6 +16,7 @@ export default function Toggle(props) {
     errorMessage = "",
     isOpen = false,
     placeholder = null,
+    labelType = "single",
     onChange = null,
     icon = null,
     image = null,
@@ -32,7 +33,16 @@ export default function Toggle(props) {
 
     SetOpen(isOpen);
     SetTypeStyle(type ? type : "default");
-    SetSizeStyle(placeholder ? "medium" : (size ? size : "default"));
+
+    if ( labelType === "floating" ) {
+      SetSizeStyle("medium");
+    }
+    else if ( labelType === "single" && size ) {
+      SetSizeStyle(size);
+    }
+    else {
+      SetSizeStyle("default");
+    }
 
   }, []);
 
@@ -84,7 +94,7 @@ export default function Toggle(props) {
     return ( 
       <Label className="qtd-select-selection-item">
         {
-          placeholder  
+          labelType === "floating"
             ?
             <FloatingLabel 
               placeholder={placeholder} 

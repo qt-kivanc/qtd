@@ -10,6 +10,8 @@ interface ButtonProps {
   selected: boolean,
   useIconPadding: boolean,
   stretch: boolean,
+  justify: string,
+  contentPosition: string,
   type: string,
   size: string,
   shape: string,
@@ -30,6 +32,8 @@ function Button({
   selected = false,
   useIconPadding = true,
   stretch = false,
+  justify = "center",
+  contentPosition = "left",
   type = "default",
   size = "default",
   shape = "",
@@ -54,19 +58,38 @@ function Button({
 
     if ( icon !== "" ) {
       return (
-        <Icon className={"qtd-icon " + icon} size={size} useIconPadding={useIconPadding} />
+        <Icon 
+          className={"qtd-icon " + icon} 
+          size={size} 
+          contentPosition={contentPosition}
+          justify={justify}
+          useIconPadding={useIconPadding} 
+        />
       )
     }
 
     if ( image !== "" ) {
       return (
-        <Image className="qtd-image" src={image} height="20" brokenHeight="20" />
+        <Image 
+          className="qtd-image" 
+          src={image} 
+          contentPosition={contentPosition}
+          justify={justify}
+          height="20" 
+          brokenHeight="20" 
+        />
       )
     }
 
     if ( svg !== "" ) {
       return (
-        <SVG className="qtd-svg" singleIcon={!children} size={size}>
+        <SVG 
+          className="qtd-svg" 
+          singleIcon={!children} 
+          size={size}
+          contentPosition={contentPosition}
+          justify={justify}
+        >
           <ReactSVG src={svg} />
         </SVG>
       )
@@ -97,9 +120,10 @@ function Button({
 
   const getButtonContent = (): JSX.Element => (
     <>
-      { getIcon() }
+      { contentPosition === "left" ? getIcon() : null }
       { getSpin() }
       { getChildren() }
+      { contentPosition === "right" ? getIcon() : null }
     </>
   );
 
@@ -116,6 +140,7 @@ function Button({
 
     let props = {
       loading: "false",
+      justify: justify,
       disabled: false
     };
 

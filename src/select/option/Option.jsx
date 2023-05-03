@@ -87,7 +87,7 @@ const Option = (props) => {
     let names = "qtd-select-item qtd-select-item-option";
 
     if ( checked ) names += " qtd-select-item-option-selected";
-    if ( buttonHoverState ) names += " qtd-select-item-option-active";
+    if ( buttonHoverState && !checked ) names += " qtd-select-item-option-active";
 
     return names;
 
