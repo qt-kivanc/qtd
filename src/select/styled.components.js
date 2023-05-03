@@ -354,11 +354,13 @@ const getToggleStyles = () => {
                 transition: transform 0.2s ease;
               }
 
-              &::before {
-                transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
+              &[data-filled="false"] {
+                &::before {
+                  transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
+                }
               }
 
-              &[data-filled] {
+              &[data-filled="true"] {
                 &::before {
                   transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
                 }
