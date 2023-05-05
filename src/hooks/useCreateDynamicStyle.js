@@ -20,7 +20,13 @@ const useCreateDynamicStyle = (style, handler, id = nanoid(11)) => {
 
     if ( !isEmpty() ) initialize();
     
-    return () => remove();
+    return (() => {
+      let _class = getClass();
+
+      if ( _class !== "" ) {
+        _class.parentNode.removeChild(_class);
+      }
+    });
 
   }, []);
 
@@ -28,16 +34,6 @@ const useCreateDynamicStyle = (style, handler, id = nanoid(11)) => {
 
     injectStyles();
     handler("cs-" + id);
-
-  }
-
-  const remove = () => {
-    
-    let _class = getClass();
-
-    if ( _class !== "" ) {
-      _class.parentNode.removeChild(_class);
-    }
 
   }
 

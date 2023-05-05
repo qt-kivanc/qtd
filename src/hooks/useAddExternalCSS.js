@@ -36,7 +36,6 @@ const useAddExternalCSS = (link, temporary = false) => {
     }
 
     return () => { 
-      
       if ( temporary ) {
         document.querySelectorAll('head > link').forEach(css => { 
   

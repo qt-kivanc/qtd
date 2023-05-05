@@ -33,7 +33,6 @@ const useCreateStyledStyle = (styled, handler = null) => {
     if ( handler ) handler(id);
 
     return () => {
-
       document.querySelectorAll('head > style').forEach(css => { 
         if ( css.id === id ) {
           css.parentNode.removeChild(css);

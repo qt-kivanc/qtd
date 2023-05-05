@@ -15,7 +15,7 @@ const getSize = () => {
     /* X-SMALL */
     &.qtd-button-xs {
       height: 24px;
-      span { font-size: 12px; line-height: 12px; }
+      span { font-size: 10px; line-height: 10px; }
     }
 
     /* SMALL */
@@ -95,7 +95,7 @@ const getIcon = () => {
 
       /* X-SMALL */
       &.qtd-button-xs {
-        ${Icon} { font-size: 14px; }
+        ${Icon} { font-size: 10px; }
       }
 
       /* SMALL */
@@ -135,7 +135,7 @@ const getSVG = () => {
 
       /* X-SMALL */
       &.qtd-button-xs {
-        svg { width: 12px; }
+        svg { width: 10px; }
       }
 
       /* SMALL */
@@ -329,6 +329,7 @@ const getApprovedButton = () => {
     &.qtd-button-approved {
       background: linear-gradient(45deg,#fbda61,#f76b1c);
       span, div.qtd-icon {
+        font-weight: bold;
         color: #1D2649;
       }
       &:hover {
@@ -362,6 +363,7 @@ const getRejectedButton = () => {
     &.qtd-button-rejected {
       background: linear-gradient(45deg,#870F0F,#BC2222);
       span, div.qtd-icon {
+        font-weight: bold;
         color: #ffffff;
       }
       &:hover {
@@ -396,6 +398,7 @@ const getPendingButton = () => {
       cursor: default;
       background-color: #1F2952;
       span, div.qtd-icon {
+        font-weight: bold;
         color: #ffffff99;
       }
       &:hover {
@@ -429,6 +432,7 @@ const getRequestedButton = () => {
       cursor: default;
       background-color: #1F295280;
       span, div.qtd-icon {
+        font-weight: bold;
         color: #ffffff4D;
       }
       &:hover {
@@ -486,6 +490,9 @@ const getStrect = () => {
     &.qtd-button-stretch {
       width: 100%;
     }
+    &:not(&.qtd-button-stretch) {
+      width: max-content;
+    }
   `
 }
 
@@ -536,7 +543,7 @@ const SVG = styled.div<{
 }>`
 
   ${({ singleIcon, contentPosition, justify }) => {
-      if ( singleIcon ) {
+      if ( !singleIcon ) {
         return getByContentPosition(contentPosition, justify);
       }
     }}
@@ -568,12 +575,12 @@ const WrapperContent = css<{
 
   display: flex;
   align-items: center;
-  justify-content: ${({justify}) => justify};
-  position: relative;
-  border-radius: ${BORDER_RADIUS};
   padding: 0 10px;
+  position: relative;
   cursor: pointer;
   transition: all .2s ease-out;
+  justify-content: ${({justify}) => justify};
+  border-radius: ${BORDER_RADIUS};
 
   div, span {
     transition: all .2s ease-out;
