@@ -1,86 +1,154 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
 
-  .qtd-accordion-menu-sub-menu {
-    
-    &.qtd-accordion-menu-sub-menu-open {
+  &.qtd-accordion-menu-sub-menu {
 
+    &:not(:last-child) {
+      .qtd-accordion-menu-header {
+        margin-bottom: 1px;
+      }
     }
 
-    &.qtd-accordion-menu-sub-menu-active {
-    
-    }
-    
+    /**
+     * SINGLE
+     */
     &.qtd-accordion-menu-sub-menu-single {
-      
+      .qtd-accordion-menu-header svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
+        transform: rotate(-90deg);
+      }
     }
     
-    &.qtd-accordion-menu-sub-menu-multiple {
-
+    /**
+     * MULTIPLE
+     */
+    &.qtd-accordion-menu-sub-menu-multiple.qtd-accordion-menu-sub-menu-open {
+      .qtd-accordion-menu-header svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
+        transform: rotate(-180deg);
+      }
     }
     
+    /**
+     * SINGLE AND MULTIPLE
+     */
     &.qtd-accordion-menu-sub-menu-single, &.qtd-accordion-menu-sub-menu-multiple {
-
+    
+      /**
+       * DEFAULT
+       */
       .qtd-accordion-menu-header {
 
+        background-color: #1D2649;
+        transition: background-color 0.3s ease-out;
+
+        span {
+          font-size: 13px;
+          color: #ffffff99;
+          transition: color 0.3s ease-out;
+        }
+
+        div.qtd-accordion-menu-header-icon.qtd-icon {
+          margin-right: 8px;
+          color: #ffffff99;
+          transition: color 0.3s ease-out;
+        }
+
+        svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
+          fill: #ffffff99;
+          transition: all 0.3s ease-out;
+        }
+
+        /* HOVER */
+        &:hover {
+
+          background-color: #3396FB40;
+
+          span {
+            color: #ffffff;
+          }
+
+          div.qtd-accordion-menu-header-icon.qtd-icon {
+            color: #ffffff;
+          }
+
+          svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
+            fill: #ffffff;
+          }
+          
+        }
+
       }
+
+      ul.qtd-accordion-menu-collapse {
+        
+        li.qtd-accordion-menu-content-item {
+          
+          .qtd-accordion-menu-content {
+
+            background-color: #3396FB1A;
+            transition: background-color 0.3s ease-out;
+            
+            span.qtd-accordion-menu-content-header-text {
+              font-size: 12px;
+              color: #ffffff;
+            }
+
+            .qtd-accordion-menu-content-header-arrow-icon.qtd-svg {
+              transition: all 0.25s ease-out;
+              fill: #ffffff;
+            }
+
+            /* HOVER */
+            &:hover {
+              background-color: #3396fb40;
+            }
+
+          }
+          
+        }
+        
+      }
+
+      /**
+       * ACTIVE
+       */
+      &.qtd-accordion-menu-sub-menu-active {
       
+        .qtd-accordion-menu-header {
+
+          transition-duration: 0ms;
+          background-color: #3396FB80;
+
+          span {
+            color: #ffffff;
+          }
+
+          div.qtd-accordion-menu-header-icon.qtd-icon {
+            color: #ffffff;
+          }
+
+          svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
+            fill: #ffffff;
+          }
+          
+        }
+
+        ul.qtd-accordion-menu-collapse li.qtd-accordion-menu-content-item {
+          
+          .qtd-accordion-menu-content {
+
+            &.active {
+              background-color: #3396FB80;
+            }
+
+          }
+
+        }
+
+      }
+
     }
 
-  }
-
-  .qtd-accordion-menu-header {
-
-  }
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: ${props => `${props.$subHeight}px`};
-
-  background-color: #1D2649;
-  padding: 0 20px 0 20px;
-  margin-bottom: 1px;
-
-  cursor: pointer;
-  transition: background-color 0.3s ease-out;
-  
-  span {
-    user-select: none;
-    font-size: 13px;
-    color: #ffffff99;
-  }
-
-  ${({ $isActive }) =>
-    !$isActive &&
-    css`
-      &:hover {
-        background-color: #3396FB40;
-      }
-    `
-  }
-
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
-      transition-duration: 0ms;
-      background-color: #3396FB80;
-
-      span {
-        color: #ffffff;
-      }
-      
-    `
-  }
-
-  ${({ $isOpen }) =>
-    $isOpen &&
-    css`
-      span {
-        color: #ffffff;
-      }
-    `
   }
 
 `
@@ -90,19 +158,10 @@ const Icon = styled.div`
   font-size: ${props => `${props.$size}px`};
   width: ${props => `${props.$size}px`};
   height: ${props => `${props.$size}px`};
-
-  margin-right: 8px;
-  color: #ffffff99;
+  
   display: flex;
   align-items: center;
-
-  ${({ $isOpen, $isActive }) =>
-    ($isOpen || $isActive) &&
-    css`
-      color: #ffffff;
-    `
-  }
-
+  
 `
 
 const Content = styled.ul`
@@ -110,38 +169,30 @@ const Content = styled.ul`
   overflow: hidden;
   transition: max-height 0.25s ease-out;
 
-  `
+`
 
 const Arrow = styled.svg`
 
   transition: all 0.25s ease-out;
   margin-left: auto;
   transform: rotate(0deg);
-  fill: #ffffff99;
 
-  ${({ $isOpen }) =>
-    $isOpen &&
-    css`
-      transform: rotate(-180deg);
-      fill: #ffffff;
-    `
-  }
+`
 
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
-      fill: #ffffff;
-    `
-  }
+const Title = styled.div`
 
-  ${({ $isNormal }) =>
-    $isNormal &&
-    css`
-      transform: rotate(-90deg);
-    `
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: ${props => `${props.height}px`};
+  padding: 0 20px 0 20px;
+  cursor: pointer;
+  
+  span {
+    user-select: none;
   }
 
 `
 
 
-export { Wrapper, Icon, Content, Arrow };
+export { Wrapper, Title, Icon, Content, Arrow };

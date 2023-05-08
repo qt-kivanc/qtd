@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import ALink from '../../alink/index.jsx';
 import ArrowIcon from '../../icons/Arrow.jsx';
 
-import { Wrapper, Icon, Content, Arrow } from './styled.components.js';
+import { Wrapper, Title, Icon, Content, Arrow } from './styled.components.js';
   
 export default function SubMenu({
   /* ---------- */
@@ -40,7 +40,7 @@ export default function SubMenu({
      * İlk açılışta menünün boyunu alarak açılma animasyonunu 
      * göstermemeyi sağlar.
      */
-    if ( hasLinkFound() ) {
+    if ( hasLinkFound() && content.current ) {
       content.current.style = `${content.current.scrollHeight}px`;
     }
 
@@ -61,7 +61,7 @@ export default function SubMenu({
     }
 
     SetHeight(
-      !isOpen ? "0px" : `${content.current.scrollHeight}px`
+      !isOpen || !content.current ? "0px" : `${content.current.scrollHeight}px`
     );
 
   }, [isOpen]);
@@ -71,6 +71,7 @@ export default function SubMenu({
     const hasFound = hasLinkFound();
     
     SetIsActive(hasFound);
+    
     if ( hasFound ) SetIsOpen(true);
 
   }, [location]);
@@ -102,23 +103,14 @@ export default function SubMenu({
     SetIsOpen(!isOpen);
   }
 
-  const getArrow = () => {
-
-    // let status = children ? (isOpen ? "open" : "") : "normal";
-              
-    return (
-      <Arrow 
-        width={arrowSize} 
-        height={arrowSize} 
-        $isOpen={children && isOpen}
-        $isNormal={!children}
-        $isActive={isActive}
-        className="qtd-accordion-menu-header-arrow-icon qtd-svg"
-        as={ArrowIcon} 
-      />
-    )
-
-  }
+  const getArrow = () => (
+    <Arrow 
+      width={arrowSize} 
+      height={arrowSize} 
+      className="qtd-accordion-menu-header-arrow-icon qtd-svg"
+      as={ArrowIcon} 
+    />
+  )
 
   const getIconClassNames = () => {
     
@@ -146,33 +138,27 @@ export default function SubMenu({
 
   const getAccordionTitle = () => (
     
-    <Wrapper 
-      $subHeight={subMenuHeight} 
-      $isActive={isActive}
-      $isOpen={isOpen}
+    <Title 
+      height={subMenuHeight} 
       onClick={handleTitleClick}
       className="qtd-accordion-menu-header"
     >
       <Icon 
         className={getIconClassNames()} 
         $size={iconSize} 
-        $isOpen={isOpen} 
-        $isActive={isActive}
       />
       <span className="qtd-accordion-menu-header-text">
         {title}
       </span>
       { getArrow() }
-    </Wrapper>
+    </Title>
 
   )
 
   const getTitle = () => (
     
-    <Wrapper 
-      $subHeight={subMenuHeight} 
-      $isActive={isActive}
-      $isOpen={isOpen}
+    <Title 
+      height={subMenuHeight} 
       to={link}
       as={ALink}
       className="qtd-accordion-menu-header"
@@ -180,14 +166,12 @@ export default function SubMenu({
       <Icon 
         className={getIconClassNames()}
         $size={iconSize} 
-        $isOpen={isOpen} 
-        $isActive={isActive} 
       />
       <span className="qtd-accordion-menu-header-text">
         {title}
       </span>
       { subMenuLinkArrow ? getArrow() : null }
-    </Wrapper>
+    </Title>
 
   )
 
@@ -214,10 +198,10 @@ export default function SubMenu({
 
   const getContent = () => (
 
-    <div className={getHeaderClassNames()}>
+    <Wrapper className={getHeaderClassNames()}>
       { children ? getAccordionTitle() : getTitle() }
       { children ? getChildren() : null }
-    </div>
+    </Wrapper>
 
   )
 

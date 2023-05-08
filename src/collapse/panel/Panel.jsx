@@ -33,7 +33,7 @@ export default function Panel({
      * İlk açılışta menünün boyunu alarak açılma animasyonunu 
      * göstermemeyi sağlar.
      */
-    if ( hasLinkFound() ) {
+    if ( hasLinkFound() && content.current ) {
       content.current.style = `${content.current.scrollHeight}px`;
     }
 
@@ -52,7 +52,7 @@ export default function Panel({
     }
 
     SetHeight(
-      !isOpen ? "0px" : `${content.current.scrollHeight}px`
+      !isOpen || !content.current ? "0px" : `${content.current.scrollHeight}px`
     );
 
   }, [isOpen]);
