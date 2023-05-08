@@ -2,6 +2,38 @@ import styled, {css} from 'styled-components';
 
 const Wrapper = styled.div`
 
+  .qtd-accordion-menu-sub-menu {
+    
+    &.qtd-accordion-menu-sub-menu-open {
+
+    }
+
+    &.qtd-accordion-menu-sub-menu-active {
+    
+    }
+    
+    &.qtd-accordion-menu-sub-menu-single {
+      
+    }
+    
+    &.qtd-accordion-menu-sub-menu-multiple {
+
+    }
+    
+    &.qtd-accordion-menu-sub-menu-single, &.qtd-accordion-menu-sub-menu-multiple {
+
+      .qtd-accordion-menu-header {
+
+      }
+      
+    }
+
+  }
+
+  .qtd-accordion-menu-header {
+
+  }
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
