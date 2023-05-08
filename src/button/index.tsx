@@ -5,6 +5,7 @@ import Spin from '../spin/index.jsx';
 import { SVG, Hide, Image, CoreButton, Link, A, Icon } from './styled.components';
 
 interface ButtonProps {
+  id: string | null,
   disabled: boolean,
   loading: boolean,
   selected: boolean,
@@ -27,6 +28,7 @@ interface ButtonProps {
 }
 
 function Button({
+  id = null,
   disabled = false,
   loading = false,
   selected = false,
@@ -139,11 +141,13 @@ function Button({
   const getProps = (): object => {
 
     let props = {
+      id: id,
       loading: "false",
       justify: justify,
       disabled: false
     };
 
+    if ( id ) props.id = id;
     if ( loading ) props.loading = "true";
     if ( disabled ) props.disabled = true;
     
@@ -210,7 +214,7 @@ function Button({
    */
   const submitButton = (): JSX.Element => (
 
-    <CoreButton 
+    <CoreButton
       className={getClassNames()}
       {...getProps()}
       //type="submit"

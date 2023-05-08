@@ -68,7 +68,7 @@ const Container = ({
   const Portal = ({ root, content }) => {
 
     let jsx = (
-      <Wrapper>
+      <Wrapper className="qtd-modal">
         <Overlay className="qtd-modal-overlay" show={showOverlay} />
         { getModal() }   
       </Wrapper>

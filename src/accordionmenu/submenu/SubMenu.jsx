@@ -113,11 +113,36 @@ export default function SubMenu({
         $isOpen={children && isOpen}
         $isNormal={!children}
         $isActive={isActive}
+        className="qtd-accordion-menu-header-arrow-icon qtd-svg"
         as={ArrowIcon} 
       />
     )
 
   }
+
+  const getIconClassNames = () => {
+    
+    let names = "qtd-accordion-menu-header-icon";
+
+    if ( icon !== "" ) names += " qtd-icon " + icon;
+    
+    return names;
+
+  }
+
+  const getHeaderClassNames = () => {
+    
+    let names = "qtd-accordion-menu-sub-menu";
+
+    if ( isOpen ) names += " qtd-accordion-menu-sub-menu-open";
+    if ( isActive ) names += " qtd-accordion-menu-sub-menu-active";
+    if ( !children ) names += " qtd-accordion-menu-sub-menu-single";
+    if ( children ) names += " qtd-accordion-menu-sub-menu-multiple";
+    
+    return names;
+
+  }
+  
 
   const getAccordionTitle = () => (
     
@@ -126,14 +151,17 @@ export default function SubMenu({
       $isActive={isActive}
       $isOpen={isOpen}
       onClick={handleTitleClick}
+      className="qtd-accordion-menu-header"
     >
       <Icon 
-        className={icon} 
+        className={getIconClassNames()} 
         $size={iconSize} 
         $isOpen={isOpen} 
-        $isActive={isActive} 
+        $isActive={isActive}
       />
-      <span>{title}</span>
+      <span className="qtd-accordion-menu-header-text">
+        {title}
+      </span>
       { getArrow() }
     </Wrapper>
 
@@ -146,15 +174,18 @@ export default function SubMenu({
       $isActive={isActive}
       $isOpen={isOpen}
       to={link}
-      as={ALink} 
+      as={ALink}
+      className="qtd-accordion-menu-header"
     >
       <Icon 
-        className={icon} 
+        className={getIconClassNames()}
         $size={iconSize} 
         $isOpen={isOpen} 
         $isActive={isActive} 
       />
-      <span>{title}</span>
+      <span className="qtd-accordion-menu-header-text">
+        {title}
+      </span>
       { subMenuLinkArrow ? getArrow() : null }
     </Wrapper>
 
@@ -165,6 +196,7 @@ export default function SubMenu({
     <Content
       ref={content}
       style={{ maxHeight: `${height}` }}
+      className="qtd-accordion-menu-collapse"
     >
       {
         React.Children.map(children, element => 
@@ -182,9 +214,9 @@ export default function SubMenu({
 
   const getContent = () => (
 
-    <div>
+    <div className={getHeaderClassNames()}>
       { children ? getAccordionTitle() : getTitle() }
-      { getChildren() }
+      { children ? getChildren() : null }
     </div>
 
   )

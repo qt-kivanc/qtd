@@ -322,31 +322,31 @@ const getGenericButton = () => {
 }
 
 /**
- * APPROVED BUTTON
+ * REQUEST BUTTON
  */
-const getApprovedButton = () => {
+const getRequestButton = () => {
   return css`
-    &.qtd-button-approved {
-      background: linear-gradient(45deg,#fbda61,#f76b1c);
+    &.qtd-button-request {
+      background: linear-gradient(90deg, #0BE881 0%, #02B964 99%);
       span, div.qtd-icon {
         font-weight: bold;
         color: #1D2649;
       }
       &:hover {
-        background: linear-gradient(45deg,#F9FB61,#F79E1C);
+        background: linear-gradient(90deg, #16E886 0%, #0DD578 99%);
         span, div.qtd-icon {
           color: #1D2649;
         }
       }
       &.qtd-button-selected {
-        background: linear-gradient(-45deg,#F79E1C,#F9FB61);
-        border: 2px solid #FACA57;
+        background: linear-gradient(90deg, #02B964 0%, #0BE881 99%);
+        border: 2px solid #0AE37E;
         span, div.qtd-icon {
           color: #1D2649;
         }
       }
       &[disabled] {
-        background: linear-gradient(-45deg,#B49E4D,#9D4513);
+        background: linear-gradient(90deg, #05B663 0%, #028246 97%);
         span, div.qtd-icon {
           color: rgb(29, 38, 73, 30);
         }
@@ -356,31 +356,65 @@ const getApprovedButton = () => {
 }
 
 /**
- * REJECTED BUTTON
+ * APPROVE BUTTON
  */
-const getRejectedButton = () => {
+const getApproveButton = () => {
   return css`
-    &.qtd-button-rejected {
-      background: linear-gradient(45deg,#870F0F,#BC2222);
+    &.qtd-button-approve {
+      background: linear-gradient(90deg, #FFB142 0%, #D88A1C 100%);
+      span, div.qtd-icon {
+        font-weight: bold;
+        color: #1D2649;
+      }
+      &:hover {
+        background: linear-gradient(90deg, #FFC067 0%, #FFB346 100%);
+        span, div.qtd-icon {
+          color: #1D2649;
+        }
+      }
+      &.qtd-button-selected {
+        background: linear-gradient(90deg, #D88A1C 0%, #FFB142 100%);
+        border: 2px solid #FAAC3D;
+        span, div.qtd-icon {
+          color: #1D2649;
+        }
+      }
+      &[disabled] {
+        background: linear-gradient(90deg, #C88930 0%, #A86A13 98%);
+        span, div.qtd-icon {
+          color: rgb(29, 38, 73, 30);
+        }
+      }
+    }
+  `
+}
+
+/**
+ * REJECT BUTTON
+ */
+const getRejectButton = () => {
+  return css`
+    &.qtd-button-reject {
+      background: linear-gradient(90deg, #B33939 0%, #971B1B 100%);
       span, div.qtd-icon {
         font-weight: bold;
         color: #ffffff;
       }
       &:hover {
-        background: linear-gradient(45deg,#9F1111,#E22020);
+        background: linear-gradient(90deg, #DC5050 0%, #C52D2D 100%);
         span, div.qtd-icon {
           color: #ffffff;
         }
       }
       &.qtd-button-selected {
-        background: linear-gradient(-45deg,#E22020,#9F1111);
-        border: 2px solid #DF1F1F;
+        background: linear-gradient(90deg, #971B1B 0%, #B33939 100%);
+        border: 2px solid #AD3232;
         span, div.qtd-icon {
           color: #ffffff;
         }
       }
       &[disabled] {
-        background: linear-gradient(-45deg,#640B0B,#9B1414);
+        background: linear-gradient(90deg, #872626 0%, #731010 100%);
         span, div.qtd-icon {
           color: rgb(29, 38, 73, 30);
         }
@@ -651,14 +685,20 @@ const WrapperContent = css<{
   ${ () => getGenericButton() }
   
   /* ------------------------ */
-  // APPROVED
+  // REQUEST
   /* ------------------------ */
-  ${ () => getApprovedButton() }
+  ${ () => getRequestButton() }
+  
   
   /* ------------------------ */
-  // REJECTED
+  // APPROVE
   /* ------------------------ */
-  ${ () => getRejectedButton() }
+  ${ () => getApproveButton() }
+  
+  /* ------------------------ */
+  // REJECT
+  /* ------------------------ */
+  ${ () => getRejectButton() }
   
   /* ------------------------ */
   // PENDING

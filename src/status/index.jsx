@@ -18,9 +18,21 @@ export default function Status(props) {
 
   },[]);
 
+  const getClassNames = () => {
+
+    let names = "qtd-status";
+
+    names += " qtd-status-" + type;
+
+    if ( className !== "" && className !== null ) names += " " + className;
+
+    return names;
+
+  }
+
   const getStatus = () => (
     
-    <Wrapper status={type} className={className}>
+    <Wrapper status={type} className={getClassNames()}>
       <span>
         {children}
       </span>

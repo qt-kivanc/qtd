@@ -12,17 +12,21 @@ const Item = ({
 }) => {
 
   return (
-    <li>
+    <li className="qtd-accordion-menu-content-item">
       <Wrapper
         to={link} 
         $itemHeight={itemHeight} 
         $isActive={active}
+        className="qtd-accordion-menu-content"
       >
-        <span>{children}</span>
+        <span className="qtd-accordion-menu-content-header-text">
+          {children}
+        </span>
         <Arrow 
           width={arrowSize} 
           height={arrowSize} 
-          as={ArrowIcon} 
+          as={ArrowIcon}
+          className="qtd-accordion-menu-content-header-arrow-icon qtd-svg"
         />
       </Wrapper>
     </li>

@@ -4,7 +4,7 @@ import SubMenu from './submenu/SubMenu.jsx';
 import Item from './item/Item.jsx';
 import { Wrapper } from './styled.components.js';
 
-const Menu = ({
+const AccordionMenu = ({
   /* ---------- */
   useLink = false,
   onlyOne = false,
@@ -25,7 +25,7 @@ const Menu = ({
 
   return (
 
-    <Wrapper>
+    <Wrapper className="qtd-accordion-menu">
       
       {
         React.Children.map(children, element => 
@@ -50,8 +50,8 @@ const Menu = ({
   
 };
 
-Menu.SubMenu = SubMenu;
-Menu.Item = Item;
+AccordionMenu.SubMenu = SubMenu;
+AccordionMenu.Item = Item;
 
 export { SubMenu };
-export default Menu;
+export default AccordionMenu;

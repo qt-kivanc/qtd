@@ -114,6 +114,7 @@ export default function Modal({
     return  React.cloneElement(Content, {
               childProps: {
                 ...modalProps,
+                className: "qtd-modal-content",
                 onHideModal: handleHideModal.bind(this),
                 onShowModal: onShowModal.bind(this)
               }
@@ -123,7 +124,7 @@ export default function Modal({
 
   const getModal = () => (
 
-    <div ref={contentRef}>
+    <div ref={contentRef} className="qtd-modal-body">
       <CSSTransition
         in={isShow}
         timeout={600}
@@ -138,7 +139,7 @@ export default function Modal({
         onEntered={ handleEntered }
         onExited={ handleExited }
       >
-        <Wrapper ref={nodeRef}>
+        <Wrapper className="qtd-modal-body-wrapper" ref={nodeRef}>
           { getContent() }
         </Wrapper>
       </CSSTransition>

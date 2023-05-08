@@ -65,8 +65,10 @@ const getByStatus = (status) => {
     return (
       css`
         span {
-          color: #ffffff4D;
+          color: #1D2649;
         }
+
+        background-color: #ffa801;
       `
     )
   }
