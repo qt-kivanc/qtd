@@ -202,19 +202,23 @@ const getLinkButton = () => {
   return css`
     &.qtd-button-link {
       span, div.qtd-icon {
+
         color: #ffffff99;
-        font-weight: 600;
+
         &:hover {
           color: #ffffff;
         }
+
         &.qtd-button-selected {
           color: #3396FB;
         }
+
         &[disabled] {
           span, div.qtd-icon {
             color: #ffffff4D;
           }
         }
+
       }
     }
   `
@@ -609,7 +613,6 @@ const WrapperContent = css<{
 
   display: flex;
   align-items: center;
-  padding: 0 10px;
   position: relative;
   cursor: pointer;
   transition: all .2s ease-out;
@@ -626,12 +629,15 @@ const WrapperContent = css<{
       transition: all .2s ease-out;
     }
   }
+
+  &:not(.qtd-button-link) {
+    padding: 0 10px;
+  }
   
   span {
     color: #ffffff;
     font-weight: 400;
     user-select: none;
-    letter-spacing: -.21px;
   }
 
   /* ------------------------ */

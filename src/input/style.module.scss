@@ -146,6 +146,15 @@
   color: #ffffff99;
 }
 
+.floatingInput {
+  &input:-webkit-autofill, 
+  &input:-webkit-autofill:focus, 
+  &input:-webkit-autofill:hover {
+    -webkit-text-fill-color: #3496fa !important;
+    -webkit-box-shadow: 0 0 0 30px #151d3d inset !important;
+  }
+}
+
 .hiddenVisually {
 
   border: 0;
