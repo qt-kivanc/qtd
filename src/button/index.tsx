@@ -157,9 +157,7 @@ function Button({
 
   const getClassNames = (): string => {
 
-    let names = "qtd-button";
-
-    names += " qtd-button-" + type;
+    let names = "qtd-button qtd-button-" + type;
 
     if ( getSize() !== "" ) names += " qtd-button-" + getSize();
     if ( selected )         names += " qtd-button-selected";

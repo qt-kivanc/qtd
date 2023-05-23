@@ -79,22 +79,24 @@ const Group = forwardRef(({
 
   }
 
-  const getGroupStyle = () => {
+  const getClassNames = () => {
     
-    let style = "";
+    let names = "qtd-radio-group";
 
-    if ( className !== "" ) {
-      style += " " + className;
-    }
+    names += " qtd-radio-group-" + type;
+    names += " qtd-radio-group-" + direction;
+    
+    if ( errorMessage ) names += " qtd-radio-group-error";
+    if ( className !== "" ) names += " " + className;
 
-    return style;
+    return names;
     
   }
 
   return(
 
     <GroupWrapper 
-      className={getGroupStyle()} 
+      className={getClassNames()} 
       role="radiogroup" 
       _direction={direction}
       _length={length}

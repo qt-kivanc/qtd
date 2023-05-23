@@ -14,9 +14,23 @@ export default function Day({
 
 }) {
 
+  const getClassNames = () => {
+
+    let names = "qtd-calendar-day";
+
+    if ( today ) names += " qtd-calendar-day-today";
+    if ( selected ) names += " qtd-calendar-day-selected";
+    if ( disabled ) names += " qtd-calendar-day-disabled";
+    if ( current ) names += " qtd-calendar-day-current";
+
+    return names;
+
+  }
+
   const getDay = () => (
 
     <Wrapper 
+      className={getClassNames()}
       today={today} 
       selected={selected} 
       disabled={disabled} 

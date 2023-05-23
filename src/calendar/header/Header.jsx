@@ -19,21 +19,21 @@ export default function Header(props) {
 
   const getHeader = () => (
 
-    <Wrapper>
-      <PrevYear onClick={onPrevYear}>
+    <Wrapper className="qtd-calendar-header">
+      <PrevYear className="qtd-calendar-prev-year" onClick={onPrevYear}>
         <span />
       </PrevYear>
-      <PrevMonth onClick={onPrevMonth}>
+      <PrevMonth className="qtd-calendar-prev-month" onClick={onPrevMonth}>
         <span />
       </PrevMonth>
-      <Middle>
+      <Middle className="qtd-calendar-middle">
         <div>{month}</div>
         <div>{year}</div>
       </Middle>
-      <NextMonth onClick={onNextMonth}>
+      <NextMonth className="qtd-calendar-next-month" onClick={onNextMonth}>
         <span />
       </NextMonth>
-      <NextYear onClick={onNextYear}>
+      <NextYear className="qtd-calendar-next-year" onClick={onNextYear}>
         <span />
       </NextYear>
     </Wrapper>

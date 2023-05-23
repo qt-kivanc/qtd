@@ -5,7 +5,7 @@ import FloatingLabel from './label/floating/FloatingLabel.jsx';
 import Image from '../../image/index.jsx';
 import Arrow from '../../icons/Arrow.jsx';
 
-import { Wrapper, Label, Icon, PreIcon, ErrorBorder } from './styled.components';
+import { Wrapper, Label, Icon, PreIcon, ErrorBorder, Failed, ErrorTooltip, LockIconWrapper, Suffix } from './styled.components';
 
 export default function Toggle(props) {
 
@@ -15,6 +15,7 @@ export default function Toggle(props) {
     value = "",
     errorMessage = "",
     isOpen = false,
+    locked = false,
     placeholder = null,
     labelType = "single",
     onChange = null,
@@ -28,6 +29,7 @@ export default function Toggle(props) {
   const [open, SetOpen] = useState(false);
   const [sizeStyle, SetSizeStyle] = useState("");
   const [typeStyle, SetTypeStyle] = useState("");
+  const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
 
   useEffect(() => {
 
@@ -113,13 +115,68 @@ export default function Toggle(props) {
     )
   }
 
+  /**
+   * 
+   */
   const getErrorBorder = () => {
 
-    if ( errorMessage !== null ) {
-      return (
-        <ErrorBorder className="qtd-select-status-error" />
-      );
-    }
+    if ( !errorMessage ) return null;
+
+    return (
+      <ErrorBorder className={"qtd-error-border"} />
+    );
+
+  }
+
+  /**
+   * 
+   */
+  const getSuffix = () => {
+
+    if (locked && errorMessage) return null;
+
+    return (
+      <Suffix className="qtd-select-suffix">
+        <Icon open={open} className="qtd-select-arrow">
+          <Arrow/>
+        </Icon>
+        { 
+          locked 
+          ? <LockIconWrapper className="qtd-svg" width="18" height="18" /> 
+          : null
+        }
+        { getErrors() }
+      </Suffix>
+    )
+
+  }
+
+  /**
+   * 
+   */
+  const getErrors = () => {
+
+    if ( !errorMessage ) return null;
+
+    return (
+
+      <Failed 
+        data-icon="i"
+        className="qtd-select-failed" 
+        onPointerOver={() => SetShowErrorTooltip(true)}
+        onPointerOut={() => SetShowErrorTooltip(false)}
+      >
+        {
+          showErrorTooltip ?
+            <ErrorTooltip className="qtd-select-error-tooltip">
+              {errorMessage}
+            </ErrorTooltip>
+          : null
+
+        }
+      </Failed>
+
+    );
 
   }
 
@@ -135,10 +192,7 @@ export default function Toggle(props) {
       { getIcon() }
       { getInput() }
       { getErrorBorder() }
-
-      <Icon open={open} className="qtd-select-arrow">
-        <Arrow/>
-      </Icon>
+      { getSuffix() }
       
     </Wrapper>
 

@@ -3,8 +3,8 @@ import { v4 } from 'uuid';
 import InputMask from 'react-input-mask';
 import { NumericFormat } from 'react-number-format';
 
-import LockIcon from '../icons/Lock.jsx';
 import s from './style.module.scss';
+import { ErrorBorder, ErrorTooltip, Failed, HiddenVisually, LockIconWrapper, Middle, Prefix, Suffix, Wrapper } from './styled.components.js';
 
 /**
  * https://github.com/sanniassin/react-input-mask
@@ -18,10 +18,11 @@ const Input = forwardRef(({
   message = null,
   value = "",
   defaultValue = "",
-  type = "text", 
+  type = "text",
+  className = "",
   /* ------------ */
-  size = "medium", 
-  variant = "filled",
+  size = "default", 
+  variant = "default",
   /* ------------ */
   prefix = null, 
   suffix = null,
@@ -50,17 +51,12 @@ const Input = forwardRef(({
   const [errorMessage, SetErrorMessage] = useState(null);
   const [keepFocused, SetKeepFocused] = useState(false);
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
-  const [sizeStyle, SetSizeStyle] = useState(s.medium);
-  const [variantStyle, SetVariantStyle] = useState(s.filled);
   const [floatValue, SetFloatValue] = useState("");
 
   /**
    * 
    */
   useEffect( () => {
-    
-    if (s[variant]) SetVariantStyle(s[variant]);
-    if (s[size]) SetSizeStyle(s[size]);
 
     sendUpdates(defaultValue);
     checkFocus();
@@ -362,13 +358,13 @@ const Input = forwardRef(({
 
     <label 
       htmlFor={id} 
-      className={s.floatingLabel}
+      className={"qtd-input-floating-label " + s.floatingLabel}
       disabled={disabled}
       data-content={label} 
     >
-      <span className={s.hiddenVisually}>
+      <HiddenVisually>
         {label}
-      </span>
+      </HiddenVisually>
     </label>
 
   )
@@ -379,9 +375,9 @@ const Input = forwardRef(({
     if ( !prefix ) return null;
 
     return (
-      <div className={"qtd-input-prefix " + s.prefix}>
+      <Prefix className="qtd-input-prefix">
         {prefix}
-      </div>
+      </Prefix>
     );
     
   }
@@ -389,25 +385,37 @@ const Input = forwardRef(({
   /**
    * 
    */
-  const getSuffix = () => (
+  const getSuffix = () => {
 
-    <div className={"qtd-input-suffix " + s.suffix}>
-      { suffix ? suffix : (locked ? <LockIcon width="18" height="18" className={s.lockIcon} /> : null) }
-      { getErrors() }
-    </div>
+    if ( !prefix && locked && errorMessage) return null;
 
-  )
+    return (
+      <Suffix className="qtd-input-suffix">
+        { 
+          suffix 
+            ? suffix 
+            : (
+                locked 
+                ? <LockIconWrapper className="qtd-svg" width="18" height="18" /> 
+                : null
+              ) 
+        }
+        { getErrors() }
+      </Suffix>
+    )
+
+  }
   
   /**
    * 
    */
   const getErrorBorder = () => {
 
-    if ( errorMessage !== null ) {
-      return (
-        <div className={"qtd-error-border " + s.errorBorder} />
-      );
-    }
+    if ( !errorMessage ) return null;
+
+    return (
+      <ErrorBorder className={"qtd-error-border"} />
+    );
 
   }
 
@@ -416,38 +424,62 @@ const Input = forwardRef(({
    */
   const getErrors = () => {
 
-    if ( !errorMessage )
-      return null;
+    if ( !errorMessage ) return null;
 
     return (
 
-      <div 
+      <Failed 
         data-icon="i"
-        className={s.failed} 
+        className="qtd-input-failed" 
         onPointerOver={() => SetShowErrorTooltip(true)}
         onPointerOut={() => SetShowErrorTooltip(false)}
       >
         {
           showErrorTooltip ?
-            <span className={s.errorTooltip}>
+            <ErrorTooltip className="qtd-input-error-tooltip">
               {errorMessage}
-            </span>
+            </ErrorTooltip>
           : null
 
         }
-      </div>
-
+      </Failed>
 
     );
 
   }
 
   const getInputStyle = () => {
-    return s.floatingInput + " " + sizeStyle
+    return "qtd-input-floating-input " + s.floatingInput;
   }
 
-  const getElementStyle = () => {
-    return s.formElement + " " + variantStyle
+  const getSize = () => {
+    if ( size === "default" )   return "";
+    if ( size === "x-small" )   return "xs";
+    if ( size === "small" )     return "sm";
+    if ( size === "medium" )    return "md";
+    if ( size === "large" )     return "lg";
+    return "";
+  }
+
+  const getVariant = () => {
+    if ( variant === "default" )  return "";
+    if ( variant === "filled" )   return "filled";
+    if ( variant === "dashed" )   return "dashed";
+    return "";
+  }
+
+  const getClassNames = () => {
+
+    let names = "qtd-input qtd-input-" + type;
+
+    if ( getSize() !== "" )     names += " qtd-input-" + getSize();
+    if ( getVariant() !== "" )  names += " qtd-input-" + getVariant();
+    if ( locked ) names += " qtd-input-locked";
+    if ( mask )   names += " qtd-input-masked";
+    if ( className !== "" && className !== null ) names += " " + className;
+
+    return names;
+
   }
 
   /**
@@ -456,15 +488,15 @@ const Input = forwardRef(({
    */
   const getContent = () => (
     
-    <div className={getElementStyle()}>
+    <Wrapper className={getClassNames()}>
       { getPrefix() }
-      <div className={s.middle}>
+      <Middle className="qtd-input-middle">
         { getInput() }
         { getLabel() }
         { getErrorBorder() }
-      </div>
+      </Middle>
       { getSuffix() }
-    </div>
+    </Wrapper>
   
   )
 

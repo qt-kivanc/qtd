@@ -15,7 +15,7 @@ const Spin = ({
 
   const getSpin = () => (
 
-    <SpinWrapper size={size}>
+    <SpinWrapper size={size} className="qtd-spin-spiner">
       <Spinner>
         <div></div><div></div><div></div><div></div>
       </Spinner>
@@ -25,7 +25,7 @@ const Spin = ({
 
   const getWrapper = () => (
   
-    <Wrapper>
+    <Wrapper className="qtd-spin">
       <ChildrenWrapper updating={updating}>
         { children }
       </ChildrenWrapper>

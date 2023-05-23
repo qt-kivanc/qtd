@@ -8,7 +8,11 @@ import moment from "moment";
 import Calendar from "../calendar/index.jsx";
 import Input from "../input/index.jsx";
 import QTDContext from "../context/QTDContext.jsx";
-import { Wrapper, CalendarWrapper, Icon, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive } from './styled.components';
+import { 
+  Wrapper, CalendarWrapper, Icon, 
+  ModalEnter, ModalEnterActive, ModalExit, 
+  ModalExitActive 
+} from './styled.components';
 import useCreateStyledStyle from "../hooks/useCreateStyledStyle.js";
 
 /*
@@ -26,7 +30,10 @@ const DatePicker = forwardRef((props, ref) => {
     name = "datepicker",
     label = "",
     mask = null,
+    size = "default",
+    variant = "default",
     disabled = false,
+    className = "",
     defaultValue = {
       localizated: "",
       global: ""
@@ -257,15 +264,38 @@ const DatePicker = forwardRef((props, ref) => {
 
   }
 
+  const getClassNames = () => {
+
+    let names = "qtd-date-picker";
+
+    names += " qtd-date-picker-" + size;
+    names += " qtd-date-picker-" + variant;
+
+    if ( disabled ) names += " qtd-date-picker-disabled";
+    if ( errorMessage ) names += " qtd-date-picker-error";
+    if ( isOpen ) names += " qtd-date-picker-open";
+    if ( className !== "" ) names += " " + className;
+    
+    return names;
+
+  }
+
   const getDatePicker = () => (
 
-    <Wrapper disabled={disabled} ref={wrapperRef} onPointerDown={handleClick}>
+    <Wrapper 
+      className={getClassNames()} 
+      disabled={disabled} 
+      ref={wrapperRef} 
+      onPointerDown={handleClick}
+    >
 
       <Input 
         name={name}
         label={label}
         value={inputValue}
         mask={mask}
+        size={size}
+        variant={variant}
         onChange={handleInputChange}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
@@ -275,7 +305,7 @@ const DatePicker = forwardRef((props, ref) => {
         focusRef={wrapperRef}
         ref={inputRef}
         disabled={disabled}
-        suffix={<Icon className={"qt-web-date"} />}
+        suffix={<Icon className={"qtd-icon qt-web-date"} />}
       />
 
       <CSSTransition

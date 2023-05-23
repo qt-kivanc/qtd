@@ -42,6 +42,7 @@ export { default as MultiSelect } from './multiselect/index.jsx';
 export { default as Image } from './image/index.jsx';
 export { default as ConsoleLog } from './logger/index.js';
 export { default as Button } from './button/index';
+export { default as Result } from './result/index.jsx';
 export { default as ALink } from './alink/index.jsx';
 export { default as Spin } from './spin/index.jsx';
 export { default as BackTop } from './back-top/index.jsx';

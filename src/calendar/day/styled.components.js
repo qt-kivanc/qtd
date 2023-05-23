@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     top: 50%;
     right: 0;
     left: 0;
-    z-index: 1;
+    //z-index: 1;
     height: 30px;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);

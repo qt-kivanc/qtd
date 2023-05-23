@@ -18,9 +18,60 @@ const Wrapper = styled.label`
     width: 0;
   }
 
+  .qtd-checkbox-label {
+
+    font-size: 12px;
+    font-weight: 400;
+    color: #ffffff99;
+    line-height: 1.2;
+    transition: color .3s ease-out;
+    
+  }
+
+  .qtd-checkbox-checkmark {
+
+    height: 20px;
+    width: 20px;
+    border-radius: 6px;
+    border: 1px solid #505A7D80;
+    
+  }
+
+  &.qtd-checkbox-selected {
+
+    .qtd-checkbox-checkmark::after {
+      animation: ${bounceAnimation} 0.5s;
+      transition: border-color .3s ease-out;
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 11px;
+      border: solid #2196F3;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+
+  }
+
+  &.qtd-checkbox-error {
+    .qtd-checkbox-checkmark {
+      border: 1px solid #870f0f;
+    }
+  }
+
+  &:not(&.qtd-checkbox-error):not(.qtd-checkbox-selected) {
+    &:hover {
+      .qtd-checkbox-checkmark {
+        border: 1px solid #505A7D;
+      }
+    }
+  }
+
 `
 
-const Label = styled.div`
+const CheckboxInnerWrapper = styled.div`
 
   padding-left: 27px;
   min-height: 20px;
@@ -29,22 +80,6 @@ const Label = styled.div`
   align-items: center;
   position: relative;
 
-  span {
-
-    font-size: 12px;
-    font-weight: 400;
-    color: #ffffff99;
-    line-height: 1.2;
-
-    a {
-      color: #3396FB;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-  }
-
 `
 
 const Checkmark = styled.span`
@@ -52,48 +87,7 @@ const Checkmark = styled.span`
   position: absolute;
   top: 0;
   left: 0;
-  height: 20px;
-  width: 20px;
-  border-radius: 6px;
-
-  ${({ errorBorder }) =>
-    errorBorder ?
-      css`
-        border: 1px solid #870f0f;
-      `
-    :
-      css`
-        border: 1px solid #505A7D80;
-      `
-  }
-
-  ${({ isChecked }) =>
-    isChecked &&
-    css`
-      &::after { 
-        animation: ${bounceAnimation} 0.5s;
-        content: "";
-        position: absolute;
-        left: 7px;
-        top: 3px;
-        width: 5px;
-        height: 11px;
-        border: solid #2196F3;
-        border-width: 0 3px 3px 0;
-        transform: rotate(45deg);
-      }
-    `
-  }
-
-  //FIXME: Her koşulda hover çalışıyor. düzeltilmeli.
-  ${({ isChecked, errorBorder }) =>
-    (!isChecked && !errorBorder) &&
-    css`
-      ${Wrapper}:hover & {    
-        border: 1px solid #505A7D;
-      }
-    `
-  }
+  transition: all .3s ease-out;
 
 `
 
@@ -140,4 +134,4 @@ const bounceAnimation = keyframes`
   100% { transform: scale(1) rotate(45deg);}
 `
 
-export { Wrapper, Label, Checkmark, ErrorTooltip };
+export { Wrapper, CheckboxInnerWrapper, Checkmark, ErrorTooltip };

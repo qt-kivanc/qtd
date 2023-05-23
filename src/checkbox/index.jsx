@@ -1,12 +1,13 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { Wrapper, Label, Checkmark, ErrorTooltip } from './styled.components';
+import { Wrapper, CheckboxInnerWrapper, Checkmark, ErrorTooltip } from './styled.components';
 
 const Checkbox = forwardRef(({
   id = v4(),
   checked = false,
   message = "",
+  className = "",
   onChange = null,
   onUpdate = null,
   children = null
@@ -70,34 +71,47 @@ const Checkbox = forwardRef(({
       return;
 
     return (
-      <ErrorTooltip>
+      <ErrorTooltip className="qtd-checkbox-error-tooltip">
         {errorMessage}
       </ErrorTooltip>
     );
 
   }
 
+  const getClassNames = () => {
+
+    let names = "qtd-checkbox";
+
+    if ( isChecked ) names += " qtd-checkbox-selected";
+    if ( errorMessage ) names += " qtd-checkbox-error";
+    if ( className !== "" && className !== null ) names += " " + className;
+
+    return names;
+
+  }
+
   const getCheckbox = () => (
 
-    <Wrapper>
-      <Label>
+    <Wrapper className={getClassNames()}>
+      <CheckboxInnerWrapper className="qtd-checkbox-inner-wrapper">
         <Checkmark
+          className="qtd-checkbox-checkmark"
           errorBorder = {errorMessage !== null}
           isChecked = {isChecked}
           isNormal = {!isChecked && errorMessage === null}
         />
-        <span>{children}</span>
-      </Label>
-      <div>
-        <input
-          id={id}
-          type="checkbox"
-          checked={isChecked}
-          value={isChecked}
-          onChange={handleCheckboxChange}
-          ref={ref}
-        />
-      </div>
+        <span className="qtd-checkbox-label">
+          {children}
+        </span>
+      </CheckboxInnerWrapper>
+      <input
+        id={id}
+        type="checkbox"
+        checked={isChecked}
+        value={isChecked}
+        onChange={handleCheckboxChange}
+        ref={ref}
+      />
       { getErrorTooltip() }
     </Wrapper>
 

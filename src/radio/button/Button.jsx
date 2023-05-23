@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 } from 'uuid';
 import Image from '../../image/index.jsx';
 
-import s from './style.module.scss';
+import { CheckIcon, ErrorBorder, InnerButton, Label, Left, PreIcon, SimpleButton, Wrapper } from './styled.components.js';
 
 export default function Button(props) {
     
@@ -30,12 +30,12 @@ export default function Button(props) {
     
     if ( icon )
       return (
-        <div className={s.preIcon + " " + icon}></div>
+        <PreIcon className={"qtd-icon qtd-pre-icon " + icon} />
       )
     
     if ( image )
       return (
-        <Image src={image} height="20" brokenHeight="20" />
+        <Image className="qtd-image" src={image} height="20" brokenHeight="20" />
       )
 
     return null;
@@ -48,27 +48,28 @@ export default function Button(props) {
       return;
 
     return (
-      <div className={s.checkIcon + " qt-web-check"} />
+      <CheckIcon className={"qtd-icon qtd-check-icon qt-web-check"} />
     )
 
   }
 
-  const getRadioStyle = () => {
+  const getClassNames = () => {
 
-    let style = s.radio;
-    if ( hasError ) style += " " + s.error;
-    return style;
+    let names = "qtd-radio";
+    if ( checked ) names += " qtd-radio-selected";
+    if ( hasError ) names += " qtd-radio-error";
+    return names;
 
   }
 
   const getInnerButton = () => (
-    <div className={s.innerButton}>
-      <div className={s.left}>
+    <InnerButton className="qtd-radio-default-button">
+      <Left className="qtd-radio-content">
         { getIcon() }
         <span>{children}</span>
-      </div>
+      </Left>
       { getCheckIcon() }
-    </div>
+    </InnerButton>
   )
 
   const getAsButton = () => {
@@ -103,9 +104,9 @@ export default function Button(props) {
   }
 
   const getSimpleButton = () => (
-    <div className={s.simpleButton}>
+    <SimpleButton className="qtd-radio-primary-button">
       <span>{children}</span>
-    </div>
+    </SimpleButton>
   );
 
   const getButtonByType = () => {
@@ -124,9 +125,22 @@ export default function Button(props) {
 
   }
 
+  /**
+   * 
+   */
+  const getErrorBorder = () => {
+
+    if ( !hasError ) return null;
+
+    return (
+      <ErrorBorder className={"qtd-error-border"} />
+    );
+
+  }
+  
   return (
 
-    <div className={getRadioStyle()}>
+    <Wrapper className={getClassNames()}>
       <input
         type="radio"
         onChange={handleOnChange}
@@ -136,10 +150,17 @@ export default function Button(props) {
         checked={checked}
         aria-checked={checked}
       />
-      <label htmlFor={id}>
-        { (component !== null ? getAsButton() : getButtonByType()) }
-      </label>
-    </div>
+      <Label className="qtd-radio-label" htmlFor={id}>
+        { 
+          component !== null 
+            ? <div className="qtd-radio-custom-button">
+                { getAsButton() }
+              </div> 
+            : getButtonByType() 
+        }
+        { getErrorBorder() }
+      </Label>
+    </Wrapper>
 
   )
 

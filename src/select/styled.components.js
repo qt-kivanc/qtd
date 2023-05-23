@@ -13,28 +13,28 @@ const getBySize = () => {
     &.qtd-select-xs {
       .qtd-select-selector {
         height: 24px; 
-        padding: 0px 2px 0px 6px;
+        padding: 0px 15px 0px 15px;
       }
     }
 
     &.qtd-select-sm {
       .qtd-select-selector {
         height: 28px; 
-        padding: 0px 6px 0px 10px;
+        padding: 0px 15px 0px 15px;
       }
     }
 
     &.qtd-select-md {
       .qtd-select-selector {
         height: 32px; 
-        padding: 0px 5px 0px 10px;
+        padding: 0px 15px 0px 15px;
       }
     }
 
     &.qtd-select-lg {
       .qtd-select-selector {
         height: 46px; 
-        padding: 0px 10px 0px 15px;
+        padding: 0px 15px 0px 15px;
       }
     }
 
@@ -494,6 +494,31 @@ const Wrapper = styled.div`
   // DISABLED
   /* ------------------------ */
   ${ () => getDisabled() }
+
+`
+
+const StatusCore = styled.div`
+
+  margin: 0;
+  margin-right: 0px;
+  color: #ffffffCC;
+  float: left;
+  font-size: 10px;
+  line-height: 10px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &::before {
+    padding: 4px;
+    border-radius: 50px;
+  }
 
 `
   

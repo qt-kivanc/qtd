@@ -1,5 +1,5 @@
-import { keyframes } from 'styled-components';
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 
 const Wrapper = styled.div`
   position: fixed;

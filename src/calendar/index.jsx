@@ -204,9 +204,19 @@ const Calendar = forwardRef((props, ref) => {
 
   };
 
+  const getClassNames = () => {
+
+    let names = "qtd-calendar";
+
+    if ( className !== "" ) names += " " + className;
+    
+    return names;
+
+  }
+
   const getCalendar = () => (
 
-    <Wrapper className={className}>
+    <Wrapper className={getClassNames()}>
       <Header 
         month={data.months[monthOrder()-1]}
         year={year()}
@@ -215,11 +225,11 @@ const Calendar = forwardRef((props, ref) => {
         onNextYear={() => onNext("year")}
         onNextMonth={() => onNext("month")}
       />
-      <Separator />
-      <WeekShortDays>
+      <Separator className="qtd-calendar-separator" />
+      <WeekShortDays className="qtd-calendar-weekdays">
         { getWeekShortDays() }
       </WeekShortDays>
-      <Days>
+      <Days className="qtd-calendar-days">
         { getDays() }
       </Days>
     </Wrapper>
