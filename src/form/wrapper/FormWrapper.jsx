@@ -6,6 +6,7 @@ import { getChildrenDeep } from 'react-nanny';
 
 import useMultiQuery from '../../hooks/useMultiQuery'
 import useSingleQuery from '../../hooks/useSingleQuery'
+import FormItem from '../item/FormItem';
 
 const FormWrapper = forwardRef(({
   name = "",
@@ -32,9 +33,11 @@ const FormWrapper = forwardRef(({
 
   useEffect(() => {
 
-    setChildrens();
+    if ( children ) {
+      setChildrens();
+    }
 
-  }, []);
+  }, [children]);
 
   useEffect(() => {
 
@@ -57,7 +60,7 @@ const FormWrapper = forwardRef(({
 
   useEffect(() => {
     
-   checkInitials();
+    checkInitials();
 
   }, [initialValues]);
 
@@ -80,7 +83,7 @@ const FormWrapper = forwardRef(({
   }, [form.updated]);
 
   useEffect(() => {
-    
+
     if ( onValidated && form.isFormValid() !== isValid ) {
       onValidated(form.isFormValid());
     }
@@ -346,12 +349,10 @@ const FormWrapper = forwardRef(({
     getChildrenDeep(children, (child) => {
       
       if ( child.hasOwnProperty("type") ) {
-        if ( child.type.hasOwnProperty("name") ) {
-          if ( child.type.name === "FormItem" ) {
-            items.push({
-              [child.props.name]: child
-            });
-          }
+        if ( child.type === FormItem ) {
+          items.push({
+            [child.props.name]: child
+          });
         }
       }
       

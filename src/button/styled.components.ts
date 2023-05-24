@@ -630,7 +630,7 @@ const WrapperContent = css<{
     }
   }
 
-  &:not(.qtd-button-link) {
+  &:not(&.qtd-button-link) {
     padding: 0 10px;
   }
   
@@ -736,8 +736,8 @@ const Link = styled(ALink)`
   ${WrapperContent}
   `
 
-const A = styled.a`
+const ClickButton = styled.button`
   ${WrapperContent}
   `
 
-export { SVG, Hide, Image, CoreButton, Link, A, Icon };
+export { SVG, Hide, Image, CoreButton, Link, ClickButton, Icon };

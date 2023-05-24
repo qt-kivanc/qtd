@@ -107,7 +107,9 @@ MODE.forEach((m) => {
     external: getDependencies(),
     plugins: [
 
-      resolve(),
+      resolve({
+        extensions: ['.*', '.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.css']
+      }),
       localResolve(),
       typescript(
         {

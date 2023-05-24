@@ -52,6 +52,7 @@ const Input = forwardRef(({
   const [keepFocused, SetKeepFocused] = useState(false);
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
   const [floatValue, SetFloatValue] = useState("");
+  const [readOnly, SetReadOnly] = useState(true);
 
   /**
    * 
@@ -218,6 +219,12 @@ const Input = forwardRef(({
    */
   const handleOnFocus = (event) => {
 
+    // Tarayıcılar AutoComplete yapmasın diye ReadOnly ayarlanan
+    // field'ın tıklanınca ReadOnly özelliğini kapatır.
+    if ( !autoComplete && readOnly ) {
+      SetReadOnly(false);
+    }
+
     if ( onFocus ) {
       onFocus(event);
     }
@@ -272,16 +279,16 @@ const Input = forwardRef(({
   const getInput = () => {
 
     let inputProps = {
-      id:id,
-      placeholder:label,
-      value:currentValue,
-      type:type,
-      message:message,
-      className:getInputStyle(),
-      onFocus:handleOnFocus,
-      onBlur:handleOnBlur,
-      onKeyDown:handleKeyDown,
-      disabled:disabled || locked
+      id: id,
+      placeholder: label,
+      value: currentValue,
+      type: type,
+      message: message,
+      className: getInputStyle(),
+      onFocus: handleOnFocus,
+      onBlur: handleOnBlur,
+      onKeyDown: handleKeyDown,
+      disabled: disabled || locked
     };
 
     if ( locked ) {
@@ -294,14 +301,20 @@ const Input = forwardRef(({
         autoComplete: id
       }
     }
+    else {
+      inputProps = {
+        ...inputProps,
+        readOnly: readOnly // Tarayıcıların AutoComplete yapmasını engeller
+      }
+    }
 
     if ( mask ) {
 
       inputProps = {
         ...inputProps,
-        mask:mask, 
-        maskPlaceholder:"_",
-        alwaysShowMask:false,
+        mask: mask, 
+        maskPlaceholder: "_",
+        alwaysShowMask: false,
         onChange: onHandleChange,
         //beforeMaskedValueChange:this.beforeMaskedValueChange
       }
@@ -320,9 +333,9 @@ const Input = forwardRef(({
           maxLength: maxLength,
           value: floatValue,
           onValueChange: handleAmountChange,
-          thousandSeparator:".",
-          decimalSeparator:",",
-          getInputRef:inputRef
+          thousandSeparator: ".",
+          decimalSeparator: ",",
+          getInputRef: inputRef
         }
         
         return (

@@ -7,57 +7,57 @@
 /**
  * CONTEXT PROVIDER
  */
-export { QTDProvider } from './context/QTDContext.jsx';
+export { QTDProvider } from './context/QTDContext';
 
 /**
  * CONTEXT
  */
-export { default as QTDContext } from './context/QTDContext.jsx';
+export { default as QTDContext } from './context/QTDContext';
 
 /**
  * FORWARDED REF COMPONENTS
  */
 export { default as Select } from './select/index';
-export { default as Form } from './form/index.jsx';
-export { default as Checkbox } from './checkbox/index.jsx';
-export { default as AccordionMenu } from './accordionmenu/index.jsx';
-export { default as Calendar } from './calendar/index.jsx';
-export { default as DatePicker } from './datepicker/index.jsx';
-export { default as Input } from './input/index.jsx';
-export { default as Toggle } from './toggle/index.jsx';
-export { default as Tooltip } from './tooltip/index.jsx';
+export { default as Form } from './form/index';
+export { default as Checkbox } from './checkbox/index';
+export { default as AccordionMenu } from './accordionmenu/index';
+export { default as Calendar } from './calendar/index';
+export { default as DatePicker } from './datepicker/index';
+export { default as Input } from './input/index';
+export { default as Toggle } from './toggle/index';
+export { default as Tooltip } from './tooltip/index';
 
 /**
  * COMPONENTS (HAS SUB COMPONENTS)
  */
-export { default as Collapse } from './collapse/index.jsx';
-export { default as ModalManager } from './modal/index.jsx';
-export { default as Notification } from './notification/index.jsx';
-export { default as Radio } from './radio/index.jsx';
-export { default as MultiSelect } from './multiselect/index.jsx';
+export { default as Collapse } from './collapse/index';
+export { default as ModalManager } from './modal/index';
+export { default as Notification } from './notification/index';
+export { default as Radio } from './radio/index';
+export { default as MultiSelect } from './multiselect/index';
 
 /**
  * COMPONENTS
  */
-export { default as Image } from './image/index.jsx';
-export { default as ConsoleLog } from './logger/index.js';
+export { default as Image } from './image/index';
+export { default as ConsoleLog } from './logger/index';
 export { default as Button } from './button/index';
-export { default as Result } from './result/index.jsx';
-export { default as ALink } from './alink/index.jsx';
-export { default as Spin } from './spin/index.jsx';
-export { default as BackTop } from './back-top/index.jsx';
-export { default as Status } from './status/index.jsx';
-export { default as TinyScrollbar } from './tinyscrollbar/index.jsx';
+export { default as Result } from './result/index';
+export { default as ALink } from './alink/index';
+export { default as Spin } from './spin/index';
+export { default as BackTop } from './back-top/index';
+export { default as Status } from './status/index';
+export { default as TinyScrollbar } from './tinyscrollbar/index';
 
 /**
  * ICONS
  */
-export { default as LockIcon } from './icons/Lock.jsx';
-export { default as ArrowIcon } from './icons/Arrow.jsx';
-export { default as UploadIcon } from './icons/Upload.jsx';
-export { default as BackToTop } from './icons/BackToTop.jsx';
-export { default as Checkmark } from './icons/Checkmark.jsx';
-export { default as MultiSelectArrow } from './icons/MultiSelectArrow.jsx';
+export { default as LockIcon } from './icons/Lock';
+export { default as ArrowIcon } from './icons/Arrow';
+export { default as UploadIcon } from './icons/Upload';
+export { default as BackToTop } from './icons/BackToTop';
+export { default as Checkmark } from './icons/Checkmark';
+export { default as MultiSelectArrow } from './icons/MultiSelectArrow';
 
 /**
  * HOOKS
