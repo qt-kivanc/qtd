@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Spin from '../spin/index.jsx';
-import { SVG, Hide, Image, CoreButton, Link, ClickButton, Icon } from './styled.components';
+import { SVG, Hide, Image, CoreButton, Link, A, ClickButton, Icon } from './styled.components';
 
 interface ButtonProps {
   id: string | null,
@@ -176,17 +176,32 @@ function Button({
    * 
    * @returns 
    */
-  const clickButton = (): JSX.Element => (
+  const clickButton = (): JSX.Element => {
 
-    <ClickButton 
-      className={getClassNames()} 
-      {...getProps()}
-      onClick={(!loading ? onClick : null)}
-    >
-      { getButtonContent() }
-    </ClickButton>
+    if ( type === "link" ) {
+      return (
+        <A 
+          className={getClassNames()} 
+          {...getProps()}
+          onClick={(!loading ? onClick : null)}
+        >
+          { getButtonContent() }
+        </A>
+      )
+    }
+    else {
+      return (
+        <ClickButton 
+          className={getClassNames()} 
+          {...getProps()}
+          onClick={(!loading ? onClick : null)}
+        >
+          { getButtonContent() }
+        </ClickButton>
+      )
+    }
 
-  );
+  };
 
   /**
    * 

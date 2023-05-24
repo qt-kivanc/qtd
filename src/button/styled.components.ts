@@ -740,4 +740,8 @@ const ClickButton = styled.button`
   ${WrapperContent}
   `
 
-export { SVG, Hide, Image, CoreButton, Link, ClickButton, Icon };
+const A = styled.a`
+  ${WrapperContent}
+  `
+
+export { SVG, Hide, Image, CoreButton, Link, A, ClickButton, Icon };
