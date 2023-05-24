@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "es6",
+    "target": "ESNext",
+    "module": "ESNext",
     "checkJs": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "baseUrl": "./",
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "dist/dts",
     "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -35,6 +37,10 @@
       "esnext",
       "dom",
       "dom.iterable"
+    ],
+    "types": [
+      "vite/client", 
+      "vite-plugin-svgr/client"
     ],
     "skipLibCheck": false,
     "strict": false,

@@ -1,5 +1,12 @@
 import styled, {css, keyframes} from 'styled-components';
 
+const bounceAnimation = keyframes`
+  0% { transform: scale(.2) rotate(42deg);}
+  50% { transform: scale(1.3) rotate(48deg);}
+  75% { transform: scale(0.9) rotate(44deg);}
+  100% { transform: scale(1) rotate(45deg);}
+`
+
 const Wrapper = styled.label`
 
   display: flex;
@@ -125,13 +132,6 @@ const ErrorTooltip = styled.span`
 
   }
 
-`
-
-const bounceAnimation = keyframes`
-  0% { transform: scale(.2) rotate(42deg);}
-  50% { transform: scale(1.3) rotate(48deg);}
-  75% { transform: scale(0.9) rotate(44deg);}
-  100% { transform: scale(1) rotate(45deg);}
 `
 
 export { Wrapper, CheckboxInnerWrapper, Checkmark, ErrorTooltip };
