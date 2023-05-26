@@ -15,13 +15,13 @@ interface ButtonProps {
   contentPosition: string,
   type: string,
   size: string,
-  shape: string,
+  circle: boolean,
   target: string,
   icon?: string,
   image?: string,
   svg?: string,
   href?: string,
-  htmlType?: string,
+  isSubmit?: boolean,
   className?: string,
   onClick(): void | null,
   children?: React.ReactNode
@@ -38,13 +38,13 @@ const Button = ({
   contentPosition = "left",
   type = "default",
   size = "default",
-  shape = "",
+  circle = false,
   target = "_self",
   icon = "",
   image = "",
   svg = "",
   href = "",
-  htmlType = "",
+  isSubmit = false,
   className = "",
   children = null,
   onClick = () => null,
@@ -160,9 +160,9 @@ const Button = ({
     let names = "qtd-button qtd-button-" + type;
 
     if ( getSize() !== "" ) names += " qtd-button-" + getSize();
-    if ( selected )         names += " qtd-button-selected";
-    if ( stretch )          names += " qtd-button-stretch";
-    if ( shape  !== "" && shape !== null ) names += " qtd-button-" + shape;
+    if ( selected ) names += " qtd-button-selected";
+    if ( stretch ) names += " qtd-button-stretch";
+    if ( circle ) names += " qtd-button-circle";
     if ( svg    !== "" && svg   !== null ) names += " qtd-svg";
     if ( icon   !== "" && icon  !== null ) names += " qtd-icon";
     if ( image  !== "" && image !== null ) names += " qtd-image";
@@ -239,7 +239,7 @@ const Button = ({
 
   const getButton = (): JSX.Element => {
     
-    if ( htmlType === "submit" ) {
+    if ( isSubmit ) {
       return submitButton();
     }
 

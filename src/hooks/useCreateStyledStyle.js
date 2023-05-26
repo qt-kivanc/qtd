@@ -4,9 +4,9 @@ import { nanoid } from 'nanoid';
 
 import FindSelector from "../helpers/css/FindSelector";
 
-var postcss = require("postcss")
-var calc = require("postcss-calc");
-var postcssNested = require("postcss-nested");
+import postcss from "postcss";
+import calc from "postcss-calc";
+import postcssNested from "postcss-nested";
 
 /**
  * 

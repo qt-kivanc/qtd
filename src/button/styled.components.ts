@@ -611,6 +611,17 @@ const WrapperContent = css<{
   justify: string
 }>`
 
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+
+  &:focus, &:active, &:focus-within {
+    outline: 0;
+    box-shadow: none;
+  }
+
   display: flex;
   align-items: center;
   position: relative;

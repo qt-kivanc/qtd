@@ -3,9 +3,9 @@ import { v4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 import TinyScrollbar from '../../tinyscrollbar/index.jsx';
-import useCreateStyledStyle from '../../hooks/useCreateStyledStyle.js';
 
-import { Wrapper, BodyWrapper, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive } from './styled.components';
+import { Wrapper, BodyWrapper } from './styled.components';
+import s from './style.module.scss';
 
 export default function Menu(props) {
   
@@ -26,19 +26,6 @@ export default function Menu(props) {
   const [directionType, SetDirectionType] = useState("right");
   const [selected, SetSelected] = useState([]);
   //const [maxItemWidth, SetMaxItemWidth] = useState(0);
-
-  /**
-   * Styled Components
-   */
-   const [modalEnterClass, SetModalEnterClass] = useState("");
-   const [modalEnterActiveClass, SetModalEnterActiveClass] = useState("");
-   const [modalExitClass, SetModalExitClass] = useState("");
-   const [modalExitActiveClass, SetModalExitActiveClass] = useState("");
- 
-   useCreateStyledStyle(ModalEnter, (id) => SetModalEnterClass(id));
-   useCreateStyledStyle(ModalEnterActive, (id) => SetModalEnterActiveClass(id));
-   useCreateStyledStyle(ModalExit, (id) => SetModalExitClass(id));
-   useCreateStyledStyle(ModalExitActive, (id) => SetModalExitActiveClass(id));
 
   useEffect(() => {
 
@@ -162,10 +149,10 @@ export default function Menu(props) {
       in={isOpen}
       timeout={500}
       classNames={{
-        enter: modalEnterClass,
-        enterActive: modalEnterActiveClass,
-        exit: modalExitClass,
-        exitActive: modalExitActiveClass
+        enter: s.modalEnterClass,
+        enterActive: s.modalEnterActiveClass,
+        exit: s.modalExitClass,
+        exitActive: s.modalExitActiveClass
       }}
       nodeRef={nodeRef}
       unmountOnExit

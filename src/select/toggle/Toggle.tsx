@@ -13,7 +13,7 @@ import {
 interface ToggleProps {
   label?: string,
   value: string | object,
-  errorMessage: string | null,
+  errorMessage: string,
   isOpen: boolean,
   locked: boolean,
   labelType: string,

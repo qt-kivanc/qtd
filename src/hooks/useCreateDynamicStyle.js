@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import autoprefixer from 'autoprefixer';
 import { nanoid } from 'nanoid';
 
-var postcss = require("postcss");
-var calc = require("postcss-calc");
-var postcssNested = require("postcss-nested");
+import postcss from "postcss";
+import calc from "postcss-calc";
+import postcssNested from "postcss-nested";
 
 /**
  * 

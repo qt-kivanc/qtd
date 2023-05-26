@@ -385,7 +385,7 @@ const Input = forwardRef(({
 
   const getPrefix = () => {
 
-    if ( !prefix ) return null;
+    if ( !prefix ) return;
 
     return (
       <Prefix className="qtd-input-prefix">
@@ -400,7 +400,7 @@ const Input = forwardRef(({
    */
   const getSuffix = () => {
 
-    if ( !prefix && locked && errorMessage !== "" ) return null;
+    if ( !prefix && locked && errorMessage !== "" ) return;
 
     return (
       <Suffix className="qtd-input-suffix">
@@ -489,7 +489,7 @@ const Input = forwardRef(({
     if ( getVariant() !== "" )  names += " qtd-input-" + getVariant();
     if ( locked ) names += " qtd-input-locked";
     if ( mask )   names += " qtd-input-masked";
-    if ( className !== "" && className !== null ) names += " " + className;
+    if ( className !== "" ) names += " " + className;
 
     return names;
 
