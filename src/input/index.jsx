@@ -15,7 +15,7 @@ const Input = forwardRef(({
 
   id = v4(),
   label = "", 
-  message = null,
+  message = "",
   value = "",
   defaultValue = "",
   type = "text",
@@ -48,7 +48,7 @@ const Input = forwardRef(({
   const inputRef = useRef(null);
 
   const [currentValue, SetCurrentValue] = useState("");
-  const [errorMessage, SetErrorMessage] = useState(null);
+  const [errorMessage, SetErrorMessage] = useState("");
   const [keepFocused, SetKeepFocused] = useState(false);
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
   const [floatValue, SetFloatValue] = useState("");
@@ -156,7 +156,7 @@ const Input = forwardRef(({
 
     reset(update = true, validation = true) {
       SetFloatValue("");
-      SetErrorMessage(null);
+      SetErrorMessage("");
       sendUpdates("", update, validation);
     },
 
@@ -194,7 +194,7 @@ const Input = forwardRef(({
 
     let value = e.target.value;
 
-    //SetErrorMessage(null);
+    //SetErrorMessage("");
 
     const validation = mask && (
       value.replace(/\D+/g, '').length < mask.replace(/\D+/g, '').length
@@ -400,7 +400,7 @@ const Input = forwardRef(({
    */
   const getSuffix = () => {
 
-    if ( !prefix && locked && errorMessage) return null;
+    if ( !prefix && locked && errorMessage !== "" ) return null;
 
     return (
       <Suffix className="qtd-input-suffix">
@@ -424,7 +424,7 @@ const Input = forwardRef(({
    */
   const getErrorBorder = () => {
 
-    if ( !errorMessage ) return null;
+    if ( errorMessage === "" ) return;
 
     return (
       <ErrorBorder className={"qtd-error-border"} />
@@ -437,7 +437,7 @@ const Input = forwardRef(({
    */
   const getErrors = () => {
 
-    if ( !errorMessage ) return null;
+    if ( errorMessage === "" ) return;
 
     return (
 

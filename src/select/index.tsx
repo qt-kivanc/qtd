@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle, ReactElement } from 'react';
 
-import Option from './option/Option.jsx';
-import Toggle from './toggle/Toggle.jsx';
-import Menu from './menu/Menu.jsx';
+import Option from './option/Option';
+import Toggle from './toggle/Toggle';
+import Menu from './menu/Menu';
+import { ReactNode } from 'types/react/ReactNode';
 import useOnClickOutside from '../hooks/useOnClickOutside.js';
 
 // https://github.com/ant-design/ant-design/blob/master/components/select/index.tsx#L3
 // https://github.com/react-component/select/blob/master/package.json
 
 import { Wrapper } from './styled.components.js';
+import { OptionProps } from 'interfaces/OptionProps.js';
 
 export type SelectRefType = {
   reset: (update: boolean, validation: boolean) => void,
@@ -19,34 +21,38 @@ export type SelectRefType = {
 
 interface SelectProps {
 
-  defaultValue: string,
-  value: string,
+  defaultValue: string | object,
+  value: string | object,
   position: string,
   direction: string,
   mode: string,
   size: string,
   type: string,
   className?: string,
-  icon?: string | null,
-  image?: string | null,
+  icon?: string,
+  image?: string,
   floating?: boolean | null,
   disabled: boolean,
   locked: boolean,
-  children?: React.ReactElement,
+  children?: ReactNode,
   reset(update: boolean, validation: boolean):void,
-  onChange(value: string): void | null,
-  onUpdate(value: string, update: boolean, validation: boolean): void | null
+  onChange(value: string | object): void | null,
+  onUpdate(value: string | object, update: boolean, validation: boolean): void | null
   
 }
 
 interface SelectComponent extends React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLDivElement>> {
-  Option: React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>;
+  Option: React.ForwardRefExoticComponent<OptionProps & React.RefAttributes<HTMLDivElement>>;
 }
 
-const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref): JSX.Element => {
+const Select = forwardRef<SelectRefType, SelectProps>(
+  (
+    props, 
+    ref
+  ): JSX.Element => 
+{
 
   const {
-    
     defaultValue = "",
     value = "",
     position = "bottom",
@@ -55,22 +61,21 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     size = "default",
     type = "default",
     className = "",
-    icon = null,
-    image = null,
+    icon = "",
+    image = "",
     disabled = false,
     locked = false,
     floating = false,
     children = null,
     onChange = () => null,
     onUpdate = () => null
+  }: SelectProps = props;
   
-  } = props;
-
   const wrapperRef = useRef(null);
 
   const [isOpen, SetIsOpen] = useState<boolean>(false);
   const [currentValue, SetCurrentValue] = useState<object | string>(mode === "single" ? "" : []);
-  const [errorMessage, SetErrorMessage] = useState<null | string>(null);
+  const [errorMessage, SetErrorMessage] = useState<string>("");
 
   useEffect(() => {
     checkAndSetNewValue(defaultValue);
@@ -80,7 +85,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     checkAndSetNewValue(value);
   }, [value, children]);
 
-  const checkAndSetNewValue = (value: string) => {
+  const checkAndSetNewValue = (value: string | object) => {
   
     if ( mode === "single" ) {
       SetCurrentValue(value);
@@ -113,7 +118,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
    * @param update 
    * @param validation 
    */
-  const sendUpdates = (value: string, update: boolean = true, validation: boolean = true) => {
+  const sendUpdates = (value: string | object, update: boolean = true, validation: boolean = true) => {
 
     if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
@@ -127,7 +132,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
 
     reset(update: boolean = true, validation: boolean = true) {
       SetCurrentValue(defaultValue);  
-      SetErrorMessage(null);
+      SetErrorMessage("");
       sendUpdates(defaultValue, update, validation);
     },
 
@@ -141,7 +146,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     },
 
     setError(message: string | null) {
-      SetErrorMessage(message);
+      SetErrorMessage(!message ? "" : message);
     }
 
   }));
@@ -164,7 +169,7 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
    */
   const onHandleChange = (value: string) => {
     
-    SetErrorMessage(null);
+    SetErrorMessage("");
     sendUpdates(value);
 
     if ( mode === "single" ) {
@@ -234,9 +239,9 @@ const Select = forwardRef<SelectRefType, SelectProps>((props: SelectProps, ref):
     if ( getSize() !== "" ) names += " qtd-select-" + getSize();
     if ( isOpen ) names += " qtd-select-open";
     if ( errorMessage ) names += " qtd-select-status-error";
-    if ( icon   !== "" && icon  !== null ) names += " qtd-icon";
-    if ( image  !== "" && image !== null ) names += " qtd-image";
-    if ( className !== "" && className !== null ) names += " " + className;
+    if ( icon !== "" ) names += " qtd-icon";
+    if ( image !== "" ) names += " qtd-image";
+    if ( className !== "" ) names += " " + className;
 
     return names;
 

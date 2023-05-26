@@ -47,6 +47,7 @@
     "paths": {
       "context/*": ["src/context/*"],
       "types/*": ["src/types/*"],
+      "interfaces/*": ["src/interfaces/*"],
       "utils/*": ["src/utils/*"],
       "hooks/*": ["src/hooks/*"],
       "./*": ["./node_modules/"]

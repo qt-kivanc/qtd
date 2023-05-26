@@ -45,7 +45,7 @@ const DatePicker = forwardRef((props, ref) => {
   
   const [inputValue, SetInputValue] = useState("");
   const [enteredValue, SetEnteredValue] = useState(defaultValue);
-  const [errorMessage, SetErrorMessage] = useState(null);
+  const [errorMessage, SetErrorMessage] = useState("");
   const [isOpen, SetIsOpen] = useState(false);
 
   /**
@@ -76,7 +76,7 @@ const DatePicker = forwardRef((props, ref) => {
   useEffect(() => {
 
     if ( inputRef.current ) {
-      inputRef.current.setError(errorMessage === "" ? null : errorMessage);
+      inputRef.current.setError(errorMessage);
     }
 
   }, [errorMessage]);
@@ -121,7 +121,7 @@ const DatePicker = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
 
     reset(update = true, validation = true) {
-      SetErrorMessage(null);
+      SetErrorMessage("");
       SetEnteredValue(defaultValue);
       sendUpdates(defaultValue, update, validation, true);
     },
@@ -223,7 +223,7 @@ const DatePicker = forwardRef((props, ref) => {
       global: moment(value, dateFormat, locale).format("YYYY-MM-DD")
     };
 
-    SetErrorMessage(null);
+    SetErrorMessage("");
 
     if ( isValid ) {
       sendUpdates(date);

@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Wrapper, Label, InputWrapper } from './styled.components';
 
-export default function SingleLabel(props) {
-  
-  const { 
+interface SingleLabelProps {
+  value: string | object,
+  label: string,
+  size: string
+}
 
-    label = "", 
-    size = "default", 
-    value = "",
+const SingleLabel = ({
+  value = "",
+  label = "",
+  size = "default"
+}:SingleLabelProps) => {
 
-  } = props;
+  const [sizeStyle, SetSizeStyle] = useState<string>("");
+  const [labelValue, SetLabelValue] = useState<string | object>("");
+  const [labelTitle, SetLabelTitle] = useState<string>("");
 
-  const [sizeStyle, SetSizeStyle] = useState("");
-  const [labelValue, SetLabelValue] = useState("");
-  const [labelTitle, SetLabelTitle] = useState("");
   /*
   useEffect(() => {
 
@@ -23,15 +26,15 @@ export default function SingleLabel(props) {
   }, []);
   */
   useEffect(() => {
-    SetSizeStyle(size ? size : "");
+    SetSizeStyle(size);
   }, [size]);
   
   useEffect(() => {
-    SetLabelTitle(label ? label : "");
+    SetLabelTitle(label);
   }, [label]);
   
   useEffect(() => {
-    SetLabelValue(value ? value : "");
+    SetLabelValue(value);
   }, [value]);
 
   const getInput = () => (
@@ -56,3 +59,5 @@ export default function SingleLabel(props) {
   return getInput();
 
 }
+
+export default SingleLabel;

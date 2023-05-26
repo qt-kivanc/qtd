@@ -5,7 +5,7 @@ import { GroupWrapper } from './styled.components';
 const Group = forwardRef(({
 
   name = "",
-  message = null,
+  message = "",
   type = "default",
   defaultValue = "",
   value = "",
@@ -50,7 +50,7 @@ const Group = forwardRef(({
 
     reset(update = true, validation = true) {
       SetSelected(defaultValue);
-      SetErrorMessage(null);
+      SetErrorMessage("");
       sendUpdates(defaultValue, update, validation);
     },
 
@@ -75,7 +75,7 @@ const Group = forwardRef(({
     
     SetSelected(value);
     sendUpdates(value, true, false);
-    SetErrorMessage(null);
+    SetErrorMessage("");
 
   }
 
@@ -108,7 +108,7 @@ const Group = forwardRef(({
           ...element.props,
           checked: selected === element.props.value,
           onChange: onClickRadioButton,
-          hasError:(errorMessage !== null),
+          hasError:(errorMessage !== ""),
           name: name,
           type: type
         })

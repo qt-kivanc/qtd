@@ -1,39 +1,38 @@
 import React, { useState } from 'react';
 
-import Checkbox from '../../checkbox/index.jsx';
 //import useComponentSize from '../../hooks/useComponentSize.js';
+import Checkbox from '../../checkbox/index';
+import { OptionProps } from 'interfaces/OptionProps';
 
 import { Wrapper, ImageWrapper, PreIcon, Single } from './styled.components';
 
-const Option = (props) => {
-
-  const {
-    icon = null,
-    image = null,
-    value = "",
-    mode = "single",
-    checked = false,
-    onChange = null,
-    children = null
-  } = props;
+const Option = ({
+  icon = "",
+  image = "",
+  value = "",
+  mode = "single",
+  checked = false,
+  onChange = () => null,
+  children = null
+}:OptionProps) => {
 
   const [buttonHoverState, SetButtonHoverState] = useState(false);
 
-  const onButtonClick = (event) => {
+  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
 
     onChange(value, !checked, children);
     event.stopPropagation();
 
   }
 
-  const onButtonOver = (event) => {
+  const onButtonOver = (event: React.MouseEvent<HTMLElement>) => {
 
     SetButtonHoverState(true);
     event.stopPropagation();
 
   }
 
-  const onButtonOut = (event) => {
+  const onButtonOut = (event: React.MouseEvent<HTMLElement>) => {
 
     SetButtonHoverState(false);
     event.stopPropagation();
@@ -45,7 +44,7 @@ const Option = (props) => {
     if ( image ) {
       return (
         <ImageWrapper className="qtd-image">
-          <img className="qtd-select-option-image" src={image} height="20" alt={value} />
+          <img className="qtd-select-option-image" src={image} height="20" alt={String(value)} />
         </ImageWrapper>
       );
     }
@@ -75,7 +74,7 @@ const Option = (props) => {
     else {
       return (
         <Checkbox className="qtd-item-multi" checked={checked}>
-          {children}
+          { children }
         </Checkbox>
       )
     }
@@ -96,9 +95,9 @@ const Option = (props) => {
   return(
 
     <Wrapper 
-      onClick={(e) => onButtonClick(e)} 
-      onMouseEnter={(e) => onButtonOver(e)}
-      onMouseLeave={(e) => onButtonOut(e)}
+      onClick={onButtonClick} 
+      onMouseEnter={onButtonOver}
+      onMouseLeave={onButtonOut}
       className={ getClassNames() }
     >
 

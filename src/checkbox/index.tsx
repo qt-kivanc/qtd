@@ -1,20 +1,42 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { v4 } from 'uuid';
+
+import { ReactNode } from 'types/react/ReactNode';
 
 import { Wrapper, CheckboxInnerWrapper, Checkmark, ErrorTooltip } from './styled.components';
 
-const Checkbox = forwardRef(({
-  id = v4(),
-  checked = false,
-  message = "",
-  className = "",
-  onChange = null,
-  onUpdate = null,
-  children = null
-}, ref) => {
+export type CheckboxRefType = {
+  reset: (update: boolean, validation: boolean) => void,
+  getValue: () => boolean,
+  setError: (message: string) => void
+};
+
+interface CheckboxProps {
+
+  id?: string,
+  checked: boolean,
+  className?: string,
+  onChange?(value: string | object | boolean): void | null,
+  onUpdate?(value: string | object | boolean, update: boolean, validation: boolean): void | null
+  children?: ReactNode
+}
+
+const Checkbox = forwardRef<CheckboxRefType, CheckboxProps>(
+  (
+    {
+      id = v4(),
+      checked = false,
+      className = "",
+      children = null,
+      onChange = () => null,
+      onUpdate = () => null
+    }: CheckboxProps, 
+    ref
+  ): JSX.Element => 
+{
   
-  const [isChecked, SetIsChecked] = useState(checked);
-  const [errorMessage, SetErrorMessage] = useState(null);
+  const [isChecked, SetIsChecked] = useState<boolean>(checked);
+  const [errorMessage, SetErrorMessage] = useState<string>("");
 
   useEffect( () => {
 
@@ -30,17 +52,17 @@ const Checkbox = forwardRef(({
    */
   useImperativeHandle(ref, () => ({
 
-    reset(update = true, validation = true) {
+    reset(update: boolean = true, validation: boolean = true) {
       SetIsChecked(checked);
-      SetErrorMessage(null);
+      SetErrorMessage("");
       sendUpdates(checked, update, validation);
     },
 
-    getValue() {
+    getValue(): boolean {
       return isChecked;
     },
     
-    setError(message) {
+    setError(message: string) {
       SetErrorMessage(message);
     }
 
@@ -50,7 +72,7 @@ const Checkbox = forwardRef(({
   const handleCheckboxChange = () => {
 
     if (!isChecked) {
-      SetErrorMessage(null);
+      SetErrorMessage("");
     }
 
     SetIsChecked(!isChecked);
@@ -58,7 +80,7 @@ const Checkbox = forwardRef(({
     
   }
 
-  const sendUpdates = (value, update = true, validation = true) => {
+  const sendUpdates = (value: string | object | boolean, update: boolean = true, validation: boolean = true) => {
 
     if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
@@ -67,8 +89,7 @@ const Checkbox = forwardRef(({
 
   const getErrorTooltip = () => {
 
-    if ( errorMessage === "" || !errorMessage )
-      return;
+    if ( errorMessage === "" ) return;
 
     return (
       <ErrorTooltip className="qtd-checkbox-error-tooltip">
@@ -83,8 +104,8 @@ const Checkbox = forwardRef(({
     let names = "qtd-checkbox";
 
     if ( isChecked ) names += " qtd-checkbox-selected";
-    if ( errorMessage ) names += " qtd-checkbox-error";
-    if ( className !== "" && className !== null ) names += " " + className;
+    if ( errorMessage !== "" ) names += " qtd-checkbox-error";
+    if ( className !== "" ) names += " " + className;
 
     return names;
 
@@ -96,9 +117,9 @@ const Checkbox = forwardRef(({
       <CheckboxInnerWrapper className="qtd-checkbox-inner-wrapper">
         <Checkmark
           className="qtd-checkbox-checkmark"
-          errorBorder = {errorMessage !== null}
+          errorBorder = {errorMessage !== ""}
           isChecked = {isChecked}
-          isNormal = {!isChecked && errorMessage === null}
+          isNormal = {!isChecked && errorMessage === ""}
         />
         <span className="qtd-checkbox-label">
           {children}
@@ -108,9 +129,8 @@ const Checkbox = forwardRef(({
         id={id}
         type="checkbox"
         checked={isChecked}
-        value={isChecked}
+        value={isChecked.toString()}
         onChange={handleCheckboxChange}
-        ref={ref}
       />
       { getErrorTooltip() }
     </Wrapper>

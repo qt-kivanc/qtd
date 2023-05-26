@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { Wrapper, Label, InputWrapper, HiddenVisually, InputLabel } from './styled.components';
 
-export default function FloatingLabel({
+interface FloatingLabelProps {
+  id?: string,
+  value: string | object,
+  label: string,
+  placeholder: string,
+  size: string
+}
+
+const FloatingLabel = ({
   id = v4(),
   value = "",
   label = "",
   placeholder = "",
   size = "default"
-}) {
+}:FloatingLabelProps) => {
 
-  const [sizeStyle, SetSizeStyle] = useState("default");
-  const [labelValue, SetLabelValue] = useState("");
-  const [labelTitle, SetLabelTitle] = useState("");
-  const [placeholderValue, SetPlaceholderValue] = useState("");
+  const [sizeStyle, SetSizeStyle] = useState<string>("default");
+  const [labelValue, SetLabelValue] = useState<string | object>("");
+  const [labelTitle, SetLabelTitle] = useState<string>("");
+  const [placeholderValue, SetPlaceholderValue] = useState<string>("");
 
   useEffect(() => {
 
@@ -25,15 +33,15 @@ export default function FloatingLabel({
   }, [size]);
 
   useEffect(() => {
-    SetPlaceholderValue(placeholder ? placeholder : "");
+    SetPlaceholderValue(placeholder);
   }, [placeholder]);
 
   useEffect(() => {
-    SetLabelTitle(label ? label : "");
+    SetLabelTitle(label);
   }, [label]);
 
   useEffect(() => {
-    SetLabelValue(value ? value : "");
+    SetLabelValue(value);
   }, [value]);
 
   const getInput = () => (
@@ -69,3 +77,5 @@ export default function FloatingLabel({
   return getInput();
 
 }
+
+export default FloatingLabel;

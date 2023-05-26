@@ -27,7 +27,7 @@ interface ButtonProps {
   children?: React.ReactNode
 }
 
-function Button({
+const Button = ({
   id = null,
   disabled = false,
   loading = false,
@@ -48,7 +48,7 @@ function Button({
   className = "",
   children = null,
   onClick = () => null,
-}:ButtonProps) {
+}:ButtonProps) => {
 
   /**
    * 

@@ -315,12 +315,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
       throw new Error("Reference Error: You must declare the 'setError' function on the component!");
     }
 
-    if ( validation ) {
-      fields[name].field.current.setError(message);
-    }
-    else {
-      fields[name].field.current.setError(null);
-    }
+    fields[name].field.current.setError(validation ? message : "");
 
   }
 
@@ -333,7 +328,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
     fields[name].valid = true;
     
     if ( fields[name].field.current.hasOwnProperty("setError") ) {
-      fields[name].field.current.setError(null);
+      fields[name].field.current.setError("");
     }
     else {
       throw new Error("Reference Error: You must declare the 'setError' function on the component!");

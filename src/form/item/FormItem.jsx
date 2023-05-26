@@ -71,7 +71,7 @@ export default function FormItem({
       return false;
     }
 
-    setFieldError(name, null);
+    setFieldError(name, "");
     return true;
 
   };

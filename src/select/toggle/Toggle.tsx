@@ -1,31 +1,45 @@
 import React, { useEffect, useState } from 'react';
 
-import SingleLabel from './label/single/SingleLabel.jsx';
-import FloatingLabel from './label/floating/FloatingLabel.jsx';
-import Image from '../../image/index.jsx';
-import Arrow from '../../icons/Arrow.jsx';
+import SingleLabel from './label/single/SingleLabel';
+import FloatingLabel from './label/floating/FloatingLabel';
+import Image from '../../image/index';
+import Arrow from '../../icons/Arrow';
 
-import { Wrapper, Label, Icon, PreIcon, ErrorBorder, Failed, ErrorTooltip, LockIconWrapper, Suffix } from './styled.components';
+import { 
+  Wrapper, Label, Icon, PreIcon, ErrorBorder, 
+  Failed, ErrorTooltip, LockIconWrapper, Suffix
+} from './styled.components.js';
 
-export default function Toggle(props) {
+interface ToggleProps {
+  label?: string,
+  value: string | object,
+  errorMessage: string | null,
+  isOpen: boolean,
+  locked: boolean,
+  labelType: string,
+  placeholder?: string,
+  icon?: string,
+  image?: string,
+  size: string, 
+  type: string,
+  onChange(value: boolean): void | null
+}
 
-  const {
+const Toggle = ({
+  label = "",
+  value = "",
+  errorMessage = "",
+  isOpen = false,
+  locked = false,
+  labelType = "single",
+  placeholder = "",
+  icon = "",
+  image = "",
+  size = "default", 
+  type = "default",
+  onChange = () => null
+}:ToggleProps) => {
 
-    label = "",
-    value = "",
-    errorMessage = "",
-    isOpen = false,
-    locked = false,
-    placeholder = null,
-    labelType = "single",
-    onChange = null,
-    icon = null,
-    image = null,
-    size = "default", 
-    type = "default"
-    
-  } = props;
-  
   const [open, SetOpen] = useState(false);
   const [sizeStyle, SetSizeStyle] = useState("");
   const [typeStyle, SetTypeStyle] = useState("");
@@ -61,7 +75,9 @@ export default function Toggle(props) {
    * @param {*} event Zorunlu değil
    * 
    */
-  const onButtonClick = (event) => {
+  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+  
+    if ( !event.target ) return;
 
     SetOpen(!open);
     onChange(!open);
@@ -70,14 +86,14 @@ export default function Toggle(props) {
 
   const getIcon = () => {
     
-    if ( icon )
+    if ( icon !== "" )
       return (
         <PreIcon 
           className={"qtd-icon " + icon} 
         />
       )
     
-    if ( image )
+    if ( image !== "" )
       return (
         <Image 
           src={image} 
@@ -87,7 +103,7 @@ export default function Toggle(props) {
         />
       )
 
-    return null;
+    return;
 
   }
   
@@ -120,7 +136,7 @@ export default function Toggle(props) {
    */
   const getErrorBorder = () => {
 
-    if ( !errorMessage ) return null;
+    if ( errorMessage === "" ) return;
 
     return (
       <ErrorBorder className={"qtd-error-border"} />
@@ -133,12 +149,10 @@ export default function Toggle(props) {
    */
   const getSuffix = () => {
 
-    if (locked && errorMessage) return null;
-
     return (
       <Suffix className="qtd-select-suffix">
         <Icon open={open} className="qtd-select-arrow">
-          <Arrow/>
+          <Arrow />
         </Icon>
         { 
           locked 
@@ -156,7 +170,7 @@ export default function Toggle(props) {
    */
   const getErrors = () => {
 
-    if ( !errorMessage ) return null;
+    if ( errorMessage === "" ) return;
 
     return (
 
@@ -185,7 +199,7 @@ export default function Toggle(props) {
     <Wrapper 
       type={typeStyle}
       size={sizeStyle}
-      onClick={(e) => onButtonClick(e)}
+      onClick={onButtonClick}
       className="qtd-select-selector"
     >
 
@@ -199,3 +213,5 @@ export default function Toggle(props) {
   );
 
 }
+
+export default Toggle;
