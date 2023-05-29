@@ -3,7 +3,6 @@ import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle, Re
 import Option from './option/Option';
 import Toggle from './toggle/Toggle';
 import Menu from './menu/Menu';
-import { ReactNode } from 'types/react/ReactNode';
 import useOnClickOutside from '../hooks/useOnClickOutside.js';
 
 // https://github.com/ant-design/ant-design/blob/master/components/select/index.tsx#L3
@@ -11,6 +10,7 @@ import useOnClickOutside from '../hooks/useOnClickOutside.js';
 
 import { Wrapper } from './styled.components.js';
 import { OptionProps } from 'interfaces/OptionProps.js';
+import { SelectProps } from 'interfaces/SelectProps';
 
 export type SelectRefType = {
   reset: (update: boolean, validation: boolean) => void,
@@ -19,60 +19,36 @@ export type SelectRefType = {
   setError: (message: string | null) => void
 };
 
-interface SelectProps {
-
-  defaultValue: string | object,
-  value: string | object,
-  position: string,
-  direction: string,
-  mode: string,
-  size: string,
-  type: string,
-  placeholder: string,
-  className?: string,
-  icon?: string,
-  image?: string,
-  floating?: boolean | null,
-  disabled: boolean,
-  locked: boolean,
-  children?: ReactNode,
-  reset(update: boolean, validation: boolean):void,
-  onChange(value: string | object): void | null,
-  onUpdate(value: string | object, update: boolean, validation: boolean): void | null
-  
-}
-
 interface SelectComponent extends React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLDivElement>> {
   Option: React.ForwardRefExoticComponent<OptionProps & React.RefAttributes<HTMLDivElement>>;
 }
 
 const Select = forwardRef<SelectRefType, SelectProps>(
   (
-    props, 
+    {
+      defaultValue = "",
+      value = "",
+      label = "",
+      position = "bottom",
+      direction = "right",
+      mode = "single",
+      size = "default",
+      type = "default",
+      className = "",
+      placeholder = "Please Select",
+      icon = "",
+      image = "",
+      disabled = false,
+      locked = false,
+      floating = false,
+      children = null,
+      onChange = () => null,
+      onUpdate = () => null
+    }: SelectProps, 
     ref
   ): JSX.Element => 
 {
 
-  const {
-    defaultValue = "",
-    value = "",
-    position = "bottom",
-    direction = "right",
-    mode = "single",
-    size = "default",
-    type = "default",
-    className = "",
-    placeholder = "Please Select",
-    icon = "",
-    image = "",
-    disabled = false,
-    locked = false,
-    floating = false,
-    children = null,
-    onChange = () => null,
-    onUpdate = () => null
-  }: SelectProps = props;
-  
   const wrapperRef = useRef(null);
 
   const [isOpen, SetIsOpen] = useState<boolean>(false);
@@ -188,7 +164,7 @@ const Select = forwardRef<SelectRefType, SelectProps>(
   const getOptions = () => {
 
     return React.Children.map(children, (child:ReactElement) => {
-
+      
       if ( !child ) return;
       if ( !child.hasOwnProperty("type") ) return;
       if ( child.type === null || child.type === undefined ) return;
@@ -257,16 +233,19 @@ const Select = forwardRef<SelectRefType, SelectProps>(
       {...getProps()}
     >
 
-      <Toggle
-        {...{...props,
-          labelType: floating ? "floating" : "single",
-          value: currentValue,
-          placeholder: placeholder,
-          onChange: onHandleToggleChange,
-          isOpen: isOpen,
-          locked: locked,
-          errorMessage: errorMessage
-        }}
+      <Toggle        
+        labelType = {floating ? "floating" : "single"}
+        value = {currentValue}
+        placeholder = {placeholder}
+        onChange = {onHandleToggleChange}
+        errorMessage = {errorMessage}
+        type = {type}
+        size = {size}
+        icon = {icon}
+        image = {image}
+        label = {label}
+        isOpen = {isOpen}
+        locked = {locked}
       />
         
       <Menu
@@ -291,5 +270,6 @@ const Select = forwardRef<SelectRefType, SelectProps>(
 
 export { Option };
 Select.Option = Option;
+Select.displayName = "Select";
 
 export default Select;

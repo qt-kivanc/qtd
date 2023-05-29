@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import autoprefixer from 'autoprefixer';
 import { nanoid } from 'nanoid';
 
 import FindSelector from "../helpers/css/FindSelector";
 
+import autoprefixer from 'autoprefixer';
 import postcss from "postcss";
 import calc from "postcss-calc";
 import postcssNested from "postcss-nested";
@@ -60,7 +60,8 @@ const useCreateStyledStyle = (styled, handler = null) => {
 
     let styles = style.replace(/\r?\n|\r/g, '');
         styles  = postcss()
-                    .use(autoprefixer)
+                    // https://github.com/postcss/autoprefixer#features
+                    .use(autoprefixer({ grid: 'autoplace' }))
                     .use(postcssNested)
                     .use(calc())
                     .process(styles)

@@ -122,6 +122,7 @@ const Toggle = ({
             />
             :
             <SingleLabel 
+              placeholder={placeholder} 
               label={label} 
               value={value} 
               size={size} 

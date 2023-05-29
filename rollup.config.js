@@ -56,7 +56,6 @@ const getDependencies = () => {
       dependencies.push("@babel/runtime/helpers/taggedTemplateLiteral");
       dependencies.push("@babel/runtime/helpers/toConsumableArray");
       dependencies.push("@babel/runtime/helpers/typeof");
-      dependencies.push("@babel/runtime/helpers/typeof");
       
   return dependencies;
 
@@ -78,6 +77,7 @@ MODE.forEach((m) => {
       format: m.format,
       exports: "named",
       globals: {
+        /*
         'react': 'React',
         'react-dom': 'ReactDOM',
         '@babel/runtime/helpers/slicedToArray': '_slicedToArray',
@@ -101,6 +101,7 @@ MODE.forEach((m) => {
         'nanoid': 'nanoid',
         'query-string': 'queryString',
         'postcss': 'postcss',
+        */
       }
     },
     // this externelizes react to prevent rollup from compiling it

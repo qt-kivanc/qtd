@@ -17,12 +17,6 @@ module.exports = {
       features: {
         'nesting-rules': true,
       },
-    }),
-    require('postcss-custom-properties')({
-      preserve: false,
-      variables: {
-        '--main-backgrounds': '#282c34',
-      },
-    }),
+    })
   ]
 };

@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
+  display: flex;
+  align-items: center;
 `
 
 const InputWrapper = styled.input`

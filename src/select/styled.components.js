@@ -10,31 +10,43 @@ const BORDER_RADIUS = "5px";
 const getBySize = () => {
   return css`
 
+    /* X-SMALL */
     &.qtd-select-xs {
       .qtd-select-selector {
+
         height: 24px; 
         padding: 0px 15px 0px 15px;
+
       }
     }
 
+    /* SMALL */
     &.qtd-select-sm {
       .qtd-select-selector {
+
         height: 28px; 
         padding: 0px 15px 0px 15px;
+
       }
     }
 
+    /* MEDIUM */
     &.qtd-select-md {
       .qtd-select-selector {
+
         height: 32px; 
         padding: 0px 15px 0px 15px;
+
       }
     }
 
+    /* LARGE */
     &.qtd-select-lg {
       .qtd-select-selector {
+
         height: 46px; 
         padding: 0px 15px 0px 15px;
+
       }
     }
 
@@ -42,8 +54,10 @@ const getBySize = () => {
     &:not(&.qtd-select-xs):not(&.qtd-select-sm):not(&.qtd-select-md):not(&.qtd-select-lg) 
     {
       .qtd-select-selector {
+
         height: 40px; 
         padding: 0 7px 0 12px;
+
       }
     }
   `
@@ -66,18 +80,45 @@ const getLabelBySize = () => {
 
       .qtd-select-selection-item {
         .qtd-select-selection-label {
+
+          [type=text] {
+            height: 24px;
+          }
+
           &.qtd-select-selection-item-single {
             span {
               font-size: 11px;
               line-height: 11px;
             }
           }
+
           &.qtd-select-selection-item-floating {
+
             span {
               font-size: 11px;
               line-height: 11px;
             }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -24px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 12px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -20px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+
           }
+
         }
       }
       
@@ -94,18 +135,45 @@ const getLabelBySize = () => {
 
       .qtd-select-selection-item {
         .qtd-select-selection-label {
+
+          [type=text] {
+            height: 28px;
+          }
+
           &.qtd-select-selection-item-single {
             span {
               font-size: 12px;
               line-height: 12px;
             }
           }
+
           &.qtd-select-selection-item-floating {
+
             span {
               font-size: 12px;
               line-height: 12px;
             }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -26px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 14px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -22px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+
           }
+
         }
       }
 
@@ -122,18 +190,45 @@ const getLabelBySize = () => {
 
       .qtd-select-selection-item {
         .qtd-select-selection-label {
+
+          [type=text] {
+            height: 32px;
+          }
+
           &.qtd-select-selection-item-single {
             span {
               font-size: 12px;
               line-height: 12px;
             }
           }
+
           &.qtd-select-selection-item-floating {
+          
             span {
               font-size: 12px;
               line-height: 12px;
             }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -28px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 16px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -23.5px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+            
           }
+
         }
       }
 
@@ -150,18 +245,45 @@ const getLabelBySize = () => {
 
       .qtd-select-selection-item {
         .qtd-select-selection-label {
+
+          [type=text] {
+            height: 46px;
+          }
+
           &.qtd-select-selection-item-single {
             span {
               font-size: 13px;
               line-height: 13px;
             }
           }
+
           &.qtd-select-selection-item-floating {
+
             span {
               font-size: 13px;
               line-height: 13px;
             }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -38px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 24px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -30px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+
           }
+
         }
       }
 
@@ -178,18 +300,45 @@ const getLabelBySize = () => {
 
       .qtd-select-selection-item {
         .qtd-select-selection-label {
+
+          [type=text] {
+            height: 40px;
+          }
+
           &.qtd-select-selection-item-single {
             span {
               font-size: 12px;
               line-height: 12px;
             }
           }
+
           &.qtd-select-selection-item-floating {
+
             span {
               font-size: 12px;
               line-height: 12px;
             }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -34px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 20px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -28px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+
           }
+
         }
       }
 
@@ -303,6 +452,11 @@ const getToggleStyles = () => {
 
         .qtd-select-selection-label {
 
+          [type=text] {
+            border: none;
+            padding: 0;
+          }
+
           &.qtd-select-selection-item-single {
 
             transition: background-color 0.2s ease;
@@ -322,50 +476,30 @@ const getToggleStyles = () => {
 
           }
 
-          &.qtd-select-selection-item-floating {
+          transition: background-color 0.2s ease;
+          border-radius: ${BORDER_RADIUS};
 
-            transition: background-color 0.2s ease;
-            border-radius: ${BORDER_RADIUS};
+          [type=text] {
+            font-size: 13px;
+            color: #ffffffD9;
+            caret-color: #ffffffD9;
 
-            [type=text] {
-              font-size: 13px;
-              color: #ffffffD9;
-              caret-color: #ffffffD9;
-
-              height: 46px;
-              padding-top: 13px;
-
-              &::placeholder {
-                color: rgba(0, 0, 0, 0);
-              }
+            &::placeholder {
+              color: rgba(0, 0, 0, 0);
             }
+          }
 
-            span {
-              color: #ffffffD9;
-              top: 23px;
-            }
+          span {
+            color: #ffffffD9;
+          }
 
-            label {
+          label {
 
-              font-weight: 500;
+            font-weight: 500;
 
-              &::before {
-                color: #ffffff99;
-                transition: transform 0.2s ease;
-              }
-
-              &[data-filled="false"] {
-                &::before {
-                  transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
-                }
-              }
-
-              &[data-filled="true"] {
-                &::before {
-                  transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
-                }
-              }
-
+            &::before {
+              color: #ffffff99;
+              transition: transform 0.2s ease;
             }
 
           }
@@ -373,7 +507,6 @@ const getToggleStyles = () => {
         }
 
       }
-
     }
   `
 }
@@ -464,6 +597,13 @@ const getDisabled = () => {
 const Wrapper = styled.div`
 
   position: relative;
+  box-sizing: border-box; 
+
+  ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+  }
 
   /* ------------------------ */
   // TOGGLE
@@ -494,31 +634,6 @@ const Wrapper = styled.div`
   // DISABLED
   /* ------------------------ */
   ${ () => getDisabled() }
-
-`
-
-const StatusCore = styled.div`
-
-  margin: 0;
-  margin-right: 0px;
-  color: #ffffffCC;
-  float: left;
-  font-size: 10px;
-  line-height: 10px;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  &:hover {
-    color: #ffffff;
-  }
-
-  &::before {
-    padding: 4px;
-    border-radius: 50px;
-  }
 
 `
   

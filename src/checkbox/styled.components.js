@@ -15,7 +15,7 @@ const Wrapper = styled.label`
   
   cursor: pointer;
   user-select: none;
-  min-height: 20px;
+  min-height: 22px;
 
   input {
     position: absolute;
@@ -51,8 +51,8 @@ const Wrapper = styled.label`
       transition: border-color .3s ease-out;
       content: "";
       position: absolute;
-      left: 7px;
-      top: 3px;
+      left: 6px;
+      top: 2px;
       width: 5px;
       height: 11px;
       border: solid #2196F3;
@@ -81,7 +81,7 @@ const Wrapper = styled.label`
 const CheckboxInnerWrapper = styled.div`
 
   padding-left: 27px;
-  min-height: 20px;
+  min-height: 22px;
 
   display: flex;
   align-items: center;

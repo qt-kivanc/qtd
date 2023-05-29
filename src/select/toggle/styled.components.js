@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  box-sizing: border-box; 
 
 `
   
@@ -13,11 +14,15 @@ const Label = styled.div`
   
   display: flex;
   flex-grow: 1;
+  height: 100%;
 
 `
 
 const Icon = styled.div`
   
+  display: flex;
+  align-items: center;
+
   ${({ open }) =>
     open &&
     css`

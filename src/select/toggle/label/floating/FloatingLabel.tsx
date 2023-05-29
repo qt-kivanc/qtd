@@ -48,10 +48,9 @@ const FloatingLabel = ({
 
     <Wrapper 
       className="qtd-select-selection-label qtd-select-selection-item-floating"
+      data-filled={label !== ""}
     >
-      <Label
-        size={sizeStyle}
-      >
+      <Label size={sizeStyle}>
         {labelTitle} 
       </Label>
       <InputWrapper 
@@ -62,7 +61,7 @@ const FloatingLabel = ({
         disabled={true}
       />
       <InputLabel 
-        data-filled={value !== ""} 
+        data-filled={label !== ""}
         htmlFor={id} 
         data-content={placeholder}
       >

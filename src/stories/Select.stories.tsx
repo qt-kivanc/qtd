@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Select from "../select";
 
+const { Option } = Select;
+
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Select> = {
   title: "Design System/Select",
@@ -16,11 +18,30 @@ const meta: Meta<typeof Select> = {
   argTypes: {
     placeholder: {
       control: "text",
+      defaultValue: ""
+    },
+    label: {
+      control: "text",
       defaultValue: "Please Select"
     },
     floating: {
       control: { type: "boolean" },
       defaultValue: true
+    },
+    position: {
+      options: ["top", "bottom"],
+      control: { type: "select" },
+      defaultValue: "bottom"
+    },
+    direction: {
+      options: ["left", "right"],
+      control: { type: "select" },
+      defaultValue: "left"
+    },
+    mode: {
+      options: ["single", "multi"],
+      control: { type: "select" },
+      defaultValue: "single"
     },
     type: {
       description: "Select comes in five types. In most cases, you’ll be fine with `default`.",
@@ -29,7 +50,7 @@ const meta: Meta<typeof Select> = {
           summary: "default",
         },
       },
-      options: ["default", "primary", "secondary", "generic", "link", "request", "approve", "reject"],
+      options: ["default", "primary"],
       control: { type: "select" },
       defaultValue: "default"
     },
@@ -54,15 +75,51 @@ const meta: Meta<typeof Select> = {
 export default meta;
 type Story = StoryObj<typeof Select>;
 
+const options = [
+  { value: "istanbul", name: "Istanbul" },
+  { value: "london", name: "London" },
+  { value: "paris", name: "Paris" }
+];
+
+const getChildren = () => {
+  return options.map(m => (
+    <Option key={m.value} value={m.value}>
+      {m.name}
+    </Option>
+  ));
+}
+
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    type: "default"
+    type: "default",
+    placeholder: "Please Select",
+    floating: true,
+    children: getChildren()
   },
+};
+
+export const Childs: Story = {
+  args: {
+    type: "default",
+    placeholder: "Please Select",
+    children: getChildren()
+  }
 };
 
 export const Primary: Story = {
   args: {
-    type: "primary"
+    type: "primary",
+    placeholder: "Please Select",
+    children: getChildren()
+  },
+};
+
+export const Multi: Story = {
+  args: {
+    type: "primary",
+    placeholder: "Please Select",
+    mode: "multi",
+    children: getChildren()
   },
 };

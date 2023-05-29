@@ -141,4 +141,6 @@ const Checkbox = forwardRef<CheckboxRefType, CheckboxProps>(
 
 });
 
+Checkbox.displayName = "Checkbox";
+
 export default Checkbox;

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 const Wrapper = styled.div`
   
   min-width: 100%;
+  min-height: 40px;
   overflow: hidden;
   position: absolute;
   z-index: 2;

@@ -5,18 +5,21 @@ import { Wrapper, Label, InputWrapper } from './styled.components';
 interface SingleLabelProps {
   value: string | object,
   label: string,
-  size: string
+  placeholder: string,
+  size: string,
 }
 
 const SingleLabel = ({
   value = "",
   label = "",
+  placeholder = "",
   size = "default"
 }:SingleLabelProps) => {
 
   const [sizeStyle, SetSizeStyle] = useState<string>("");
   const [labelValue, SetLabelValue] = useState<string | object>("");
   const [labelTitle, SetLabelTitle] = useState<string>("");
+  const [placeholderValue, SetPlaceholderValue] = useState<string>("");
 
   /*
   useEffect(() => {
@@ -30,7 +33,11 @@ const SingleLabel = ({
   }, [size]);
   
   useEffect(() => {
-    SetLabelTitle(label);
+    SetPlaceholderValue(placeholder);
+  }, [placeholder]);
+  
+  useEffect(() => {
+    SetLabelTitle(label === "" ? placeholder : label);
   }, [label]);
   
   useEffect(() => {

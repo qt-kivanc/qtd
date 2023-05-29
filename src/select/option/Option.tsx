@@ -110,3 +110,5 @@ const Option = ({
 }
 
 export default React.memo(Option);
+
+Option.displayName = "Option";
