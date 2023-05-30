@@ -728,20 +728,19 @@ const WrapperContent = css<{
 
 `
 
-const CoreButton = styled.button`
+const ClickButton = styled.button`
   ${WrapperContent}
-  `
+  border: none;
+  background: none;
+  padding: 0;
+`
 
 const Link = styled(ALink)`
   ${WrapperContent}
-  `
-
-const ClickButton = styled.button`
-  ${WrapperContent}
-  `
+`
 
 const A = styled.a`
   ${WrapperContent}
-  `
+`
 
-export { SVG, Hide, Image, CoreButton, Link, A, ClickButton, Icon };
+export { SVG, Hide, Image, ClickButton, Link, A, Icon };

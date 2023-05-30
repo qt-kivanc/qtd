@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Spin from '../spin/index.jsx';
-import { SVG, Hide, Image, CoreButton, Link, A, ClickButton, Icon } from './styled.components';
+import { SVG, Hide, Image, Link, A, ClickButton, Icon } from './styled.components';
 
 interface ButtonProps {
   id: string | null,
@@ -227,13 +227,13 @@ const Button = ({
    */
   const submitButton = (): JSX.Element => (
 
-    <CoreButton
+    <ClickButton
       className={getClassNames()}
       {...getProps()}
       type="submit"
     >
       { getButtonContent() }
-    </CoreButton>
+    </ClickButton>
 
   );
 
