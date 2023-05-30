@@ -53,8 +53,8 @@ const Wrapper = styled.label`
       position: absolute;
       left: 6px;
       top: 2px;
-      width: 5px;
-      height: 11px;
+      width: 6px;
+      height: 12px;
       border: solid #2196F3;
       border-width: 0 3px 3px 0;
       transform: rotate(45deg);
