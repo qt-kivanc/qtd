@@ -69,7 +69,7 @@ const meta: Meta<typeof Button> = {
         },
       },
       options: ["left", "right"],
-      control: { type: "select" },
+      control: { type: "inline-radio" },
     },
     justify: {
       options: [
@@ -81,27 +81,27 @@ const meta: Meta<typeof Button> = {
       defaultValue: "center"
     },
     circle: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: false
     },
     stretch: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: false
     },
     useIconPadding: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: true
     },
     loading: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: false
     },
     disabled: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: false
     },
     isSubmit: {
-      control: { type: "boolean" },
+      control: "boolean",
       defaultValue: false
     },
     selected: {

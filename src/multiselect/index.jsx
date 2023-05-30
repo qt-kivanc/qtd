@@ -5,7 +5,7 @@ import Option from './option/Option.jsx';
 import Menu from './menu/Menu.jsx';
 import Toggle from './toggle/Toggle.jsx';
 
-import s from './style.module.scss';
+import { Wrapper } from './styled.components.js';
 
 const MultiSelect = ({
   label = "",
@@ -114,7 +114,7 @@ const MultiSelect = ({
 
   return(
 
-    <div className={s.wrapper} ref={wrapperRef}>
+    <Wrapper ref={wrapperRef}>
 
       <Toggle
         onChange = {onHandleToggleChange}
@@ -136,7 +136,7 @@ const MultiSelect = ({
 
         </Menu>
       }
-    </div>
+    </Wrapper>
 
   );
 

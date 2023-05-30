@@ -18,18 +18,11 @@ import useCreateStyledStyle from "../hooks/useCreateStyledStyle.js";
 /*
 https://stackoverflow.com/questions/41181372/chrome-mousedown-and-mouseup-events-no-longer-working-other-browsers-are-fine/41238807#41238807
 */
-const DatePicker = forwardRef((props, ref) => {
-
-  const { dateFormat, locale } = useContext(QTDContext);
-
-  const wrapperRef = useRef(null);
-  const inputRef = useRef(null);
-  const nodeRef = useRef(null);
-
-  const {
+const DatePicker = forwardRef((
+  {
     name = "datepicker",
     label = "",
-    mask = null,
+    mask = "99/99/9999",
     size = "default",
     variant = "default",
     disabled = false,
@@ -41,8 +34,15 @@ const DatePicker = forwardRef((props, ref) => {
     onUpdate = null,
     onChange = null,
     disabledDate = null
-  } = props;
-  
+  }, ref
+) => {
+
+  const { dateFormat, locale } = useContext(QTDContext);
+
+  const wrapperRef = useRef(null);
+  const inputRef = useRef(null);
+  const nodeRef = useRef(null);
+
   const [inputValue, SetInputValue] = useState("");
   const [enteredValue, SetEnteredValue] = useState(defaultValue);
   const [errorMessage, SetErrorMessage] = useState("");
@@ -51,13 +51,11 @@ const DatePicker = forwardRef((props, ref) => {
   /**
    * Styled Components
    */
-  const [clanderWrapperClass, SetClanderWrapperClass] = useState("");
   const [modalEnterClass, SetModalEnterClass] = useState("");
   const [modalEnterActiveClass, SetModalEnterActiveClass] = useState("");
   const [modalExitClass, SetModalExitClass] = useState("");
   const [modalExitActiveClass, SetModalExitActiveClass] = useState("");
 
-  useCreateStyledStyle(CalendarWrapper, (id) => SetClanderWrapperClass(id));
   useCreateStyledStyle(ModalEnter, (id) => SetModalEnterClass(id));
   useCreateStyledStyle(ModalEnterActive, (id) => SetModalEnterActiveClass(id));
   useCreateStyledStyle(ModalExit, (id) => SetModalExitClass(id));
@@ -321,22 +319,19 @@ const DatePicker = forwardRef((props, ref) => {
         unmountOnExit
       >
   
-        <Calendar 
+        <CalendarWrapper 
           value={inputValue}
           defaultValue={inputValue}
           onChange={handleCalendarChange}
           disabledDate={disabledDate}
-          className={clanderWrapperClass}
           ref={nodeRef}
         />
         
       </CSSTransition>
 
     </Wrapper>
-
-
     
-  )
+  );
 
   return getDatePicker();
 

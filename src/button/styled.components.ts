@@ -135,7 +135,7 @@ const getSVG = () => {
 
       /* X-SMALL */
       &.qtd-button-xs {
-        svg { width: 10px; }
+        svg { width: 12px; }
       }
 
       /* SMALL */
@@ -145,7 +145,7 @@ const getSVG = () => {
 
       /* MEDIUM */
       &.qtd-button-md {
-        svg { width: 18px; }
+        svg { width: 16px; }
       }
 
       /* LARGE */
@@ -610,17 +610,6 @@ const Hide = styled.span<{ loading: boolean }>`
 const WrapperContent = css<{ 
   justify: string
 }>`
-
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 0;
-
-  &:focus, &:active, &:focus-within {
-    outline: 0;
-    box-shadow: none;
-  }
 
   display: flex;
   align-items: center;

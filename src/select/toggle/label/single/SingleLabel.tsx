@@ -19,7 +19,6 @@ const SingleLabel = ({
   const [sizeStyle, SetSizeStyle] = useState<string>("");
   const [labelValue, SetLabelValue] = useState<string | object>("");
   const [labelTitle, SetLabelTitle] = useState<string>("");
-  const [placeholderValue, SetPlaceholderValue] = useState<string>("");
 
   /*
   useEffect(() => {
@@ -31,10 +30,6 @@ const SingleLabel = ({
   useEffect(() => {
     SetSizeStyle(size);
   }, [size]);
-  
-  useEffect(() => {
-    SetPlaceholderValue(placeholder);
-  }, [placeholder]);
   
   useEffect(() => {
     SetLabelTitle(label === "" ? placeholder : label);

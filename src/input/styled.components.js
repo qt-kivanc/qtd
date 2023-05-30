@@ -121,6 +121,14 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
+  input {
+    background: none;
+    border-width: 0;
+    display: block;
+    width: 100%;
+    outline: none;
+  }
+
   /* ------------------------ */
   // VARIANT
   /* ------------------------ */

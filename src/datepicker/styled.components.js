@@ -1,8 +1,17 @@
+import Calendar from '../calendar/index';
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   
   position: relative;
+
+  input {
+    background: none;
+    border-width: 0;
+    display: block;
+    width: 100%;
+    outline: none;
+  }
 
   ${({ disabled }) =>
     disabled &&
@@ -14,7 +23,7 @@ const Wrapper = styled.div`
 
   `
   
-const CalendarWrapper = styled.div`
+const CalendarWrapper = styled(Calendar)`
   box-shadow: 0 0 30px rgba(0,0,0,.25);
   z-index: 2;
   position: absolute;
