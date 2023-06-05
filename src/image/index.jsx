@@ -66,18 +66,19 @@ const Image = (props) => {
 
   }
 
-  const onLoad = (e) => {
+  const handleOnLoad = (e) => {
     
     if ( e.target.naturalWidth === 1 || e.target.naturalHeight === 1 ) {
-      onError();
+      handleOnError();
+      return;
     }
-    else {
-      SetShow(true);
-    }
+    
+    SetShow(true);
+    if ( props.onLoad ) props.onLoad();
 
   }
 
-  const onError = (e) => {
+  const handleOnError = (e) => {
 
     const p = Object.assign({}, props);
         p.src = ( fallback !== "" ) ? fallback : getFallbackImage();
@@ -100,6 +101,8 @@ const Image = (props) => {
 
     SetProperties(p);
     SetHasError(true);
+
+    if ( props.onError ) props.onError();
 
   }
 
@@ -136,8 +139,8 @@ const Image = (props) => {
     <ImageWrapper 
       style = {{display: show ? 'null' : 'none'}}
       {...getProps()} 
-      onLoad = {(e) => onLoad(e) } 
-      onError = {(e) => onError(e) } 
+      onLoad = {(e) => handleOnLoad(e) } 
+      onError = {(e) => handleOnError(e) } 
       draggable = "false"
       className = {classNames}
     />
