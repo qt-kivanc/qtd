@@ -266,7 +266,7 @@ const getLabelBySize = () => {
 
             &[data-filled="true"] {
               label::before {
-                transform: translate3d(0, -38px, 0) scale3d(0.76, 0.76, 1);
+                transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
               }
               > span {
                 padding-top: 24px;
@@ -275,7 +275,7 @@ const getLabelBySize = () => {
 
             &[data-filled="false"] {
               label::before {
-                transform: translate3d(0, -30px, 0) scale3d(.8, .8, 1);
+                transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
               }
               > span { 
                 position: relative;

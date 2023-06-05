@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 
 import { Wrapper } from './styled.components';
 
-const Toggle = forwardRef(({
+const Switch = forwardRef(({
   id = v4(),
   checked = false,
   message = "",
@@ -54,9 +54,19 @@ const Toggle = forwardRef(({
     
   }
 
+  const getClassNames = () => {
+
+    let names = "qtd-switch";
+
+    if ( checked ) names += " qtd-switch-checked";
+
+    return names;
+
+  }
+
   const getCheckbox = () => (
 
-    <Wrapper>
+    <Wrapper className={getClassNames()}>
       <input
         id={id}
         type="checkbox"
@@ -65,7 +75,7 @@ const Toggle = forwardRef(({
         onChange={handleCheckboxChange}
         ref={ref}
       />
-      <label htmlFor={id}>Toggle</label>
+      <label htmlFor={id}>Switch</label>
     </Wrapper>
 
   )
@@ -74,4 +84,4 @@ const Toggle = forwardRef(({
 
 });
 
-export default Toggle;
+export default Switch;

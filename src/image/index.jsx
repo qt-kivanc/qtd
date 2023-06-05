@@ -17,6 +17,7 @@ const Image = (props) => {
 
   const [show, SetShow] = useState(false);
   const [fallback, SetFallback] = useState("");
+  const [classNames, SetClassNames] = useState("qtd-image");
   const [properties, SetProperties] = useState({});
   const [hasError, SetHasError] = useState(false);
 
@@ -118,10 +119,12 @@ const Image = (props) => {
     let fallback = "";
 
     if ( props.type === "team") {
-      fallback = dummyTeamImage
+      SetClassNames(classNames + " qtd-image-error qtd-image-error-team");
+      fallback = dummyTeamImage;
     }
     else {
-      fallback = brokenImage
+      SetClassNames(classNames + " qtd-image-error qtd-image-error-broken");
+      fallback = brokenImage;
     }
 
     return fallback.replace("[[THEME]]", theme);
@@ -136,6 +139,7 @@ const Image = (props) => {
       onLoad = {(e) => onLoad(e) } 
       onError = {(e) => onError(e) } 
       draggable = "false"
+      className = {classNames}
     />
 
   )

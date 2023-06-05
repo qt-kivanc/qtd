@@ -24,7 +24,7 @@ export { default as AccordionMenu } from './accordionmenu/index';
 export { default as Calendar } from './calendar/index';
 export { default as DatePicker } from './datepicker/index';
 export { default as Input } from './input/index';
-export { default as Toggle } from './toggle/index';
+export { default as Switch } from './switch/index';
 export { default as Tooltip } from './tooltip/index';
 
 /**
