@@ -39,23 +39,23 @@ const Wrapper = styled.div`
       .qtd-accordion-menu-header {
 
         background-color: #1D2649;
-        transition: background-color 0.3s ease-out;
+        transition: background-color 0.25s ease-out;
 
         span {
           font-size: 13px;
           color: #ffffff99;
-          transition: color 0.3s ease-out;
+          transition: color 0.25s ease-out;
         }
 
         div.qtd-accordion-menu-header-icon.qtd-icon {
           margin-right: 8px;
           color: #ffffff99;
-          transition: color 0.3s ease-out;
+          transition: color 0.25s ease-out;
         }
 
         svg.qtd-accordion-menu-header-arrow-icon.qtd-svg {
           fill: #ffffff99;
-          transition: all 0.3s ease-out;
+          transition: all 0.25s ease-out;
         }
 
         /* HOVER */
@@ -86,7 +86,7 @@ const Wrapper = styled.div`
           .qtd-accordion-menu-content {
 
             background-color: #3396FB1A;
-            transition: background-color 0.3s ease-out;
+            transition: background-color 0.25s ease-out;
             
             span.qtd-accordion-menu-content-header-text {
               font-size: 12px;
