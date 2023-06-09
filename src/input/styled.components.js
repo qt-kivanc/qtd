@@ -162,6 +162,7 @@ const Prefix = styled.div`
   
   display: flex;
   align-items: center;
+  margin-right: 10px;
 
 `
 
