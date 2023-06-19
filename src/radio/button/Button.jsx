@@ -137,6 +137,13 @@ export default function Button(props) {
     );
 
   }
+
+  const getLabelClassNames = () => {
+    let names = "qtd-radio-label";
+    if ( checked ) names += " qtd-radio-label-selected";
+    if ( hasError ) names += " qtd-radio-label-error";
+    return names;
+  }
   
   return (
 
@@ -150,7 +157,7 @@ export default function Button(props) {
         checked={checked}
         aria-checked={checked}
       />
-      <Label className="qtd-radio-label" htmlFor={id}>
+      <Label className={getLabelClassNames()} htmlFor={id}>
         { 
           component !== null 
             ? <div className="qtd-radio-custom-button">

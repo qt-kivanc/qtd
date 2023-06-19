@@ -7,12 +7,13 @@ import Toggle from './toggle/Toggle.jsx';
 
 import { Wrapper } from './styled.components.js';
 
-const MultiSelect = ({
+const InlineSelect = ({
   label = "",
   value = [],
   children = null,
   single = false,
   minWidth = 0,
+  className = "",
   onChange = null
 }) => {
 
@@ -44,7 +45,7 @@ const MultiSelect = ({
 
   /**
    * 
-   * Toogle sınıfında MultiSelect'in açık veya kapalı
+   * Toogle sınıfında InlineSelect'in açık veya kapalı
    * durumu değiştiyse tetiklenir.
    * 
    * @param {*} event Zorunlu değil
@@ -58,7 +59,7 @@ const MultiSelect = ({
 
   /**
    * 
-   * MultiSelect içerisindeki herhangi bir elemana tıklanıldığında
+   * InlineSelect içerisindeki herhangi bir elemana tıklanıldığında
    * tetiklenir ve elemanın değerini dinleyici sınıfa iletip
    * Select'i kapatır.
    * 
@@ -69,7 +70,7 @@ const MultiSelect = ({
       onChange(value, label);
     }
     else {
-      console.warn("MultiSelect: 'onChange' method couldn't be called because it is not defined!");
+      console.warn("InlineSelect: 'onChange' method couldn't be called because it is not defined!");
     }
 
     if ( single ) {
@@ -112,9 +113,20 @@ const MultiSelect = ({
 
   }
 
+  const getClassNames = () => {
+
+    let names = "qtd-inline-select";
+
+    if ( isOpen ) names += " qtd-inline-select-open";
+    if ( className !== "" ) names += " " + className;
+
+    return names;
+
+  }
+
   return(
 
-    <Wrapper ref={wrapperRef}>
+    <Wrapper className={getClassNames()} ref={wrapperRef}>
 
       <Toggle
         onChange = {onHandleToggleChange}
@@ -142,7 +154,7 @@ const MultiSelect = ({
 
 };
 
-MultiSelect.Option = Option;
+InlineSelect.Option = Option;
 
 export { Option };
-export default MultiSelect;
+export default InlineSelect;

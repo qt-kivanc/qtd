@@ -34,7 +34,7 @@ export { default as Collapse } from './collapse/index';
 export { default as ModalManager } from './modal/index';
 export { default as Notification } from './notification/index';
 export { default as Radio } from './radio/index';
-export { default as MultiSelect } from './multiselect/index';
+export { default as InlineSelect } from './inlineselect/index';
 
 /**
  * COMPONENTS
@@ -57,7 +57,7 @@ export { default as ArrowIcon } from './icons/Arrow';
 export { default as UploadIcon } from './icons/Upload';
 export { default as BackToTop } from './icons/BackToTop';
 export { default as Checkmark } from './icons/Checkmark';
-export { default as MultiSelectArrow } from './icons/MultiSelectArrow';
+export { default as InlineSelectArrow } from './icons/InlineSelectArrow';
 
 /**
  * HOOKS

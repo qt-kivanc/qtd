@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import MultiSelectArrow from '../../icons/MultiSelectArrow.jsx';
+import InlineSelectArrow from '../../icons/InlineSelectArrow.jsx';
 
-import { Label, Container, Select } from './styled.components';
+import { Label, Container, Select, Selection } from './styled.components';
 
 export default function Toggle({
   label = "",
@@ -53,23 +53,28 @@ export default function Toggle({
   const getInput = () => {
     
     return ( 
-      <Label>
+      <Selection className="qtd-inline-select-selection-item">
         <Container>
-          <Label>
+          <Label className="qtd-inline-select-selection-label">
             { getLabel() } 
           </Label>
-          <MultiSelectArrow width={9} height={4.5} />
+          <InlineSelectArrow 
+            className="qtd-inline-select-arrow" 
+            width={9} height={4.5} 
+          />
         </Container>
-      </Label>
+      </Selection>
     )
   }
 
   return(
 
-    <Select open={isOpen} onClick={(e) => onButtonClick(e)}>
-
+    <Select
+      open={isOpen} 
+      onClick={(e) => onButtonClick(e)}
+      className="qtd-inline-select-selector"
+    >
       { getInput() }
-
     </Select>
 
   );

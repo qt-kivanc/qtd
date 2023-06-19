@@ -1,6 +1,6 @@
 import React from "react";
 
-const MultiSelectArrow = ({ className, height, width, fill }) => {
+const InlineSelectArrow = ({ className, height, width, fill }) => {
   return (
     <svg
       className={className}
@@ -14,5 +14,5 @@ const MultiSelectArrow = ({ className, height, width, fill }) => {
   );
 };
 
-export default MultiSelectArrow;
+export default InlineSelectArrow;
 

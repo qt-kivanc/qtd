@@ -74,9 +74,10 @@ export default function Menu(props) {
 
   const getBodyWrapperStyle = () => {
 
-    return  children.length > 5
-            ? s.bodyWrapperLong 
-            : s.bodyWrapper;
+    return  "qtd-inline-select-dropdown-body " + 
+            children.length > 5
+              ? s.bodyWrapperLong 
+              : s.bodyWrapper;
 
   }
 
@@ -105,7 +106,7 @@ export default function Menu(props) {
   const getContent = () => (
 
     <div 
-      className={s.menu + " " + s.bottom + " " + s.left} 
+      className={"qtd-inline-select-dropdown " + s.menu + " " + s.bottom + " " + s.left} 
       style={{width: minWidth === 0 ? 'max-content' : minWidth + 'px'}} 
       ref={nodeRef}
       >

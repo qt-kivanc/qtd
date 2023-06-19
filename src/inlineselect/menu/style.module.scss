@@ -5,7 +5,7 @@
   overflow: hidden;
   position: absolute;
   z-index: 2;
-  box-shadow: 0 0 10px rgba(0,0,0,.25);
+  box-shadow: 0px 20px 20px rgba(0,0,0,.25);
 
   transform-origin: 50% 1%;
   transform-box: fill-box;
@@ -21,7 +21,7 @@
 
 .bodyWrapper {
 
-  height: 204px;
+  height: 300px;
 
 }
 
@@ -47,7 +47,7 @@
 }
 .menuEnterActive {
   opacity: 1;
-  height: 204px;
+  height: 300px;
   transition: height 150ms ease-out;
 }
 .menuExit {
@@ -55,7 +55,7 @@
 }
 .menuExitActive {
   opacity: 0;
-  height: 204px;
+  height: 300px;
   transition: height 150ms ease-out;
 }
 

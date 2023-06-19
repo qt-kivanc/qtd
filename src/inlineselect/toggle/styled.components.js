@@ -1,6 +1,10 @@
 import styled, {css} from 'styled-components';
 
-const Label = styled.div`
+const Selection = styled.div`
+  width: max-content;
+`
+
+const Label = styled.span`
 
   font-size: 13px;
   font-weight: 400;
@@ -8,7 +12,7 @@ const Label = styled.div`
   width: max-content;
   transition: color .15s ease-out;
 
-  `
+`
 
 const Container = styled.div`
 
@@ -51,4 +55,4 @@ const Select = styled.div`
 
   `
 
-export { Label, Container, Select };
+export { Selection, Label, Container, Select };
