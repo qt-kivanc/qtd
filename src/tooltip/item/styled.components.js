@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   font-size: 13px;
   font-weight: 600;
 
-  ${({ status }) => getByStatus(status)}
+  ${({ $status }) => getByStatus($status)}
 
   `
 

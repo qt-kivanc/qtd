@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 import FindSelector from "../helpers/css/FindSelector";

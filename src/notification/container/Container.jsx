@@ -90,16 +90,16 @@ const Container = ({ notifications, onRemove }) => {
 
     let jsx = (
       <div>
-        <Wrapper position="topRight">
+        <Wrapper $position="topRight">
           { topRightTransitions(getItem) }
         </Wrapper>
-        <Wrapper position="topLeft">
+        <Wrapper $position="topLeft">
           { topLeftTransitions(getItem) }
         </Wrapper>
-        <Wrapper position="bottomRight">
+        <Wrapper $position="bottomRight">
           { bottomRightTransitions(getItem) }
         </Wrapper>
-        <Wrapper position="bottomLeft">
+        <Wrapper $position="bottomLeft">
           { bottomLeftTransitions(getItem) }
         </Wrapper>
       </div>

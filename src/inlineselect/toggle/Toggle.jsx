@@ -70,7 +70,7 @@ export default function Toggle({
   return(
 
     <Select
-      open={isOpen} 
+      $open={isOpen} 
       onClick={(e) => onButtonClick(e)}
       className="qtd-inline-select-selector"
     >

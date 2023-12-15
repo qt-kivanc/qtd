@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import ALink from '../../alink/index.jsx';
@@ -117,7 +117,7 @@ export default function Panel({
 
   const getTitle = () => (
     
-    <Title as={ALink} _active={hasLinkFound()} to={link}>
+    <Title as={ALink} $active={hasLinkFound()} to={link}>
       <div className={s.icon + " " + icon}></div>
       <span>{title}</span>
       { getArrow() }

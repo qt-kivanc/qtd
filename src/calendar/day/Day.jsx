@@ -31,10 +31,10 @@ export default function Day({
 
     <Wrapper 
       className={getClassNames()}
-      today={today} 
-      selected={selected} 
-      disabled={disabled} 
-      current={current} 
+      $today={today} 
+      $selected={selected} 
+      $disabled={disabled} 
+      $current={current} 
       onClick={() => handleClick(date)}
     >
       <span>

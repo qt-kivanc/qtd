@@ -23,8 +23,8 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
 
-  ${({ open }) =>
-    open &&
+  ${({ $open }) =>
+    $open &&
     css`
       transform: rotate(-180deg);
     `}

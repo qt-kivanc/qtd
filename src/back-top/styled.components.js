@@ -10,8 +10,8 @@ const Wrapper = styled.div`
 
 const Show = styled.a`
 
-  visibility: ${props => props._show ? 'visible' : 'hidden'};
-  animation: ${props => props._show ? showBounceAnimation : 'none'} 0.5s;
+  visibility: ${props => props.$show ? 'visible' : 'hidden'};
+  animation: ${props => props.$show ? showBounceAnimation : 'none'} 0.5s;
 
   display: block;
   transition: fill .3s ease-out;

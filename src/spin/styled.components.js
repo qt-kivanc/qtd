@@ -64,8 +64,8 @@ const Spinner = styled.div`
 
 const ChildrenWrapper = styled.div`
 
-  opacity: ${props => `${props.updating ? .5 : 1}`};
-  pointer-events: ${props => `${props.updating ? 'none' : 'auto'}`};
+  opacity: ${props => `${props.$updating ? .5 : 1}`};
+  pointer-events: ${props => `${props.$updating ? 'none' : 'auto'}`};
 
 `
 

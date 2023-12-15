@@ -13,8 +13,8 @@ const Wrapper = styled.div`
     outline: none;
   }
 
-  ${({ disabled }) =>
-    disabled &&
+  ${({ $disabled }) =>
+    $disabled &&
     css`
       opacity: .75;
       cursor: not-allowed;

@@ -29,8 +29,8 @@ const Title = styled.div`
     background-color: #3396FB40;
   }
 
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     css`
       background-color: #3396FB80;
       span {

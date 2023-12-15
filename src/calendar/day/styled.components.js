@@ -53,8 +53,8 @@ const Wrapper = styled.div`
 
   }
 
-  ${({ today }) =>
-    today &&
+  ${({ $today }) =>
+    $today &&
     css`
       span {
         border: 1px solid #3598FE80;
@@ -62,8 +62,8 @@ const Wrapper = styled.div`
     `
   }
 
-  ${({ selected }) =>
-    selected &&
+  ${({ $selected }) =>
+    $selected &&
     css`
       span {
         color: #3598FE;
@@ -72,8 +72,8 @@ const Wrapper = styled.div`
     `
   }
 
-  ${({ current }) =>
-    current ?
+  ${({ $current }) =>
+    $current ?
       css`
         span {
           color: #ffffff;
@@ -87,8 +87,8 @@ const Wrapper = styled.div`
       `
   }
 
-  ${({ disabled }) =>
-    disabled &&
+  ${({ $disabled }) =>
+    $disabled &&
     css`
       pointer-events: none;
       

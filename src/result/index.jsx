@@ -69,12 +69,12 @@ const Result = ({
 
     <Wrapper className={getClassNames()}>
       <ContentWrapper 
-        autoCenter={autoCenter} 
+        $autoCenter={autoCenter} 
         className="qtd-result-content-wrapper"
       >
         <Content 
           className="qtd-result-content"
-          autoCenter={autoCenter} 
+          $autoCenter={autoCenter} 
           type={type} 
           fill={fill.toString()}
         >

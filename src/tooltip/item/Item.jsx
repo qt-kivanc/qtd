@@ -13,7 +13,7 @@ const Item = ({
   });
 
   return (
-    <Wrapper status={type}>
+    <Wrapper $status={type}>
       <div>
         <Title>
           {children}

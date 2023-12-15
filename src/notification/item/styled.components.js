@@ -48,7 +48,7 @@ const Wrapper = styled(animated.div)`
   cursor: pointer;
   pointer-events: auto;
 
-  ${({ type }) => getByType(type)}
+  ${({ $type }) => getByType($type)}
 
   `
 

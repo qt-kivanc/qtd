@@ -22,8 +22,8 @@ const Overlay = styled.div`
   transition: opacity .25s ease-out;
   opacity: 0;
 
-  ${({ show }) =>
-    show ?
+  ${({ $show }) =>
+    $show ?
       css`
         opacity: 1;
       `

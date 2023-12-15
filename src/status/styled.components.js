@@ -19,7 +19,7 @@ const Wrapper = styled.div`
     user-select: none;
   }
 
-  ${({ status }) => getByStatus(status)}
+  ${({ $status }) => getByStatus($status)}
 
   `
 

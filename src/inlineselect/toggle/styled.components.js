@@ -37,8 +37,8 @@ const Select = styled.div`
   
   border-radius: 5px 5px 0 0;
 
-  ${({ open }) =>
-    open &&
+  ${({ $open }) =>
+    $open &&
     css`
       background-color: #050A20;
 

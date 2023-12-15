@@ -21,7 +21,7 @@ const ContentWrapper = styled.div`
   opacity: 1;
 
   ${props => {
-    if ( props.autoCenter ) {
+    if ( props.$autoCenter ) {
       return `
       width: 100%;
       height: 100%;
@@ -39,7 +39,7 @@ const Content = styled.div`
   background-color: ${props => props.type === "default" ? "#1D2649" : "#0E153180"};
 
   ${props => {
-    if ( props.autoCenter ) {
+    if ( props.$autoCenter ) {
       return `
         display: flex;
         justify-content: center;

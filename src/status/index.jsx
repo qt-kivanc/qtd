@@ -32,7 +32,7 @@ export default function Status(props) {
 
   const getStatus = () => (
     
-    <Wrapper status={type} className={getClassNames()}>
+    <Wrapper $status={type} className={getClassNames()}>
       <span>
         {children}
       </span>

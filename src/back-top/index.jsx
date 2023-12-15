@@ -36,7 +36,7 @@ export default function BackTop(props) {
 
   const getButton = () => (
     <Wrapper className="qtd-back-to-top">
-      <Show onClick={handleButtonClick} _show={visible}>
+      <Show onClick={handleButtonClick} $show={visible}>
         { children ? children : <BackToTop width={30} height={30} /> }
       </Show>
     </Wrapper>

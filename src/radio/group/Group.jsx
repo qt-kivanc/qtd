@@ -98,10 +98,10 @@ const Group = forwardRef(({
     <GroupWrapper 
       className={getClassNames()} 
       role="radiogroup" 
-      _direction={direction}
-      _length={length}
-      _gap={gap}
-      _onlyFlow={onlyFlow}
+      $direction={direction}
+      $length={length}
+      $gap={gap}
+      $onlyFlow={onlyFlow}
     >
       {React.Children.map(children, element =>
         React.cloneElement(element, {

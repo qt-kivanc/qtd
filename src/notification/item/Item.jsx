@@ -35,7 +35,7 @@ const Item = ({
 
   return (
     <Wrapper 
-      type={type}
+      $type={type}
       style={style} 
       onClick={removeMe}
     >

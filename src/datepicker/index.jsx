@@ -282,7 +282,7 @@ const DatePicker = forwardRef((
 
     <Wrapper 
       className={getClassNames()} 
-      disabled={disabled} 
+      $disabled={disabled} 
       ref={wrapperRef} 
       onPointerDown={handleClick}
     >

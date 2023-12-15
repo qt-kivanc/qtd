@@ -26,7 +26,7 @@ const Spin = ({
   const getWrapper = () => (
   
     <Wrapper className="qtd-spin">
-      <ChildrenWrapper updating={updating}>
+      <ChildrenWrapper $updating={updating}>
         { children }
       </ChildrenWrapper>
       { updating ? getSpin() : null }

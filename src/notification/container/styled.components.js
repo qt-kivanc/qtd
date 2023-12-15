@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   padding: 30px;
   pointer-events: none;
 
-  ${({ position }) => getByPosition(position)}
+  ${({ $position }) => getByPosition($position)}
 
   `
 
