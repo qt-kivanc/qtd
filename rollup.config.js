@@ -9,8 +9,10 @@ import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
 import json from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import { terser } from 'rollup-plugin-terser';
+import dts from "rollup-plugin-dts";
 
-//import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import localResolve from 'rollup-plugin-local-resolve';
@@ -108,16 +110,22 @@ MODE.forEach((m) => {
     external: getDependencies(),
     plugins: [
 
+      peerDepsExternal(),
+
       resolve({
         extensions: ['.*', '.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.css']
       }),
+
       localResolve(),
-      typescript(
-        {
-          sourceMap: !production,
-          inlineSourceMap: !production
-        }
-      ),
+
+      commonjs({
+        exclude: ["src/**"],
+        include: ["node_modules/**"]
+      }),
+
+      typescript({ tsconfig: "./tsconfig.json" }),
+
+      terser(),
 
       copy({
         targets: [
@@ -125,11 +133,6 @@ MODE.forEach((m) => {
           // { src: ['assets/fonts/arial.woff', 'assets/fonts/arial.woff2'], dest: 'dist/public/fonts' },
           // { src: 'assets/images/**/*', dest: 'dist/public/images' }
         ]
-      }),
-
-      commonjs({
-        exclude: ["src/**"],
-        include: ["node_modules/**"]
       }),
 
       // these are babel comfigurations
@@ -171,4 +174,9 @@ MODE.forEach((m) => {
 
 export default [
   ...config,
+  {
+    input: "src/index.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    plugins: [dts.default()],
+  }
 ]

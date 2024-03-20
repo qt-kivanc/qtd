@@ -97,6 +97,7 @@ export { default as ChunkArray } from './helpers/array/ChunkArray.js';
 export { default as FileChecker } from './helpers/checker/FileChecker.js';
 export { default as UniUpperCase } from './helpers/string/UniUpperCase.js';
 
+export * from './';
 
 /*
 console.log("process.env.NODE_ENV: " + process.env.NPM_ENV);

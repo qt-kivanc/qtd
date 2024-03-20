@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-const useSingleQuery = (props) => {
+const useSingleQuery = () => {
 
   const [searchParams, SetSearchParams] = useSearchParams();
 

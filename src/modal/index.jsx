@@ -59,11 +59,8 @@ export const ModalProvider = ({ children }) => {
 };
 
 /**
- * 
- * 
- * 
+ * Use Modal hook.
  * @returns 
- * 
  */
 const useModal = () => useContext(ModalContext);
 

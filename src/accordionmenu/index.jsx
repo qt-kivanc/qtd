@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import SubMenu from './submenu/SubMenu.jsx';
-import Item from './item/Item.jsx';
+import SubMenu from './submenu/SubMenu.tsx';
+import Item from './item/Item.tsx';
 import { Wrapper } from './styled.components.js';
 
 const AccordionMenu = ({
@@ -14,6 +14,7 @@ const AccordionMenu = ({
   itemHeight = 40,
   iconSize = 22, 
   arrowSize = 20,
+  onChange = (id) => {},
   children
 }) => {
 
@@ -21,6 +22,7 @@ const AccordionMenu = ({
 
   const handleOnChange = (id) => {
     SetSelected(id);
+    onChange(id);
   }
 
   return (

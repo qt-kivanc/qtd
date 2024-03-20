@@ -121,12 +121,12 @@ const Button = ({
       id: id,
       $loading: "false",
       $justify: justify,
-      $disabled: false
+      disabled: false
     };
 
     if ( id ) props.id = id;
     if ( loading ) props.$loading = "true";
-    if ( disabled ) props.$disabled = true;
+    if ( disabled ) props.disabled = true;
     
     return props;
 

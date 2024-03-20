@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-const useMultiQuery = (props) => {
+const useMultiQuery = () => {
 
   const [searchParams, SetSearchParams] = useSearchParams();
 

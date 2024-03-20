@@ -9,6 +9,9 @@ export const NotificationProvider = ({ children }) => {
 
   const [notifications, setNotifications] = useState([]);
 
+  /**
+   * Yeni bir bildirim oluşturur ve gösterir
+   */
   const addNotification = useCallback(({
     title = "",
     description = "",
@@ -33,6 +36,9 @@ export const NotificationProvider = ({ children }) => {
 
   }, [setNotifications]);
 
+  /**
+   * Id'si bilinen bir bildirimi kaldırır.
+   */
   const removeNotification = useCallback((id) => {
 
     setNotifications((notifications) => notifications.filter((n) => n.id !== id));
@@ -47,7 +53,10 @@ export const NotificationProvider = ({ children }) => {
         removeNotification
       }}
     >
-      <Container notifications={notifications} onRemove={removeNotification} />
+      <Container
+        notifications={notifications}
+        onRemove={removeNotification}
+      />
       {children}
     </NotificationContext.Provider>
     
@@ -55,10 +64,16 @@ export const NotificationProvider = ({ children }) => {
 
 };
 
+/**
+ * 
+ * @returns 
+ */
 const useNotifications = () => {
-  const notificationHelpers = useContext(NotificationContext);
-
-  return notificationHelpers;
+  const context = useContext(NotificationContext);
+  return {
+    addNotification     : context.addNotification,
+    removeNotification  : context.removeNotification
+  };
 };
 
 const Notification = {};

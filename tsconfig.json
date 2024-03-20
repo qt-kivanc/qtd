@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "ESNext",
+    "target": "es5",
     "module": "ESNext",
     "checkJs": false,
     "jsx": "react-jsx",
@@ -9,10 +9,10 @@
     "sourceMap": true,
     "preserveSymlinks": false,
     "declaration": true,
-    "declarationDir": "dist/dts",
+    "declarationDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noImplicitThis": true,
     "strictNullChecks": true,
     //"suppressImplicitAnyIndexErrors": true,
@@ -43,6 +43,11 @@
       "vite/client", 
       "vite-plugin-svgr/client"
     ],
+    "typeRoots": [
+      "./typings",
+      "./node_modules",
+      "./node_modules/@types/"
+    ],
     "skipLibCheck": false,
     "strict": false,
     "paths": {
@@ -51,7 +56,7 @@
       "interfaces/*": ["src/interfaces/*"],
       "utils/*": ["src/utils/*"],
       "hooks/*": ["src/hooks/*"],
-      "./*": ["./node_modules/"]
+      "./*": ["src/*"]
     }
   },
   "include": ["src"],

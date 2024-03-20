@@ -1,21 +1,23 @@
 {
   "name": "@quan-tech/qt-design",
-  "version": "1.3.241",
+  "version": "1.3.321",
   "description": "Quan Tech Design libraries for desktop.",
   "author": "Kivanc",
   "license": "ISC",
   "readme": "https://github.com/qt-kivanc/qtd#readme",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src/typings"
   ],
   "scripts": {
     "prepublish": "rollup -c --bundleConfigAsCjs",
     "build-rollup": "[ -d ./dist ] || mkdir dist && rm -r ./dist && rollup -c --bundleConfigAsCjs",
     "start-rollup": "rollup -c -w --bundleConfigAsCjs",
     "start": "vite --host",
-    "build": "[ -d ./dist ] || mkdir dist && rm -r ./dist && rtsc && vite build",
+    "build": "[ -d ./build ] || mkdir build && rm -r ./build && vite build",
     "serve": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -97,9 +99,11 @@
     "react-app-rewired": "^2.2.1",
     "rollup": "4.13.0",
     "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-local-resolve": "^1.0.7",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-styles": "4.0.0",
@@ -111,6 +115,7 @@
     "tslib": "^2.5.0",
     "typescript": "5.4.2",
     "vite": "5.1.6",
+    "vite-plugin-node-polyfills": "^0.21.0",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.1"
   },
