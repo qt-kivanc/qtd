@@ -1,0 +1,1 @@
+declare module '@quan-tech/qt-design';

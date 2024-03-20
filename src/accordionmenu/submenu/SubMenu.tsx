@@ -1,0 +1,237 @@
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import ALink from '../../alink/index.jsx';
+import ArrowIcon from '../../icons/Arrow.jsx';
+
+import { Wrapper, Title, Icon, Content, Arrow } from './styled.components.js';
+  
+interface ISubMenuProps {
+  id                : string,
+  link              : string,
+  title             : string,
+  icon?             : string | ReactElement,
+  isSelected?       : boolean, 
+  useLink?          : boolean, 
+  onlyOne?          : boolean, 
+  subMenuLinkArrow? : boolean, 
+  subMenuHeight?    : number, 
+  itemHeight?       : number, 
+  iconSize?         : number, 
+  arrowSize?        : number,
+  onChange?         : (id:string) => void,
+  children?         : null | JSX.Element|JSX.Element[]
+}
+
+export default function SubMenu({
+  /* ---------- */
+  id                = "",
+  link              = "",
+  icon              = "",
+  title             = "",
+  /* ---------- */
+  isSelected        = false, 
+  useLink           = false, 
+  onlyOne           = false, 
+  subMenuLinkArrow  = true, 
+  /* ---------- */
+  subMenuHeight     = 60, 
+  itemHeight        = 40, 
+  iconSize          = 22, 
+  arrowSize         = 20, 
+  /* ---------- */
+  onChange          = () => {},
+  children          = null
+}:ISubMenuProps) {
+
+  const location = useLocation();
+
+  const [isActive, SetIsActive] = useState(false);
+  const [isOpen, SetIsOpen] = useState(false);
+  const [height, SetHeight] = useState("0px");
+
+  const content = useRef<any>(null);
+
+  useEffect(() => {
+
+    /**
+     * İlk açılışta menünün boyunu alarak açılma animasyonunu 
+     * göstermemeyi sağlar.
+     */
+    if ( hasLinkFound() && content.current ) {
+      content.current.style = `${content.current.scrollHeight}px`;
+    }
+
+  }, []);
+
+  useEffect(() => {
+
+    if ( !isSelected && onlyOne ) {
+      SetIsOpen(false);
+    }
+  
+  }, [isSelected]);
+
+  useEffect(() => {
+
+    if ( isOpen ) {
+      onChange(id);
+    }
+
+    SetHeight(
+      !isOpen || !content.current ? "0px" : `${content.current.scrollHeight}px`
+    );
+
+  }, [isOpen]);
+
+  useEffect(() => {
+    
+    const hasFound = hasLinkFound();
+    
+    SetIsActive(hasFound);
+    
+    if ( hasFound ) SetIsOpen(true);
+
+  }, [location]);
+
+  const hasLinkFound = () => {
+
+    if ( !useLink && isSelected ) return true;
+
+    let found = false;
+    
+    if ( children && Array.isArray(children) ) {
+      children.forEach(child => {
+        if ( location.pathname.indexOf(child.props.link) > -1 ) {
+          found = true;
+        }
+      });
+    }
+    else {
+      if ( location.pathname.indexOf(link) > -1 ) {
+        found = true;
+      }
+    }
+
+    return found;
+
+  }
+
+  const handleTitleClick = () => {
+    SetIsOpen(!isOpen);
+  }
+
+  const getArrow = () => (
+    <Arrow 
+      width     = {arrowSize} 
+      height    = {arrowSize} 
+      className = "qtd-accordion-menu-header-arrow-icon qtd-svg"
+      as        = {ArrowIcon} 
+    />
+  )
+
+  const getIconClassNames = () => {
+    
+    let names = "qtd-accordion-menu-header-icon";
+
+    if ( typeof icon !== "string" ) names += " qtd-icon";
+    else if ( icon !== "" ) names += " qtd-icon " + icon;
+    
+    return names;
+
+  }
+
+  const getHeaderClassNames = () => {
+    
+    let names = "qtd-accordion-menu-sub-menu";
+
+    if ( isOpen )     names += " qtd-accordion-menu-sub-menu-open";
+    if ( !children )  names += " qtd-accordion-menu-sub-menu-single";
+    if ( isActive )   names += " qtd-accordion-menu-sub-menu-active";
+    if ( children )   names += " qtd-accordion-menu-sub-menu-multiple";
+    
+    return names;
+
+  }
+  
+
+  const getAccordionTitle = () => (
+    
+    <Title 
+      $height   = {subMenuHeight} 
+      onClick   = {handleTitleClick}
+      className = "qtd-accordion-menu-header"
+    >
+      {
+        <Icon 
+          className = {getIconClassNames()} 
+          $size     = {iconSize} 
+        >
+          { typeof icon === "string" ? null : icon }
+        </Icon>
+      }
+      <span className="qtd-accordion-menu-header-text">
+        {title}
+      </span>
+      { getArrow() }
+    </Title>
+
+  )
+
+  const getTitle = () => (
+    
+    <Title 
+      $height   = {subMenuHeight} 
+      className = "qtd-accordion-menu-header"
+      as        = {ALink}
+      to        = {link}
+    >
+      {
+        <Icon 
+          className = {getIconClassNames()} 
+          $size     = {iconSize} 
+        >
+          { typeof icon === "string" ? null : icon }
+        </Icon>
+      }
+      <span className="qtd-accordion-menu-header-text">
+        {title}
+      </span>
+      { subMenuLinkArrow ? getArrow() : null }
+    </Title>
+
+  )
+
+  const getChildren = () => (
+
+    <Content
+      ref       = {content}
+      style     = {{ maxHeight: `${height}` }}
+      className = "qtd-accordion-menu-collapse"
+    >
+      {
+        React.Children.map(children, (element:JSX.Element) => 
+          React.cloneElement(element, {
+            ...element.props,
+            itemHeight: itemHeight,
+            arrowSize: arrowSize,
+            active: location.pathname.indexOf(element.props.link) > -1
+          })
+        )
+      }
+    </Content>
+
+  )
+
+  const getContent = () => (
+
+    <Wrapper className={getHeaderClassNames()}>
+      { children ? getAccordionTitle() : getTitle() }
+      { children ? getChildren() : null }
+    </Wrapper>
+
+  )
+
+  return getContent();
+  
+};
