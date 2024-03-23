@@ -1,6 +1,4 @@
-import React from "react";
-
-const BackToTop = ({ className, height, width, fill }) => {
+const BackToTop = ({ className, height, width }) => {
   return (
     <svg
       className={className}

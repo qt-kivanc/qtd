@@ -32,6 +32,12 @@ const getSize = () => {
 
     /* LARGE */
     &.qtd-button-lg {
+      height: 44px;
+      span { font-size: 14px; line-height: 14px; font-weight: 500; }
+    }
+
+    /* X-LARGE */
+    &.qtd-button-xlg {
       height: 46px;
       span { font-size: 18px; line-height: 18px; font-weight: 500; }
     }
@@ -71,6 +77,11 @@ const getCircle = () => {
 
       /* LARGE */
       &.qtd-button-lg {
+        width: 44px;
+      }
+
+      /* X-LARGE */
+      &.qtd-button-xlg {
         width: 46px;
       }
 

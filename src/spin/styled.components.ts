@@ -14,10 +14,10 @@ const Wrapper = styled.div`
   position: relative;
   `
 
-const SpinWrapper = styled.div`
+const SpinWrapper = styled.div<{$size:string}>`
 
-  width: ${props => `${props.size}px`};
-  height: ${props => `${props.size}px`};
+  width: ${props => `${props.$size}px`};
+  height: ${props => `${props.$size}px`};
 
   position:absolute;
 
@@ -62,7 +62,7 @@ const Spinner = styled.div`
 
   `
 
-const ChildrenWrapper = styled.div`
+const ChildrenWrapper = styled.div<{$updating:boolean}>`
 
   opacity: ${props => `${props.$updating ? .5 : 1}`};
   pointer-events: ${props => `${props.$updating ? 'none' : 'auto'}`};

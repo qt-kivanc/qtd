@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Wrapper, ChildrenWrapper, Spinner, SpinWrapper } from './styled.components';
 
+interface ISpin {
+  updating? : boolean,
+  size?     : number,
+  children? : any
+}
+
 const Spin = ({
-  size = 24,
-  updating = true,
-  children = null
-}) => {
+  updating  = true,
+  size      = 24,
+  children  = null
+}:ISpin) => {
 
   useEffect(() => {
 
@@ -15,7 +21,7 @@ const Spin = ({
 
   const getSpin = () => (
 
-    <SpinWrapper size={size} className="qtd-spin-spinner">
+    <SpinWrapper $size={String(size)} className="qtd-spin-spinner">
       <Spinner>
         <div></div><div></div><div></div><div></div>
       </Spinner>

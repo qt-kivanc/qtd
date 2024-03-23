@@ -177,6 +177,7 @@ const Select = forwardRef(
     if ( size === "small" )     return "sm";
     if ( size === "medium" )    return "md";
     if ( size === "large" )     return "lg";
+    if ( size === "x-large" )   return "xlg";
     return "";
   }
 

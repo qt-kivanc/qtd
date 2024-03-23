@@ -6,7 +6,7 @@ import ArrowIcon from '../../icons/Arrow.jsx';
 
 import { Wrapper, Title, Icon, Content, Arrow } from './styled.components.js';
   
-interface ISubMenuProps {
+export type AccordionSubMenuPropsType = {
   id                : string,
   link              : string,
   title             : string,
@@ -42,7 +42,7 @@ export default function SubMenu({
   /* ---------- */
   onChange          = () => {},
   children          = null
-}:ISubMenuProps) {
+}:AccordionSubMenuPropsType) {
 
   const location = useLocation();
 

@@ -1,6 +1,4 @@
-import React from "react";
-
-const Checkmark = ({ className, height, width, fill }) => {
+const Checkmark = ({ className, height, width }) => {
   return (
     <svg
       className={className}

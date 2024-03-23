@@ -48,7 +48,7 @@
       "./node_modules",
       "./node_modules/@types/"
     ],
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "strict": false,
     "paths": {
       "context/*": ["src/context/*"],

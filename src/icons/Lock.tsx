@@ -1,6 +1,4 @@
-import React from "react";
-
-const Lock = ({ className, height, width, fill }) => {
+const Lock = ({ className, height, width }) => {
   return (
     <svg
       className={className}

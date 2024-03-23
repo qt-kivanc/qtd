@@ -34,6 +34,15 @@ const getInputSize = () => {
     
     /* LARGE */
     &.qtd-input-lg {
+      height: 44px; 
+      .qtd-input-floating-input {
+        height: 44px; 
+        padding-top: 13px;
+      }
+    }
+    
+    /* X-LARGE */
+    &.qtd-input-xlg {
       height: 46px; 
       .qtd-input-floating-input {
         height: 46px; 
@@ -115,7 +124,7 @@ const Wrapper = styled.div`
   transition: background-color 0.2s ease;
   border-radius: 6px;
   padding: 0px 15px;
-  width: 100%;
+  width: inherit;
 
   position: relative;
   display: flex;

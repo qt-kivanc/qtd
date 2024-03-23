@@ -20,7 +20,7 @@ export { default as QTDContext } from './context/QTDContext';
 export { default as Select } from './select/index';
 export { default as Form } from './form/index';
 export { default as Checkbox } from './checkbox/index';
-export { default as AccordionMenu } from './accordionmenu/index';
+export { default as Accordion } from './accordion/index';
 export { default as Calendar } from './calendar/index';
 export { default as DatePicker } from './datepicker/index';
 export { default as Input } from './input/index';

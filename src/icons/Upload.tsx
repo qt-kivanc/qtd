@@ -1,6 +1,4 @@
-import React from "react";
-
-const Upload = ({ className, height, width, fill }) => {
+const Upload = ({ className, height, width }) => {
   return (
     <svg
       className={className}

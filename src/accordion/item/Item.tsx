@@ -2,7 +2,7 @@ import ArrowIcon from '../../icons/Arrow.jsx';
 import { Arrow, Wrapper } from './styled.components';
 import ALink from '../../alink/index';
 
-interface IItemProps {
+export type AccordionItemPropsType = {
   link?       : string,
   itemHeight? : number,
   arrowSize?  : number,
@@ -16,7 +16,7 @@ const Item = ({
   arrowSize   = 20,
   active      = false,
   children    = null
-}:IItemProps) => {
+}:AccordionItemPropsType) => {
 
   return (
     <li className="qtd-accordion-menu-content-item">

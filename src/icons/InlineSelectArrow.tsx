@@ -1,6 +1,4 @@
-import React from "react";
-
-const InlineSelectArrow = ({ className, height, width, fill }) => {
+const InlineSelectArrow = ({ className, height, width }) => {
   return (
     <svg
       className={className}

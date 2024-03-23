@@ -44,6 +44,16 @@ const getBySize = () => {
     &.qtd-select-lg {
       .qtd-select-selector {
 
+        height: 44px; 
+        padding: 0px 15px 0px 15px;
+
+      }
+    }
+
+    /* X-LARGE */
+    &.qtd-select-xlg {
+      .qtd-select-selector {
+
         height: 46px; 
         padding: 0px 15px 0px 15px;
 
@@ -236,6 +246,61 @@ const getLabelBySize = () => {
 
     /* LARGE */
     &.qtd-select-lg {
+
+      .qtd-select-selector {
+        .qtd-icon {
+          font-size: 22px;
+        }
+      }
+
+      .qtd-select-selection-item {
+        .qtd-select-selection-label {
+
+          [type=text] {
+            height: 44px;
+          }
+
+          &.qtd-select-selection-item-single {
+            span {
+              font-size: 13px;
+              line-height: 13px;
+            }
+          }
+
+          &.qtd-select-selection-item-floating {
+
+            span {
+              font-size: 13px;
+              line-height: 13px;
+            }
+
+            &[data-filled="true"] {
+              label::before {
+                transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
+              }
+              > span {
+                padding-top: 24px;
+              }
+            }
+
+            &[data-filled="false"] {
+              label::before {
+                transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
+              }
+              > span { 
+                position: relative;
+              }
+            }
+
+          }
+
+        }
+      }
+
+    }
+
+    /* X-LARGE */
+    &.qtd-select-xlg {
 
       .qtd-select-selector {
         .qtd-icon {

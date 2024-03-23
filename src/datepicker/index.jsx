@@ -273,7 +273,7 @@ const DatePicker = forwardRef((
     if ( errorMessage ) names += " qtd-date-picker-error";
     if ( isOpen ) names += " qtd-date-picker-open";
     if ( className !== "" ) names += " " + className;
-    
+
     return names;
 
   }
