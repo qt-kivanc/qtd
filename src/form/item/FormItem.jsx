@@ -91,11 +91,11 @@ export default function FormItem({
   const getFormItem = () => {
 
     const props = {
-      label: label,
-      placeholder: placeholder,
-      id: formId + "_" + name,
-      onUpdate: handleItemUpdate,
-      ref: ref
+      label       : label,
+      placeholder : placeholder,
+      id          : formId + "_" + name,
+      onUpdate    : handleItemUpdate,
+      ref         : ref
     }
 
     if ( mask ) props.mask = mask;

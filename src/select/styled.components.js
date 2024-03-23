@@ -61,7 +61,7 @@ const getBySize = () => {
     }
 
     /* DEFAULT */
-    &:not(&.qtd-select-xs):not(&.qtd-select-sm):not(&.qtd-select-md):not(&.qtd-select-lg) 
+    &:not(&.qtd-select-xs):not(&.qtd-select-sm):not(&.qtd-select-md):not(&.qtd-select-lg):not(&.qtd-select-xlg)  
     {
       .qtd-select-selector {
 
@@ -355,7 +355,8 @@ const getLabelBySize = () => {
     }
 
     /* DEFAULT */
-    &:not(&.qtd-select-xs):not(&.qtd-select-sm):not(&.qtd-select-md):not(&.qtd-select-lg) {
+    &:not(&.qtd-select-xs):not(&.qtd-select-sm):not(&.qtd-select-md):not(&.qtd-select-lg):not(&.qtd-select-xlg)
+    {
       
       .qtd-select-selector {
         .qtd-icon {

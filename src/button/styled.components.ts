@@ -43,7 +43,7 @@ const getSize = () => {
     }
 
     /* DEFAULT */
-    &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+    &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg):not(&.qtd-button-xlg) 
     {
       height: 40px;
       span { font-size: 12px; line-height: 12px; }
@@ -86,7 +86,7 @@ const getCircle = () => {
       }
 
       /* DEFAULT */
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg):not(&.qtd-button-xlg)
       {
         width: 40px;
       }
@@ -125,7 +125,7 @@ const getIcon = () => {
       }
 
       /* DEFAULT */
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg):not(&.qtd-button-xlg) 
       {
         ${Icon} { font-size: 20px; }
       }
@@ -165,7 +165,7 @@ const getSVG = () => {
       }
 
       /* DEFAULT */
-      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg) 
+      &:not(&.qtd-button-xs):not(&.qtd-button-sm):not(&.qtd-button-md):not(&.qtd-button-lg):not(&.qtd-button-xlg) 
       {
         svg { width: 16px; }
       }

@@ -51,7 +51,7 @@ const getInputSize = () => {
     }
     
     /* DEFAULT */
-    &:not(&.qtd-input-xs):not(&.qtd-input-sm):not(&.qtd-input-md):not(&.qtd-input-lg) {
+    &:not(&.qtd-input-xs):not(&.qtd-input-sm):not(&.qtd-input-md):not(&.qtd-input-lg):not(&.qtd-input-xlg) {
       height: 40px; 
       .qtd-input-floating-input {
         height: 40px; 

@@ -228,7 +228,7 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
 
   }
 
-  const handleAmountChange = (values) => {
+  const handleAmountChange = (values:any) => {
 
     sendUpdates(values.value, true, false);
     SetFloatValue(values.formattedValue);
@@ -340,10 +340,10 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
 
       inputProps = {
         ...inputProps,
-        mask: props.mask, 
-        maskPlaceholder: "_",
-        alwaysShowMask: false,
-        onChange: onHandleChange,
+        mask            : props.mask, 
+        maskPlaceholder : "_",
+        alwaysShowMask  : false,
+        onChange        : onHandleChange,
         //beforeMaskedValueChange:this.beforeMaskedValueChange
       }
 
@@ -358,12 +358,12 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
 
         inputProps = {
           ...inputProps,
-          maxLength: props.maxLength,
-          value: floatValue,
-          thousandSeparator: ".",
-          decimalSeparator: ",",
-          getInputRef: inputRef,
-          onValueChange: handleAmountChange,
+          maxLength         : props.maxLength,
+          value             : floatValue,
+          thousandSeparator : ".",
+          decimalSeparator  : ",",
+          getInputRef       : inputRef,
+          onValueChange     : handleAmountChange,
         }
         
         return (
@@ -377,9 +377,9 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
       
         inputProps = {
           ...inputProps,
-          maxLength: props.maxLength,
-          onChange: onHandleChange,
-          ref: inputRef
+          maxLength : props.maxLength,
+          onChange  : onHandleChange,
+          ref       : inputRef
         }
           
         return (
@@ -399,12 +399,12 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
 
     <label 
       htmlFor       = {props.id} 
-      className     = {"qtd-input-floating-label " + s.floatingLabel}
-      //disabled      = {props.disabled}
+      className     = {"qtd-input-floating-label " + s.floatingLabel + " " + props.placeholder}
       data-content  = {props.placeholder} 
+      //disabled      = {props.disabled}
     >
       <HiddenVisually>
-        {props.placeholder}
+        { props.placeholder }
       </HiddenVisually>
     </label>
 
