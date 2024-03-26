@@ -1,8 +1,8 @@
-export default function FindSelector(searchClassName) {
+export default function FindSelector(searchClassName: string) {
 
   let found = false;
 
-  document.querySelectorAll('head > style').forEach(css => { 
+  document.querySelectorAll('head > style').forEach((css:any) => { 
     Array(css.sheet.rules).forEach(rule => {
       
         for(var i=0; i < rule.length; i++ ) {

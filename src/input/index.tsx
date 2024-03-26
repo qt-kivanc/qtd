@@ -12,7 +12,19 @@ import { ErrorBorder, ErrorTooltip, Failed, HiddenVisually, LockIconWrapper, Mid
  * https://dev.to/adrianbdesigns/let-s-create-a-floating-label-input-with-html-and-css-only-4mo8
  */
 
-type TProps = {
+export type ImperativeFunctionsProps = {
+
+  setFocus    : () => void
+  reset       : (update:boolean, validation:boolean) => void,
+  setValue    : (value:any, update:boolean, validation:boolean) => void,
+  getValue    : () => void,
+  setError    : (message:string) => void,
+  forceUpdate : () => void,
+  clear       : () => void
+
+}
+
+export type InputPropsType = {
 
   id?           : string,
   placeholder?  : string, 
@@ -26,6 +38,7 @@ type TProps = {
   /* ------------ */
   prefix?       : null | JSX.Element,
   suffix?       : null | JSX.Element,
+  status?       : null | JSX.Element,
   /* ------------ */
   maxLength?    : number,
   disabled?     : boolean, 
@@ -46,19 +59,7 @@ type TProps = {
 
 }
 
-export type IImperativeFunctions = {
-
-  setFocus    : () => void
-  reset       : (update:boolean, validation:boolean) => void,
-  setValue    : (value:any, update:boolean, validation:boolean) => void,
-  getValue    : () => void,
-  setError    : (message:string) => void,
-  forceUpdate : () => void,
-  clear       : () => void
-
-}
-
-const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => {
+const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwardedRef) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -307,7 +308,7 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
    */
   const getInput = () => {
 
-    let inputProps: Partial<TProps> | any = {
+    let inputProps: Partial<InputPropsType> | any = {
       id          : props.id,
       placeholder : props.placeholder,
       value       : currentValue,
@@ -445,7 +446,7 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
                 : null
               ) 
         }
-        { getErrors() }
+        { getErrorStatus() }
       </Suffix>
     )
 
@@ -467,26 +468,45 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
   /**
    * 
    */
-  const getErrors = () => {
+  const getErrorStatus = () => {
 
     if ( errorMessage === "" ) return;
 
+    { 
+      props.suffix 
+        ? props.suffix 
+        : (
+          props.locked 
+            ? <LockIconWrapper
+                className = "qtd-svg"
+                width     = "18" 
+                height    = "18"
+              />
+            : null
+          ) 
+    }
+
+    let _props = {
+      className     : "qtd-input-failed",
+      onPointerOver : () => SetShowErrorTooltip(true),
+      onPointerOut  : () => SetShowErrorTooltip(false)
+    }
+
+    if ( !props.status ) {
+      _props["data-icon"] = "i";
+    }
+    
     return (
 
-      <Failed 
-        data-icon="i"
-        className="qtd-input-failed" 
-        onPointerOver={() => SetShowErrorTooltip(true)}
-        onPointerOut={() => SetShowErrorTooltip(false)}
-      >
+      <Failed {..._props} >
         {
           showErrorTooltip ?
             <ErrorTooltip className="qtd-input-error-tooltip">
               {errorMessage}
             </ErrorTooltip>
           : null
-
         }
+        { props.status ? props.status : null }
       </Failed>
 
     );
@@ -524,7 +544,7 @@ const Input = forwardRef<IImperativeFunctions, TProps>((props, forwardedRef) => 
   }
 
   const getVariant = () => {
-    if ( props.variant === "default" )  return "";
+    if ( props.variant === "default" )  return "default";
     if ( props.variant === "filled" )   return "filled";
     if ( props.variant === "dashed" )   return "dashed";
     return "";

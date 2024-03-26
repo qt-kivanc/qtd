@@ -1,6 +1,6 @@
-export default function AddZero( num ) {
+export default function AddZero( num: string ) {
   
-  var value = Number(num);
+  var value : number | string = Number(num);
   var res = num.toString().split(".");
   
   if(num.toString().indexOf('.') === -1) {

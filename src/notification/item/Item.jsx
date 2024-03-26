@@ -35,14 +35,16 @@ const Item = ({
 
   return (
     <Wrapper 
-      $type={type}
-      style={style} 
-      onClick={removeMe}
+      key       = {id}
+      $type     = {type}
+      style     = {style} 
+      onClick   = {removeMe}
+      className = {"qtd-notification-item qtd-notification-" + type}
     >
-      <Title>
+      <Title className="qtd-notification-title">
         {title}
       </Title>
-      <Description>
+      <Description className="qtd-notification-description">
         {description}
       </Description>
     </Wrapper>

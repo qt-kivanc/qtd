@@ -1,21 +1,25 @@
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 
 /**
  * 
  * document objesine event listener ekler ve ref dışarısında
  * herhangi bir alana tıklanıldığında ref'in kapatılmasını sağlar.
  * 
- * @param {*} ref 
- * @param {*} handler 
+ * @param ref 
+ * @param handler 
  * 
  */
-const useOnClickOutside = (ref, handler) => {
+const useOnClickOutside = (
+  ref     : MutableRefObject<HTMLDivElement>, 
+  handler : (event:PointerEvent) => void
+) => {
 
   useEffect(() => {
 
-    const listener = event => {
+    const listener = (event:PointerEvent) => {
 
-      if (!ref.current || ref.current.contains(event.target)) {
+      if ( !event.target ) return;
+      if (!ref.current || ref.current.contains((event.target as Node))) {
         return;
       }
 

@@ -9,9 +9,15 @@ import ConsoleLog from "../logger";
  * @param {*} handler 
  * 
  */
-const useReCaptcha = (handler) => {
 
-  let script;
+declare const window: any;
+
+type Nullable<T> = T | null; 
+type THandler = Nullable<(value:string | null) => void>;
+
+const useReCaptcha = (handler: THandler) => {
+
+  let script:HTMLScriptElement;
 
   const [reCaptchaKey, SetReCaptchaKey] = useState("");
 
@@ -23,24 +29,24 @@ const useReCaptcha = (handler) => {
 
   }, []);
 
-  const executeReCaptcha = (handler) => {
+  const executeReCaptcha = () => {
 
     if ( reCaptchaKey === "" ) {
       ConsoleLog.double("useReCaptcha", "Not yet initialized! reCaptcha can't execute right now.", "error");
-      handler(null);
+      if ( handler ) handler(null);
       return;
     }
     
-    window.grecaptcha.ready(_ => {
+    window.grecaptcha.ready((_:any) => {
       try {
         window.grecaptcha
           .execute(reCaptchaKey, { 
             action: "login" 
           })
-          .then(token => {
+          .then((token:string) => {
             ConsoleLog.double("ReCaptcha V3", "Token is valid");
             console.log("token: " + token);
-            handler(token);
+            if ( handler ) handler(token);
           });
       } 
       catch(e){
@@ -50,7 +56,7 @@ const useReCaptcha = (handler) => {
 
   }
 
-  const loadReCaptcha = (key) => {
+  const loadReCaptcha = (key:string) => {
 
     script = document.createElement("script");
     script.src = "https://www.google.com/recaptcha/api.js?render=" + key;

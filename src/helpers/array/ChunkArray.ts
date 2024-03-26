@@ -4,15 +4,20 @@
    * @param array {Array} array to split
    * @param chunk_size {Integer} Size of every group
    */
-  export default function ChunkArray(array, chunk_size) {
-    var index = 0;
-    var result = [];
-    var chunk = [];
+  export default function ChunkArray(array: [], chunk_size: number) {
+
+    let index   = 0;
+    let result  = [];
     
     for (index = 0; index < array.length; index += chunk_size) {
-      chunk = array.slice(index, index+chunk_size);
+      
+      const chunk:[] | never[] = array.slice(index, index+chunk_size);
       // Do something if you want with the group
-      result.push(chunk);
+
+      if ( typeof chunk !== "object" ) {
+        result.push(chunk);
+      }
+
     }
 
     return result;

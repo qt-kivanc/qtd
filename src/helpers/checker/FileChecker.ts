@@ -1,7 +1,7 @@
 /**
  * 
- * @param {*} text 
- * @param {*} entryType 
+ * @param text 
+ * @param entryType 
  * @returns 
  */
 export default function FileChecker(text = "config", entryType="resource") {

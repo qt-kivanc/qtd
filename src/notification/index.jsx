@@ -2,8 +2,7 @@ import React, { useState, useContext, useCallback } from "react";
 
 import Container from "./container/Container.jsx";
 import NotificationContext from "./context/NotificationsContext.jsx";
-
-let id = 1;
+import { nanoid } from "nanoid";
 
 export const NotificationProvider = ({ children }) => {
 
@@ -13,24 +12,24 @@ export const NotificationProvider = ({ children }) => {
    * Yeni bir bildirim oluşturur ve gösterir
    */
   const addNotification = useCallback(({
-    title = "",
+    title       = "",
     description = "",
-    placement = "topRight",
-    autoHide = true,
-    delay = 3000,
-    type = "default"
+    placement   = "topRight",
+    autoHide    = true,
+    delay       = 3000,
+    type        = "default"
   }) => {
 
     setNotifications((notifications) => [
       ...notifications,
       {
-        id: id++,
-        title: title,
-        description: description,
-        placement: placement,
-        autoHide: autoHide,
-        delay: delay,
-        type: type
+        id          : nanoid(11),
+        title       : title,
+        description : description,
+        placement   : placement,
+        autoHide    : autoHide,
+        delay       : delay,
+        type        : type
       }
     ]);
 
@@ -54,8 +53,8 @@ export const NotificationProvider = ({ children }) => {
       }}
     >
       <Container
-        notifications={notifications}
-        onRemove={removeNotification}
+        notifications = {notifications}
+        onRemove      = {removeNotification}
       />
       {children}
     </NotificationContext.Provider>

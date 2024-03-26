@@ -1,19 +1,26 @@
-const useComponentSize = (comRef) => {
+import { useEffect, useState } from "react";
 
-    const [size, setSize] = React.useState({
-      width: 0,
-      height: 0
+const useComponentSize = (comRef: React.RefObject<any>) => {
+
+    const [size, setSize] = useState({
+      width   : 0,
+      height  : 0
     });
   
-    React.useEffect(() => {
-      const sizeObserver = new ResizeObserver((entries, observer) => {
+    useEffect(() => {
+
+      if ( !comRef.current ) return;
+
+      const sizeObserver = new ResizeObserver((entries) => {
         entries.forEach(({ target }) => {
           setSize({ width: target.clientWidth, height: target.clientHeight });
         });
       });
+
       sizeObserver.observe(comRef.current);
   
       return () => sizeObserver.disconnect();
+
     }, [comRef]);
   
     return [size];

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle, ReactElement } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 
 import Option from './option/Option';
 import Toggle from './toggle/Toggle';
@@ -13,24 +13,24 @@ import { Wrapper } from './styled.components.js';
 const Select = forwardRef(
   (
     {
-      defaultValue = "",
-      value = "",
-      label = "",
-      position = "bottom",
-      direction = "right",
-      mode = "single",
-      size = "default",
-      type = "default",
-      className = "",
-      placeholder = "Please Select",
-      icon = "",
-      image = "",
-      disabled = false,
-      locked = false,
-      floating = false,
-      children = null,
-      onChange = () => null,
-      onUpdate = () => null
+      defaultValue  = "",
+      value         = "",
+      label         = "",
+      position      = "bottom",
+      direction     = "right",
+      mode          = "single",
+      size          = "default",
+      type          = "default",
+      className     = "",
+      placeholder   = "Please Select",
+      icon          = "",
+      image         = "",
+      disabled      = false,
+      locked        = false,
+      floating      = false,
+      children      = null,
+      onChange      = () => null,
+      onUpdate      = () => null
     }, 
     ref
   ) => 
@@ -184,7 +184,8 @@ const Select = forwardRef(
   const getProps = () => {
 
     let props = {
-      disabled: false
+      disabled  : false,
+      $size     : getSize()
     };
 
     if ( disabled ) props.disabled = true;
@@ -203,10 +204,10 @@ const Select = forwardRef(
     names += " qtd-select-" + position;
     
     if ( getSize() !== "" ) names += " qtd-select-" + getSize();
-    if ( isOpen ) names += " qtd-select-open";
-    if ( errorMessage ) names += " qtd-select-status-error";
-    if ( icon !== "" ) names += " qtd-icon";
-    if ( image !== "" ) names += " qtd-image";
+    if ( isOpen )           names += " qtd-select-open";
+    if ( errorMessage )     names += " qtd-select-status-error";
+    if ( icon !== "" )      names += " qtd-icon";
+    if ( image !== "" )     names += " qtd-image";
     if ( className !== "" ) names += " " + className;
 
     return names;
@@ -216,34 +217,34 @@ const Select = forwardRef(
   return(
 
     <Wrapper 
-      ref = {wrapperRef} 
+      ref       = {wrapperRef} 
       className = {getClassNames()}
       {...getProps()}
     >
 
       <Toggle        
-        labelType = {floating ? "floating" : "single"}
-        value = {currentValue}
-        placeholder = {placeholder}
-        onChange = {onHandleToggleChange}
-        errorMessage = {errorMessage}
-        type = {type}
-        size = {size}
-        icon = {icon}
-        image = {image}
-        label = {label}
-        isOpen = {isOpen}
-        locked = {locked}
+        labelType     = {floating ? "floating" : "single"}
+        value         = {currentValue}
+        placeholder   = {placeholder}
+        onChange      = {onHandleToggleChange}
+        errorMessage  = {errorMessage}
+        type          = {type}
+        size          = {size}
+        icon          = {icon}
+        image         = {image}
+        label         = {label}
+        isOpen        = {isOpen}
+        locked        = {locked}
       />
         
       <Menu
-        onClose = {onHandleClose}
-        onChange = {onHandleChange}
-        value = {currentValue}
-        position = {position}
-        direction = {direction}
-        isOpen = {isOpen}
-        mode = {mode}
+        onClose       = {onHandleClose}
+        onChange      = {onHandleChange}
+        value         = {currentValue}
+        position      = {position}
+        direction     = {direction}
+        isOpen        = {isOpen}
+        mode          = {mode}
       >
         
         { getOptions() }

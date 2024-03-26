@@ -95,6 +95,7 @@ const getInputVariant = () => {
         top: 0;
         left: 0;
         pointer-events: none;
+        transition: all .3 ease-out;
       }
     
       &:hover, &:focus-within {
@@ -106,9 +107,10 @@ const getInputVariant = () => {
     }
 
     /* DEFAULT */
-    &:not(&.qtd-input-filled):not(&.qtd-input-dashed) 
+    &.qtd-input-default
     {
       border: 1px solid #505A7D99;
+      transition: all .3s ease-out;
       
       &:hover, &:focus-within {
         border-color: #3598FE;
@@ -135,7 +137,7 @@ const Wrapper = styled.div`
     border-width: 0;
     display: block;
     width: 100%;
-    outline: none;
+    border: none;
   }
 
   /* ------------------------ */
@@ -222,11 +224,11 @@ const ErrorBorder = styled.div`
 
   position: absolute;
   border: 1px solid #870f0f;
-  width: 100%;
-  height: 100%;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
   border-radius: 6px;
-  top: 0;
-  left: 0;
+  top: -1px;
+  left: -1px;
   pointer-events: none;
   z-index: 1;
 
@@ -248,25 +250,19 @@ const HiddenVisually = styled.span`
 
 const StatusCore = styled.div`
 
-  margin: 0;
-  margin-right: 0px;
   color: #ffffffCC;
-  float: left;
   font-size: 10px;
-  line-height: 10px;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
   cursor: pointer;
 
   &:hover {
     color: #ffffff;
   }
 
-  &::before {
-    padding: 4px;
-    border-radius: 50px;
+  &[data-icon="i"] {
+    &::before {
+      padding: 4px;
+      border-radius: 50px;
+    }
   }
 
 `

@@ -7,6 +7,7 @@ import autoprefixer from 'autoprefixer';
 import postcss from "postcss";
 import calc from "postcss-calc";
 import postcssNested from "postcss-nested";
+import { IStyledComponent } from 'styled-components';
 
 /**
  * 
@@ -15,16 +16,20 @@ import postcssNested from "postcss-nested";
  * ile birlikte alıp head'e kayıt ediyor ve component ekrandan
  * kaldırıldığında kendini siliyor.
  * 
- * @param {*} style 
- * @param {*} id 
- * @param {*} handler 
+ * @param styled 
+ * @param handler 
  */
-const useCreateStyledStyle = (styled, handler = null) => {
+const useCreateStyledStyle = (
+  styled  : IStyledComponent<any, any>, 
+  handler : (id: string) => void
+) => {
 
   const style = styled.componentStyle.rules[0];
   let id = String(styled).replace(".", "");
 
-  if ( handler ) id += "-" + nanoid(11);
+  if ( handler !== null ) {
+    id += "-" + nanoid(11);
+  }
 
   useEffect(() => {
 
@@ -35,7 +40,9 @@ const useCreateStyledStyle = (styled, handler = null) => {
     return () => {
       document.querySelectorAll('head > style').forEach(css => { 
         if ( css.id === id ) {
-          css.parentNode.removeChild(css);
+          if ( css.parentNode ) {
+            css.parentNode.removeChild(css);
+          }
         }
       });
 
@@ -56,18 +63,18 @@ const useCreateStyledStyle = (styled, handler = null) => {
 
   }
 
-  const getRules = (style) => {
+  const getRules = (style: any) => {
 
     let styles = style.replace(/\r?\n|\r/g, '');
         styles  = postcss()
                     // https://github.com/postcss/autoprefixer#features
                     .use(autoprefixer({ grid: 'autoplace' }))
                     .use(postcssNested)
-                    .use(calc())
+                    .use(calc({}))
                     .process(styles)
                     .css;
 
-    let rules = [];
+    let rules: string[] = [];
 
     /**
      * Çoklu style destekleme. hover, before vs gibi sınıfları

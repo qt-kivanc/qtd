@@ -13,7 +13,7 @@ import { useEffect } from 'react';
  * @param {*} temporary 
  * 
  */
-const useAddExternalCSS = (link, temporary = false) => {
+const useAddExternalCSS = (link: string, temporary = false) => {
 
   //const [ styleLink, SetStyleLink ] = useState(null);
 
@@ -23,7 +23,7 @@ const useAddExternalCSS = (link, temporary = false) => {
     var head = document.head;
     var dynamicLink = createLink();
 
-    document.querySelectorAll('head > link').forEach(css => { 
+    document.querySelectorAll('head > link').forEach((css: HTMLLinkElement) => { 
   
       if (css.href.indexOf(link) !== -1) 
         found = true;
@@ -37,7 +37,7 @@ const useAddExternalCSS = (link, temporary = false) => {
 
     return () => { 
       if ( temporary ) {
-        document.querySelectorAll('head > link').forEach(css => { 
+        document.querySelectorAll('head > link').forEach((css: HTMLLinkElement) => { 
   
           if (css.href.indexOf(link) !== -1) {
             document.head.removeChild(css);

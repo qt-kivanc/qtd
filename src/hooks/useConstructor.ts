@@ -9,7 +9,7 @@ import { useState } from "react";
  * @returns 
  * 
  */
-const useConstructor = (callBack = () => {}) => {
+const useConstructor = (callBack: () => void = () => {}) => {
 
   const [hasBeenCalled, setHasBeenCalled] = useState(false);
 

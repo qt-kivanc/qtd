@@ -11,17 +11,17 @@ import {
 } from './styled.components.js';
 
 const Toggle = ({
-  label = "",
-  value = "",
-  errorMessage = "",
-  isOpen = false,
-  locked = false,
-  labelType = "single",
-  placeholder = "",
-  icon = "",
-  image = "",
-  size = "default", 
-  type = "default",
+  label         = "",
+  value         = "",
+  errorMessage  = "",
+  isOpen        = false,
+  locked        = false,
+  labelType     = "single",
+  placeholder   = "",
+  icon          = "",
+  image         = "",
+  size          = "default", 
+  type          = "default",
   onChange = () => null
 }) => {
 
@@ -81,10 +81,10 @@ const Toggle = ({
     if ( image !== "" )
       return (
         <Image 
-          src={image} 
-          height="20"
-          brokenHeight="20" 
-          className="qtd-image" 
+          src           = {image} 
+          height        = "20"
+          brokenHeight  = "20" 
+          className     = "qtd-image" 
         />
       )
 
@@ -100,17 +100,17 @@ const Toggle = ({
           labelType === "floating"
             ?
             <FloatingLabel 
-              placeholder={placeholder} 
-              label={label} 
-              size={size} 
-              value={value}
+              placeholder = {placeholder} 
+              label       = {label} 
+              size        = {size} 
+              value       = {value}
             />
             :
             <SingleLabel 
-              placeholder={placeholder} 
-              label={label} 
-              value={value} 
-              size={size} 
+              placeholder = {placeholder} 
+              label       = {label} 
+              value       = {value} 
+              size        = {size} 
             />
         }
       </Label>
@@ -161,10 +161,10 @@ const Toggle = ({
     return (
 
       <Failed 
-        data-icon="i"
-        className="qtd-select-failed" 
-        onPointerOver={() => SetShowErrorTooltip(true)}
-        onPointerOut={() => SetShowErrorTooltip(false)}
+        data-icon     = "i"
+        className     = "qtd-select-failed" 
+        onPointerOver = {() => SetShowErrorTooltip(true)}
+        onPointerOut  = {() => SetShowErrorTooltip(false)}
       >
         {
           showErrorTooltip ?
@@ -183,10 +183,10 @@ const Toggle = ({
   return(
 
     <Wrapper 
-      type={typeStyle}
-      size={sizeStyle}
-      onClick={onButtonClick}
-      className="qtd-select-selector"
+      type      = {typeStyle}
+      size      = {sizeStyle}
+      onClick   = {onButtonClick}
+      className = "qtd-select-selector"
     >
 
       { getIcon() }

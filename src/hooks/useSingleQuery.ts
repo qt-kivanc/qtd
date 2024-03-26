@@ -9,7 +9,7 @@ const useSingleQuery = () => {
     SetSearchParams(searchParams);
   }
 
-  const set = (type = "search", value) => {
+  const set = (type = "search", value: string) => {
 
     if ( value === "" || value === undefined || value === null ) {
       searchParams.delete(type);
@@ -19,7 +19,7 @@ const useSingleQuery = () => {
         searchParams.delete(type);
       }
       else {
-        searchParams.set(decodeURIComponent(value.join()).toString())
+        searchParams.set(type, decodeURIComponent(value.join()).toString())
       }
     }
     else {
@@ -53,31 +53,7 @@ const useSingleQuery = () => {
     return Array.from(searchParams.values()).length === 0;
   }
 
-  const setMulti = (queries = [{type: '', value: ''}]) => {
-
-    queries.forEach(q => {
-
-      if ( q.value === "" ) {
-        searchParams.delete(q.type);
-      }
-      else {
-        searchParams.set(q.type, q.value);
-      }
-
-    });
-
-    var _queries = [];
-
-    for (const [key, value] of searchParams.entries()) {
-      _queries.push([key, value]);
-    }
-
-    searchParams.set(_queries);
-    SetSearchParams(searchParams);
-
-  }
-
-  return {set, get, remove, isEmpty, setMulti}
+  return {set, get, remove, isEmpty}
 
 }
 

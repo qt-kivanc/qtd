@@ -1,4 +1,4 @@
-export default function RemoveUnits(value) {
+export default function RemoveUnits(value: string) {
 
   if ( !value ) return 0;
 

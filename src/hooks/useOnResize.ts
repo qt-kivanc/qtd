@@ -8,11 +8,11 @@ import { useEffect } from "react";
  * @param {*} handler 
  * 
  */
-const useOnResize = (handler) => {
+const useOnResize = (handler: (event:Event) => void) => {
 
   useEffect(() => {
 
-    const listener = event => {
+    const listener = (event:Event) => {
 
       handler(event);
 

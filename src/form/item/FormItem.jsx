@@ -5,16 +5,16 @@ import { CheckValidations } from '../validation/Validator';
 import Form from '../../form/index.jsx';
 
 export default function FormItem({
-  name = "",
-  label = "",
-  placeholder = "",
-  rules = [],
-  mask = null,
-  locked = false,
-  dependency = '',
-  reset = [],
-  query = null,
-  children = null
+  name          = "",
+  label         = "",
+  placeholder   = "",
+  rules         = [],
+  mask          = null,
+  locked        = false,
+  dependency    = '',
+  reset         = [],
+  query         = null,
+  children      = null
 }) {
 
   const ref = useRef();
@@ -98,7 +98,7 @@ export default function FormItem({
       ref         : ref
     }
 
-    if ( mask ) props.mask = mask;
+    if ( mask )   props.mask = mask;
     if ( locked ) props.locked = locked;
 
     return React.cloneElement(children, {

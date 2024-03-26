@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import ALink from '../../alink/index.jsx';
@@ -10,7 +10,7 @@ export type AccordionSubMenuPropsType = {
   id                : string,
   link              : string,
   title             : string,
-  icon?             : string | ReactElement,
+  icon?             : string | JSX.Element,
   isSelected?       : boolean, 
   useLink?          : boolean, 
   onlyOne?          : boolean, 

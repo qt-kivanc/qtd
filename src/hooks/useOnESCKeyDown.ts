@@ -8,11 +8,11 @@ import { useEffect } from "react";
  * @param {*} handler 
  * 
  */
-const useOnESCKeyDown = (handler) => {
+const useOnESCKeyDown = (handler: (event:Event) => void) => {
 
   useEffect(() => {
 
-    const listener = event => {
+    const listener = (event: Event | any) => {
 
       if ( event.keyCode !== 27 ) {
         return;

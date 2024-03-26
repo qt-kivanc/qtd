@@ -1,6 +1,6 @@
 import GetCountryCodeByCurrencyCode from "../country/GetCountryCodeByCurrencyCode";
 
-export default function GetByCurrency(value, symbol = true, currency = "") {
+export default function GetByCurrency(value: number, symbol = true, currency = "") {
   
   if (currency === "") {
     throw new Error("Currency Error: You must send the currency (EUR, USD, TRY, etc...");

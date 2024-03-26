@@ -1,11 +1,11 @@
-export default function IsValidJSON(item) {
+export default function IsValidJSON(item:string | {}) {
     
   item =  typeof item !== "string"
           ? JSON.stringify(item)
           : item;
 
   try {
-    item = JSON.parse(item);
+    item = JSON.parse(String(item));
   } 
   catch (e) {
     return false;

@@ -4,16 +4,16 @@ import { v4 } from 'uuid';
 import { Wrapper, Label, InputWrapper, HiddenVisually, InputLabel } from './styled.components';
 
 const FloatingLabel = ({
-  id = v4(),
-  value = "",
-  label = "",
-  placeholder = "",
-  size = "default"
+  id            = v4(),
+  value         = "",
+  label         = "",
+  placeholder   = "",
+  size          = "default"
 }) => {
 
-  const [sizeStyle, SetSizeStyle] = useState("default");
-  const [labelValue, SetLabelValue] = useState("");
-  const [labelTitle, SetLabelTitle] = useState("");
+  const [sizeStyle, SetSizeStyle]               = useState("default");
+  const [labelValue, SetLabelValue]             = useState("");
+  const [labelTitle, SetLabelTitle]             = useState("");
   const [placeholderValue, SetPlaceholderValue] = useState("");
 
   useEffect(() => {
@@ -46,16 +46,16 @@ const FloatingLabel = ({
         {labelTitle} 
       </Label>
       <InputWrapper 
-        id={id} 
-        placeholder={placeholderValue} 
-        value={labelValue} 
-        type="text" 
-        disabled={true}
+        id            = {id} 
+        placeholder   = {placeholderValue} 
+        value         = {labelValue} 
+        type          = "text" 
+        disabled      = {true}
       />
       <InputLabel 
-        data-filled={label !== ""}
-        htmlFor={id} 
-        data-content={placeholder}
+        data-filled   = {label !== ""}
+        htmlFor       = {id} 
+        data-content  = {placeholder}
       >
         <HiddenVisually>
           {placeholder}

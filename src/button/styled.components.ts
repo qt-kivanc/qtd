@@ -178,30 +178,41 @@ const getSVG = () => {
  * DEFAULT BUTTON
  */
 const getDefaultButton = () => {
+
   return css`
+
     &.qtd-button-default {
+
       border: 1px solid #505A7D99;
+
       span, div.qtd-icon {
         color: #ffffff;
         font-weight: 400;
       }
+
       &:hover {
         border-color: #3598FE;
       }
+
       &.qtd-button-selected {
+        
         border: 2px solid #3598FE;
+
         span {
           color: #3598FE;
           font-weight: 600;
           margin: -1px;
         }
+
       }
+
       &[disabled] {
         border: 1px solid #505A7D4D;
         span, div.qtd-icon {
           color: #ffffff4D;
         }
       }
+      
     }
   `
 }
@@ -568,9 +579,10 @@ const getByContentPosition = (contentPosition, justify) => {
 }
 
 interface IIcon {
-  $useIconPadding   :boolean,
-  $contentPosition  :string,
-  $justify          :string
+  $useIconPadding?   : boolean,
+  $contentPosition?  : string,
+  $justify?          : string,
+  children?          : null | JSX.Element|JSX.Element[]
 }
 
 interface ISVG {

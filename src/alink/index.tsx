@@ -9,7 +9,7 @@ const ALink = (props:any) => {
 
     return (
       <NavigationLink
-        to={props.to}
+        to  = {props.to}
         {...props}
       >
         {props.children}

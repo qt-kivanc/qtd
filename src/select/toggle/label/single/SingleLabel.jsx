@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { Wrapper, Label, InputWrapper } from './styled.components';
 
 const SingleLabel = ({
-  value = "",
-  label = "",
+  value       = "",
+  label       = "",
   placeholder = "",
-  size = "default"
+  size        = "default"
 }) => {
 
-  const [sizeStyle, SetSizeStyle] = useState("");
+  const [sizeStyle, SetSizeStyle]   = useState("");
   const [labelValue, SetLabelValue] = useState("");
   const [labelTitle, SetLabelTitle] = useState("");
 
@@ -38,14 +38,14 @@ const SingleLabel = ({
       className="qtd-select-selection-label qtd-select-selection-item-single"
     >
       <Label 
-        size={sizeStyle}
+        size      = {sizeStyle}
       >
         {labelTitle} 
       </Label>
       <InputWrapper 
-        value={labelValue} 
-        type="text" 
-        disabled={true}
+        value     = {labelValue} 
+        type      = "text" 
+        disabled  = {true}
       />
     </Wrapper>
 

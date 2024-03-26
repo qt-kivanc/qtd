@@ -1,31 +1,54 @@
-import React from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Spin from '../spin/index.jsx';
 import { SVG, Hide, Image, Link, A, ClickButton, Icon } from './styled.components';
+import { MouseEvent } from 'react';
+import { v4 } from 'uuid';
 
+export type ButtonPropsType = {
+  id?               : string,
+  disabled?         : boolean,
+  loading?          : boolean,
+  selected?         : boolean,
+  useIconPadding?   : boolean,
+  stretch?          : boolean,
+  justify?          : string,
+  contentPosition?  : string,
+  type?             : string,
+  size?             : string,
+  circle?           : boolean,
+  target?           : string,
+  icon?             : string,
+  image?            : string,
+  svg?              : string,
+  href?             : string,
+  isSubmit?         : boolean,
+  className?        : string,
+  children          : JSX.Element[] | string | null,
+  onClick?          : null | ((event:MouseEvent<any>) => void)
+}
 const Button = ({
-  id = null,
-  disabled = false,
-  loading = false,
-  selected = false,
-  useIconPadding = true,
-  stretch = false,
-  justify = "center",
+  id              = v4(),
+  disabled        = false,
+  loading         = false,
+  selected        = false,
+  useIconPadding  = true,
+  stretch         = false,
+  justify         = "center",
   contentPosition = "left",
-  type = "default",
-  size = "default",
-  circle = false,
-  target = "_self",
-  icon = "",
-  image = "",
-  svg = "",
-  href = "",
-  isSubmit = false,
-  className = "",
-  children = null,
-  onClick = () => null,
-}) => {
+  type            = "default",
+  size            = "default",
+  circle          = false,
+  target          = "_self",
+  icon            = "",
+  image           = "",
+  svg             = "",
+  href            = "",
+  isSubmit        = false,
+  className       = "",
+  children        = null,
+  onClick         = null,
+}:ButtonPropsType) => {
 
   /**
    * 
@@ -38,11 +61,10 @@ const Button = ({
     if ( icon !== "" ) {
       return (
         <Icon 
-          className={"qtd-icon " + icon} 
-          $size={size} 
-          $contentPosition={contentPosition}
-          $justify={justify}
-          $useIconPadding={useIconPadding} 
+          className         = {"qtd-icon " + icon} 
+          $contentPosition  = {contentPosition}
+          $justify          = {justify}
+          $useIconPadding   = {useIconPadding} 
         />
       )
     }
@@ -50,12 +72,12 @@ const Button = ({
     if ( image !== "" ) {
       return (
         <Image 
-          className="qtd-image" 
-          src={image} 
-          height="20" 
-          brokenHeight="20" 
-          $contentPosition={contentPosition}
-          $justify={justify}
+          className         = "qtd-image" 
+          src               = {image} 
+          height            = "20" 
+          brokenHeight      = "20" 
+          $contentPosition  = {contentPosition}
+          $justify          = {justify}
         />
       )
     }
@@ -63,11 +85,10 @@ const Button = ({
     if ( svg !== "" ) {
       return (
         <SVG 
-          className="qtd-svg" 
-          $size={size}
-          $singleIcon={!children} 
-          $contentPosition={contentPosition}
-          $justify={justify}
+          className         = "qtd-svg" 
+          $singleIcon       = {!children} 
+          $contentPosition  = {contentPosition}
+          $justify          = {justify}
         >
           <ReactSVG src={svg} />
         </SVG>
@@ -119,14 +140,14 @@ const Button = ({
   const getProps = () => {
 
     let props = {
-      id: id,
-      $loading: "false",
-      $justify: justify,
-      disabled: false
+      id        : id,
+      $loading  : "false",
+      $justify  : justify,
+      disabled  : false
     };
 
-    if ( id ) props.id = id;
-    if ( loading ) props.$loading = "true";
+    if ( id )       props.id = id;
+    if ( loading )  props.$loading = "true";
     if ( disabled ) props.disabled = true;
     
     return props;
@@ -150,6 +171,15 @@ const Button = ({
 
   }
 
+
+  const handleOnClick = (event:MouseEvent<any>) => {
+    
+    if ( loading ) return;
+
+    if ( onClick ) onClick(event);
+
+  }
+
   /**
    * 
    * @returns 
@@ -160,8 +190,8 @@ const Button = ({
       return (
         <A 
           className={getClassNames()} 
+          onClick={handleOnClick}
           {...getProps()}
-          onClick={(!loading ? onClick : null)}
         >
           { getButtonContent() }
         </A>
@@ -172,7 +202,7 @@ const Button = ({
         <ClickButton 
           className={getClassNames()} 
           {...getProps()}
-          onClick={(!loading ? onClick : null)}
+          onClick={handleOnClick}
         >
           { getButtonContent() }
         </ClickButton>
@@ -188,13 +218,15 @@ const Button = ({
   const hrefButton = () => (
 
     <Link 
-      className={getClassNames()}
+      className = {getClassNames()}
+      to        = {href} 
+      target    = {target}
       {...getProps()}
-      to={href} 
-      target={target}
     >
-      { getIcon() }
-      <span>{children}</span>
+      <>
+        { getIcon() }
+        <span>{children}</span>
+      </>
     </Link>
 
   );
@@ -206,9 +238,9 @@ const Button = ({
   const submitButton = () => (
 
     <ClickButton
-      className={getClassNames()}
+      className = {getClassNames()}
+      type      = "submit"
       {...getProps()}
-      type="submit"
     >
       { getButtonContent() }
     </ClickButton>

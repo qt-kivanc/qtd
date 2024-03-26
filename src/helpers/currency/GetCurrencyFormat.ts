@@ -1,6 +1,6 @@
 import GetCurrencySymbol from "./GetCurrencySymbol";
 
-export default function GetCurrencyFormat(value, currency = "") {
+export default function GetCurrencyFormat(value: string, currency = "") {
   
   if (currency === "") {
     throw new Error("Currency Error: You must send the currency (EUR, USD, TRY, etc...");

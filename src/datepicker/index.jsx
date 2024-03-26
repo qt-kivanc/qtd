@@ -21,7 +21,7 @@ https://stackoverflow.com/questions/41181372/chrome-mousedown-and-mouseup-events
 const DatePicker = forwardRef((
   {
     name = "datepicker",
-    label = "",
+    placeholder = "",
     mask = "99/99/9999",
     size = "default",
     variant = "default",
@@ -289,7 +289,7 @@ const DatePicker = forwardRef((
 
       <Input 
         name={name}
-        label={label}
+        placeholder={placeholder}
         value={inputValue}
         mask={mask}
         size={size}

@@ -22,6 +22,9 @@ const Container = ({ notifications, onRemove }) => {
       document.body.appendChild(_root);
       SetRoot(_root);
     }
+    else {
+      SetRoot(document.getElementById(portalId));
+    }
   
     return(() => {
       if (root) document.body.removeChild(root);
@@ -89,17 +92,17 @@ const Container = ({ notifications, onRemove }) => {
   const Portal = ({ root }) => {
 
     let jsx = (
-      <div>
-        <Wrapper $position="topRight">
+      <div className="qtd-notification" >
+        <Wrapper $position="topRight" className="qtd-notification-top-right">
           { topRightTransitions(getItem) }
         </Wrapper>
-        <Wrapper $position="topLeft">
+        <Wrapper $position="topLeft" className="qtd-notification-top-left">
           { topLeftTransitions(getItem) }
         </Wrapper>
-        <Wrapper $position="bottomRight">
+        <Wrapper $position="bottomRight" className="qtd-notification-bottom-right">
           { bottomRightTransitions(getItem) }
         </Wrapper>
-        <Wrapper $position="bottomLeft">
+        <Wrapper $position="bottomLeft" className="qtd-notification-bottom-left">
           { bottomLeftTransitions(getItem) }
         </Wrapper>
       </div>

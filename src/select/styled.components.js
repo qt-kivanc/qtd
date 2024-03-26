@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
 const ICON_MARGIN_RIGHT = "7px";
-const ICON_SIZE = "20px";
+const ICON_SIZE_DEFAULT = "20px";
+const ICON_SIZE_MEDIUM = "16px";
 const BORDER_RADIUS = "5px";
 
 /**
@@ -35,7 +36,7 @@ const getBySize = () => {
       .qtd-select-selector {
 
         height: 32px; 
-        padding: 0px 15px 0px 15px;
+        padding: 0px 6px 0px 10px;
 
       }
     }
@@ -192,12 +193,6 @@ const getLabelBySize = () => {
     /* MEDIUM */
     &.qtd-select-md {
 
-      .qtd-select-selector {
-        .qtd-icon {
-          font-size: 18px;
-        }
-      }
-
       .qtd-select-selection-item {
         .qtd-select-selection-label {
 
@@ -276,7 +271,7 @@ const getLabelBySize = () => {
 
             &[data-filled="true"] {
               label::before {
-                transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
+                transform: translate3d(0, -40px, 0) scale3d(0.9, 0.9, 1);
               }
               > span {
                 padding-top: 24px;
@@ -285,7 +280,7 @@ const getLabelBySize = () => {
 
             &[data-filled="false"] {
               label::before {
-                transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
+                transform: translate3d(0, -32px, 0) scale3d(1, 1, 1);
               }
               > span { 
                 position: relative;
@@ -331,7 +326,7 @@ const getLabelBySize = () => {
 
             &[data-filled="true"] {
               label::before {
-                transform: translate3d(0, -40px, 0) scale3d(0.76, 0.76, 1);
+                transform: translate3d(0, -40px, 0) scale3d(0.9, 0.9, 1);
               }
               > span {
                 padding-top: 24px;
@@ -340,7 +335,7 @@ const getLabelBySize = () => {
 
             &[data-filled="false"] {
               label::before {
-                transform: translate3d(0, -32px, 0) scale3d(.8, .8, 1);
+                transform: translate3d(0, -32px, 0) scale3d(1, 1, 1);
               }
               > span { 
                 position: relative;
@@ -360,7 +355,7 @@ const getLabelBySize = () => {
       
       .qtd-select-selector {
         .qtd-icon {
-          font-size: ${ICON_SIZE};
+          font-size: ${ICON_SIZE_DEFAULT};
         }
       }
 
@@ -419,6 +414,13 @@ const getByType = () => {
   return css`
 
     &.qtd-select-primary {
+      
+      &.qtd-select-open {
+        .qtd-select-selector {
+          background-color: #0E1531BF;
+        }
+      }
+
       .qtd-select-selector {
         transition: background-color 0.2s ease;
         background-color: #0E153180;
@@ -427,9 +429,17 @@ const getByType = () => {
           background-color: #0E1531BF;
         }
       }
+
     }
 
     &.qtd-select-default {
+
+      &.qtd-select-open {
+        .qtd-select-selector {
+          border: 1px solid #3598FE;
+        }
+      }
+
       .qtd-select-selector {
         border: 1px solid #505A7D99;
 
@@ -437,6 +447,7 @@ const getByType = () => {
           border-color: #3598FE;
         }
       }
+
     }
 
   `
@@ -476,10 +487,38 @@ const getByDirection = () => {
   `
 }
 
+const getImageSizeBySize = (size) => {
+
+  if ( size === "xs" )   return {width: "20px", height: "20px"};
+  if ( size === "sm" )   return {width: "20px", height: "20px"};
+  if ( size === "md" )   return {width: "16px", height: "16px"};
+  if ( size === "lg" )   return {width: "20px", height: "20px"};
+  if ( size === "xlg" )  return {width: "20px", height: "20px"};
+  
+
+  return {width: "20px", height: "20px"}
+  
+}
+
+const getOptionSizeBySize = (size) => {
+  
+  if ( size === "xs" )   return {padding: "0 30px 0 15px", height: "40px"};
+  if ( size === "sm" )   return {padding: "0 30px 0 15px", height: "40px"};
+  if ( size === "md" )   return {padding: "0 10px 0 10px", height: "30px"};
+  if ( size === "lg" )   return {padding: "0 30px 0 15px", height: "40px"};
+  if ( size === "xlg" )  return {padding: "0 30px 0 15px", height: "40px"};
+  
+  return {padding: "0 30px 0 15px", height: "40px"}
+  
+}
+
 /**
  * TOGGLE STYLES
  */
-const getToggleStyles = () => {
+const getToggleStyles = (size) => {
+  
+  const imageSize = getImageSizeBySize(size);
+
   return css`
     .qtd-select-selector {
 
@@ -487,8 +526,8 @@ const getToggleStyles = () => {
       transition: border-color 0.2s ease-out;
 
       img {
-        width: ${ICON_SIZE};
-        height: ${ICON_SIZE};
+        width: ${imageSize.width};
+        height: ${imageSize.height};
         pointer-events: none;
         margin-right: ${ICON_MARGIN_RIGHT};
       }
@@ -497,8 +536,8 @@ const getToggleStyles = () => {
         transition: transform .25s ease-out;
 
         svg {
-          width: ${ICON_SIZE};
-          height: ${ICON_SIZE};
+          width: ${imageSize.width};
+          height: ${imageSize.height};
           fill: #ffffff;
         }
       }
@@ -506,7 +545,7 @@ const getToggleStyles = () => {
       .qtd-icon {
         color: #ffffff;
         margin-right: ${ICON_MARGIN_RIGHT};
-        font-size: ${ICON_SIZE};
+        font-size: ${ICON_SIZE_DEFAULT};
       }
 
       .qtd-select-status-error {
@@ -580,7 +619,11 @@ const getToggleStyles = () => {
 /**
  * DROPDOWN STYLES
  */
-const getDropdownStyles = () => {
+const getDropdownStyles = (size) => {
+
+  const imageSize = getImageSizeBySize(size);
+  const optionSize = getOptionSizeBySize(size);
+
   return css`
     .qtd-select-dropdown {
 
@@ -599,8 +642,8 @@ const getDropdownStyles = () => {
       .qtd-select-item.qtd-select-item-option {
 
         transition: border-color 0.2s ease-out;
-        padding: 0 30px 0 15px;
-        height: 40px;
+        padding: ${optionSize.padding};
+        height: ${optionSize.height};
 
         &.qtd-select-item-option-active {
           background-color: #3598FE20;
@@ -621,20 +664,20 @@ const getDropdownStyles = () => {
 
           .qtd-image {
 
-            width: ${ICON_SIZE};
-            height: ${ICON_SIZE};
+            width: ${imageSize.width};
+            height: ${imageSize.height};
             margin-right: ${ICON_MARGIN_RIGHT};
 
             .qtd-select-option-image {
-              width: ${ICON_SIZE};
-              height: ${ICON_SIZE};
+              width: ${imageSize.width};
+              height: ${imageSize.height};
               pointer-events: none;
             }
 
             .qtd-select-option-icon {
               color: #ffffff;
               margin-right: ${ICON_MARGIN_RIGHT};
-              font-size: ${ICON_SIZE};
+              font-size: ${imageSize.width};
             }
 
           }
@@ -674,12 +717,12 @@ const Wrapper = styled.div`
   /* ------------------------ */
   // TOGGLE
   /* ------------------------ */
-  ${ () => getToggleStyles() }
+  ${ (props) => getToggleStyles(props.$size) }
   
   /* ------------------------ */
   // DROPDOWN MENU
   /* ------------------------ */
-  ${ () => getDropdownStyles() }
+  ${ (props) => getDropdownStyles(props.$size) }
   
   /* ------------------------ */
   // SIZE
