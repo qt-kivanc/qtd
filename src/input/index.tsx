@@ -4,7 +4,7 @@ import InputMask from 'react-input-mask';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
 import s from './style.module.scss';
-import { ErrorBorder, ErrorTooltip, Failed, HiddenVisually, LockIconWrapper, Middle, Prefix, Suffix, Wrapper } from './styled.components.js';
+import { AddonAfter, AddonBefore, Content, ErrorBorder, ErrorTooltip, Failed, HiddenVisually, IconsWrapper, LockIconWrapper, Locked, Middle, Prefix, Suffix, Wrapper } from './styled.components.js';
 import { InputProps, QTDImperativeFuncProps } from '../index';
 
 /**
@@ -277,7 +277,7 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
     };
 
     if ( props.locked ) {
-      inputProps['data-locked'] = props.locked.toString()
+      inputProps['data-locked'] = true;
     }
 
     if ( props.autoComplete ) {
@@ -369,7 +369,42 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
 
   )
 
+  /**
+   * 
+   * @returns 
+   */
+  const getAddonBefore = () => {
 
+    if ( !props.addonBefore ) return;
+
+    return (
+      <AddonBefore className="qtd-input-addon-before">
+        {props.addonBefore}
+      </AddonBefore>
+    );
+    
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  const getAddonAfter = () => {
+
+    if ( !props.addonAfter ) return;
+
+    return (
+      <AddonAfter className="qtd-input-addon-after">
+        {props.addonAfter}
+      </AddonAfter>
+    );
+    
+  }
+
+  /**
+   * 
+   * @returns 
+   */
   const getPrefix = () => {
 
     if ( !props.prefix ) return;
@@ -387,25 +422,37 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
    */
   const getSuffix = () => {
 
-    if ( !props.prefix && props.locked && errorMessage !== "" ) return;
+    if ( !props.suffix ) return;
 
     return (
       <Suffix className="qtd-input-suffix">
+        { props.suffix }
+      </Suffix>
+    )
+
+  }
+
+  /**
+   * 
+   */
+  const getLocked = () => {
+
+    if ( !props.locked ) return;
+
+    return (
+      <Locked className="qtd-input-locked">
         { 
-          props.suffix 
-            ? props.suffix 
+          typeof props.locked !== "boolean" 
+            ? props.locked 
             : (
-              props.locked 
-                ? <LockIconWrapper
-                    className = "qtd-svg"
-                    width     = "18" 
-                    height    = "18"
-                  />
-                : null
+                <LockIconWrapper
+                  className = "qtd-svg"
+                  width     = "18" 
+                  height    = "18"
+                />
               ) 
         }
-        { getErrorStatus() }
-      </Suffix>
+      </Locked>
     )
 
   }
@@ -429,20 +476,6 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
   const getErrorStatus = () => {
 
     if ( errorMessage === "" ) return;
-
-    { 
-      props.suffix 
-        ? props.suffix 
-        : (
-          props.locked 
-            ? <LockIconWrapper
-                className = "qtd-svg"
-                width     = "18" 
-                height    = "18"
-              />
-            : null
-          ) 
-    }
 
     let _props = {
       className     : "qtd-input-failed",
@@ -514,7 +547,6 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
 
     if ( getSize() !== "" )       names += " qtd-input-" + getSize();
     if ( getVariant() !== "" )    names += " qtd-input-" + getVariant();
-    if ( props.locked )           names += " qtd-input-locked";
     if ( props.mask )             names += " qtd-input-masked";
     if ( props.className !== "" ) names += " " + props.className;
     if ( focused )                names += " focused";
@@ -537,13 +569,21 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
     return (
       
       <Wrapper className={getClassNames()}>
-        { getPrefix() }
-        <Middle className="qtd-input-middle">
-          { getInput() }
-          { props.floating ? getFloatingLabel() : null }
-          { getErrorBorder() }
-        </Middle>
-        { getSuffix() }
+        { getAddonBefore() }
+        <Content>
+          { getPrefix() }
+          <Middle className="qtd-input-middle">
+            { getInput() }
+            { props.floating ? getFloatingLabel() : null }
+            { getErrorBorder() }
+          </Middle>
+          <IconsWrapper>
+            { getSuffix() }
+            { getLocked() }
+            { getErrorStatus() }
+          </IconsWrapper>
+        </Content>
+        { getAddonAfter() }
       </Wrapper>
 
     );
@@ -567,11 +607,13 @@ Input.defaultProps = {
   /* ------------ */
   prefix        : null, 
   suffix        : null,
+  addonBefore   : null,
+  addonAfter    : null,
+  locked        : null, 
   /* ------------ */
   maxLength     : -1,
   disabled      : false, 
   floating      : true,
-  locked        : false, 
   autoComplete  : false,
   keepFocus     : false,
   focusRef      : null,

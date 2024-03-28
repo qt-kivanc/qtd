@@ -125,7 +125,6 @@ const Wrapper = styled.div`
   
   transition: background-color 0.2s ease;
   border-radius: 6px;
-  padding: 0px 15px;
   width: inherit;
 
   position: relative;
@@ -152,6 +151,18 @@ const Wrapper = styled.div`
 
 `
 
+const Content = styled.div`
+
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+  justify-content: flex-start;
+  grid-template-columns: 1fr;
+
+`
+
 const Middle = styled.div`
   
   width: 100%;
@@ -159,13 +170,13 @@ const Middle = styled.div`
 
 `
 
-const Suffix = styled.div`
+const IconsWrapper = styled.div`
   
   display: grid;
-  grid-column-gap: 10px;
   grid-auto-flow: column;
-  align-items: center;
-  justify-self: flex-end;
+  grid-gap: 5px;
+  justify-items: flex-end;
+  width: 100%;
 
 `
 
@@ -173,7 +184,66 @@ const Prefix = styled.div`
   
   display: flex;
   align-items: center;
+  height: 100%;
   margin-right: 10px;
+
+  span {
+    transition: color .3s ease-out;
+  }
+
+`
+
+const Suffix = styled.div`
+  
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  span {
+    transition: color .3s ease-out;
+  }
+
+  /*
+  display: grid;
+  grid-column-gap: 10px;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-self: flex-end;
+  */
+
+`
+
+const Locked = styled.div`
+  
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+`
+
+const Addon = styled.div`
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  padding: 0 15px;
+  height: 100%;
+
+  font-size: 14px;
+  font-weight: 500;
+
+`
+
+const AddonBefore = styled(Addon)`
+  
+  border-radius: 8px 0 0 8px;
+
+`
+
+const AddonAfter = styled(Addon)`
+  
+  border-radius: 0 8px 8px 0;
 
 `
 
@@ -286,8 +356,13 @@ const Failed = styled(StatusCore)`
 export { 
   Wrapper,
   Middle,
-  Suffix,
+  Content,
   Prefix,
+  Suffix,
+  Locked,
+  AddonBefore,
+  AddonAfter,
+  IconsWrapper,
   LockIconWrapper,
   ErrorTooltip,
   ErrorBorder,

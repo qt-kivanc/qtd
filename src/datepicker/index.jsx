@@ -20,21 +20,22 @@ https://stackoverflow.com/questions/41181372/chrome-mousedown-and-mouseup-events
 */
 const DatePicker = forwardRef((
   {
-    name = "datepicker",
-    placeholder = "",
-    mask = "99/99/9999",
-    size = "default",
-    variant = "default",
-    disabled = false,
-    floating = true,
-    className = "",
-    defaultValue = {
-      localizated: "",
-      global: ""
+    name            = "datepicker",
+    placeholder     = "",
+    mask            = "99/99/9999",
+    size            = "default",
+    variant         = "default",
+    disabled        = false,
+    floating        = true,
+    className       = "",
+    defaultValue    = {
+      localizated : "",
+      global      : ""
     },
-    onUpdate = null,
-    onChange = null,
-    disabledDate = null
+    suffix          = null,
+    onUpdate        = null,
+    onChange        = null,
+    disabledDate    = null
   }, ref
 ) => {
 
@@ -316,7 +317,7 @@ const DatePicker = forwardRef((
         focusRef    = {wrapperRef}
         ref         = {inputRef}
         disabled    = {disabled}
-        suffix      = {<Icon className={"qtd-icon qt-web-date"} />}
+        suffix      = {suffix ? suffix : <Icon className={"qtd-icon qt-web-date"} />}
       />
 
       <CSSTransition

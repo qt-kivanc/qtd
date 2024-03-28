@@ -14,12 +14,14 @@ export type InputProps = {
   /* ------------ */
   prefix?       : null | JSX.Element,
   suffix?       : null | JSX.Element,
+  addonBefore?  : null | JSX.Element,
+  addonAfter?   : null | JSX.Element,
+  locked?       : null | JSX.Element | boolean,
   status?       : null | JSX.Element,
   /* ------------ */
   maxLength?    : number,
   disabled?     : boolean, 
   floating?     : boolean,
-  locked?       : boolean, 
   autoComplete? : boolean,
   keepFocus?    : boolean,
   focusRef?     : null | MutableRefObject<HTMLDivElement>,
