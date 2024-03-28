@@ -38,9 +38,31 @@ const Select = forwardRef(
 
   const wrapperRef = useRef(null);
 
-  const [isOpen, SetIsOpen] = useState(false);
+  const [options, SetOptions]           = useState([]);
+  const [isOpen, SetIsOpen]             = useState(false);
   const [currentValue, SetCurrentValue] = useState(mode === "single" ? "" : []);
   const [errorMessage, SetErrorMessage] = useState("");
+
+  useEffect(() => {
+
+    let _options = [];
+
+    React.Children.map(children, (child) => {
+      
+      const hasChild = checkChild(child);
+
+      if (hasChild) {
+        _options.push({
+          value: child.props.value,
+          text: child.props.children
+        });
+      }
+
+    });
+
+    SetOptions(_options);
+    
+  }, [children]);
 
   useEffect(() => {
     checkAndSetNewValue(defaultValue);
@@ -122,6 +144,16 @@ const Select = forwardRef(
     
   }
 
+  const checkChild = (child) => {
+
+    if ( !child ) return false;
+    if ( !child.hasOwnProperty("type") ) return false;
+    if ( child.type === null || child.type === undefined ) return false;
+
+    return true;
+    
+  }
+
   /**
    * 
    * (Eğer `mode === single` ise; Select içerisindeki herhangi 
@@ -152,11 +184,9 @@ const Select = forwardRef(
 
     return React.Children.map(children, (child) => {
       
-      if ( !child ) return;
-      if ( !child.hasOwnProperty("type") ) return;
-      if ( child.type === null || child.type === undefined ) return;
+      const hasChild = checkChild(child);
 
-      if (child.type === Option) {
+      if (hasChild) {
 
         return React.cloneElement(child, {
           ...child.props,
@@ -235,6 +265,7 @@ const Select = forwardRef(
         label         = {label}
         isOpen        = {isOpen}
         locked        = {locked}
+        selected      = {options.filter(option => option.value === currentValue)[0]}
       />
         
       <Menu

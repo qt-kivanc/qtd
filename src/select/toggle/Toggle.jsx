@@ -22,12 +22,13 @@ const Toggle = ({
   image         = "",
   size          = "default", 
   type          = "default",
+  selected      = {value: "", text: ""},
   onChange = () => null
 }) => {
 
-  const [open, SetOpen] = useState(false);
-  const [sizeStyle, SetSizeStyle] = useState("");
-  const [typeStyle, SetTypeStyle] = useState("");
+  const [open, SetOpen]                         = useState(false);
+  const [sizeStyle, SetSizeStyle]               = useState("");
+  const [typeStyle, SetTypeStyle]               = useState("");
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
 
   useEffect(() => {
@@ -94,6 +95,14 @@ const Toggle = ({
   
   const getInput = () => {
     
+    let _label = label;
+
+    if ( label === "" ) {
+      if ( selected.text && selected.text !== "" ) {
+        _label = selected.text;
+      }
+    }
+
     return ( 
       <Label className="qtd-select-selection-item">
         {
@@ -101,14 +110,14 @@ const Toggle = ({
             ?
             <FloatingLabel 
               placeholder = {placeholder} 
-              label       = {label} 
+              label       = {_label} 
               size        = {size} 
               value       = {value}
             />
             :
             <SingleLabel 
               placeholder = {placeholder} 
-              label       = {label} 
+              label       = {_label}
               value       = {value} 
               size        = {size} 
             />

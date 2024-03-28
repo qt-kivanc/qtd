@@ -26,6 +26,7 @@ const DatePicker = forwardRef((
     size = "default",
     variant = "default",
     disabled = false,
+    floating = true,
     className = "",
     defaultValue = {
       localizated: "",
@@ -72,6 +73,10 @@ const DatePicker = forwardRef((
   }, []);
 
   useEffect(() => {
+    addRemoveListeners(isOpen);
+  }, [isOpen]);
+
+  useEffect(() => {
 
     if ( inputRef.current ) {
       inputRef.current.setError(errorMessage);
@@ -79,21 +84,26 @@ const DatePicker = forwardRef((
 
   }, [errorMessage]);
 
+  /**
+   * 
+   * Dil değiştirildiğinde seçili tarihin formatını değiştirir.
+   * TR'de 03/06/2024 olan tarih, EN seçilirse 06/03/2024 olarak günceller.
+   * 
+   */
   useEffect(() => {
 
-    addRemoveListeners(isOpen);
-
-    return;
-    if ( !isOpen ) {
-      if ( !checkDateIsValid(enteredValue.localizated) ) {
-        const date = {localizated: "", global: ""};
-        inputRef.current.clear();
-        SetEnteredValue(date);
-        sendUpdates(date);
-      }
+    if ( inputValue === "" ) {
+      return;
     }
 
-  }, [isOpen]);
+    SetEnteredValue({
+      localizated : moment(enteredValue.global).format(dateFormat),
+      global      : enteredValue.global
+    });
+
+    SetInputValue(moment(enteredValue.global).format(dateFormat));
+
+  }, [locale]);
 
   const sendUpdates = (dateValue, update = true, validation = true, skipControl = false) => {
 
@@ -129,8 +139,8 @@ const DatePicker = forwardRef((
       if ( enteredValue.global === value ) return;
 
       const date = {
-        localizated: moment(new Date(value)).format(dateFormat),
-        global: value
+        localizated : value,
+        global      : moment(value, dateFormat, locale).format("YYYY-MM-DD")
       };
       
       SetEnteredValue(date);
@@ -212,13 +222,13 @@ const DatePicker = forwardRef((
 
   const handleInputChange = (value) => {
   
-    const isValid = checkDateIsValid(value);
-    const emptyRegex = /[^/(.*?)]/g;
-    const coreMask = mask.replace(emptyRegex, "_");
+    const isValid     = checkDateIsValid(value);
+    const emptyRegex  = /[^/(.*?)]/g;
+    const coreMask    = mask.replace(emptyRegex, "_");
     
     const date = {
-      localizated: value,
-      global: moment(value, dateFormat, locale).format("YYYY-MM-DD")
+      localizated : value,
+      global      : moment(value, dateFormat, locale).format("YYYY-MM-DD")
     };
 
     SetErrorMessage("");
@@ -232,6 +242,7 @@ const DatePicker = forwardRef((
         if ( enteredValue.localizated !== "" ) {
           sendUpdates("");
           SetEnteredValue(defaultValue);
+          
         }
       }
     }
@@ -264,14 +275,15 @@ const DatePicker = forwardRef((
 
   const getClassNames = () => {
 
-    let names = "qtd-date-picker";
+    let names =   "qtd-date-picker";
+        names +=  " ";
+        names +=  "qtd-date-picker-" + size;
+        names +=  " ";
+        names +=  "qtd-date-picker-" + variant;
 
-    names += " qtd-date-picker-" + size;
-    names += " qtd-date-picker-" + variant;
-
-    if ( disabled ) names += " qtd-date-picker-disabled";
-    if ( errorMessage ) names += " qtd-date-picker-error";
-    if ( isOpen ) names += " qtd-date-picker-open";
+    if ( disabled )         names += " qtd-date-picker-disabled";
+    if ( errorMessage )     names += " qtd-date-picker-error";
+    if ( isOpen )           names += " qtd-date-picker-open";
     if ( className !== "" ) names += " " + className;
 
     return names;
@@ -281,50 +293,51 @@ const DatePicker = forwardRef((
   const getDatePicker = () => (
 
     <Wrapper 
-      className={getClassNames()} 
-      $disabled={disabled} 
-      ref={wrapperRef} 
-      onPointerDown={handleClick}
+      className     = {getClassNames()} 
+      $disabled     = {disabled} 
+      ref           = {wrapperRef} 
+      onPointerDown = {handleClick}
     >
 
       <Input 
-        name={name}
-        placeholder={placeholder}
-        value={inputValue}
-        mask={mask}
-        size={size}
-        variant={variant}
-        onChange={handleInputChange}
-        onFocus={handleFocus}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-        message={errorMessage}
-        keepFocus={isOpen}
-        focusRef={wrapperRef}
-        ref={inputRef}
-        disabled={disabled}
-        suffix={<Icon className={"qtd-icon qt-web-date"} />}
+        name        = {name}
+        placeholder = {placeholder}
+        value       = {inputValue}
+        floating    = {floating}
+        mask        = {mask}
+        size        = {size}
+        variant     = {variant}
+        onChange    = {handleInputChange}
+        onFocus     = {handleFocus}
+        onKeyDown   = {handleKeyDown}
+        onBlur      = {handleBlur}
+        message     = {errorMessage}
+        keepFocus   = {isOpen}
+        focusRef    = {wrapperRef}
+        ref         = {inputRef}
+        disabled    = {disabled}
+        suffix      = {<Icon className={"qtd-icon qt-web-date"} />}
       />
 
       <CSSTransition
-        in={isOpen}
-        timeout={500}
-        classNames={{
-          enter: modalEnterClass,
-          enterActive: modalEnterActiveClass,
-          exit: modalExitClass,
-          exitActive: modalExitActiveClass
+        in          = {isOpen}
+        timeout     = {500}
+        nodeRef     = {nodeRef}
+        classNames  = {{
+          enter       : modalEnterClass,
+          enterActive : modalEnterActiveClass,
+          exit        : modalExitClass,
+          exitActive  : modalExitActiveClass
         }}
-        nodeRef={nodeRef}
         unmountOnExit
       >
   
         <CalendarWrapper 
-          value={inputValue}
-          defaultValue={inputValue}
-          onChange={handleCalendarChange}
-          disabledDate={disabledDate}
-          ref={nodeRef}
+          value         = {inputValue}
+          defaultValue  = {inputValue}
+          onChange      = {handleCalendarChange}
+          disabledDate  = {disabledDate}
+          ref           = {nodeRef}
         />
         
       </CSSTransition>

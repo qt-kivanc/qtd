@@ -3,25 +3,9 @@ import { useLocation } from 'react-router-dom';
 
 import ALink from '../../alink/index.jsx';
 import ArrowIcon from '../../icons/Arrow.jsx';
+import { AccordionSubMenuProps } from '../../index';
 
 import { Wrapper, Title, Icon, Content, Arrow } from './styled.components.js';
-  
-export type AccordionSubMenuPropsType = {
-  id                : string,
-  link              : string,
-  title             : string,
-  icon?             : string | JSX.Element,
-  isSelected?       : boolean, 
-  useLink?          : boolean, 
-  onlyOne?          : boolean, 
-  subMenuLinkArrow? : boolean, 
-  subMenuHeight?    : number, 
-  itemHeight?       : number, 
-  iconSize?         : number, 
-  arrowSize?        : number,
-  onChange?         : (id:string) => void,
-  children?         : null | JSX.Element|JSX.Element[]
-}
 
 export default function SubMenu({
   /* ---------- */
@@ -42,7 +26,7 @@ export default function SubMenu({
   /* ---------- */
   onChange          = () => {},
   children          = null
-}:AccordionSubMenuPropsType) {
+}:AccordionSubMenuProps) {
 
   const location = useLocation();
 

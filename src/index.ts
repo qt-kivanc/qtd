@@ -4,7 +4,6 @@
 //import App from './App.js';
 //import reportWebVitals from './reportWebVitals';
 
-export * from './';
 
 /**
  * CONTEXT PROVIDER
@@ -67,14 +66,13 @@ export { default as Status } from './status/index';
 export { default as TinyScrollbar } from './tinyscrollbar/index';
 
 
-export type { AccordionPropsType } from './accordion/index';
-export type { AccordionItemPropsType } from './accordion/item/Item';
-export type { AccordionSubMenuPropsType } from './accordion/submenu/SubMenu';
-
-export type { InputPropsType } from './input/index';
-export type { ImperativeFunctionsProps } from './input/index';
-
-export type { ButtonPropsType } from './button/index';
+export type { AccordionProps } from './types/AccordionProps';
+export type { AccordionSubMenuProps } from './types/AccordionSubMenuProps';
+export type { AccordionItemProps } from './types/AccordionItemProps';
+export type { InputProps } from './types/InputProps';
+export type { QTDImperativeFuncProps } from './types/QTDImperativeFuncProps';
+export type { SingleQueryProps } from './types/SingleQueryProps';
+export type { ButtonProps } from './types/ButtonProps';
 
 /*
 console.log("process.env.NODE_ENV: " + process.env.NPM_ENV);

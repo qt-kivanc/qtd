@@ -1,17 +1,18 @@
 import { useSearchParams } from "react-router-dom";
+import { SingleQueryProps } from "../index";
 
-const useSingleQuery = () => {
+const useSingleQuery = ():SingleQueryProps => {
 
   const [searchParams, SetSearchParams] = useSearchParams();
 
-  const remove = (type = "search") => {
+  const remove = (type = "") => {
     searchParams.delete(type);
     SetSearchParams(searchParams);
   }
 
-  const set = (type = "search", value: string) => {
+  const set = (type = "", value: string | null | string[]) => {
 
-    if ( value === "" || value === undefined || value === null ) {
+    if ( value === "" || value === null ) {
       searchParams.delete(type);
     }
     else if (Array.isArray(value)) {

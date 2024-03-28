@@ -2,27 +2,16 @@ import React, { FunctionComponent, useState } from 'react';
 
 import SubMenu from './submenu/SubMenu';
 import Item from './item/Item';
+import { AccordionProps } from '../index';
 
 import { Wrapper } from './styled.components.js';
-
-export type AccordionPropsType = {
-  useLink?          : boolean,
-  onlyOne?          : boolean,
-  subMenuLinkArrow? : boolean,
-  subMenuHeight?    : number,
-  itemHeight?       : number,
-  iconSize?         : number,
-  arrowSize?        : number,
-  onChange?         : null | ((id:string) => void)
-  children          : JSX.Element[],
-}
 
 type AMSubComponents = {
   SubMenu : typeof SubMenu,
   Item    : typeof Item
 }
 
-type AMPropsType =  AccordionPropsType & { 
+type AMPropsType =  AccordionProps & { 
                       wrapperClassName?: string
                     };
 

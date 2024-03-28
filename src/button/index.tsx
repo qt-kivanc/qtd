@@ -5,28 +5,8 @@ import { SVG, Hide, Image, Link, A, ClickButton, Icon } from './styled.component
 import { MouseEvent } from 'react';
 import { v4 } from 'uuid';
 
-export type ButtonPropsType = {
-  id?               : string,
-  disabled?         : boolean,
-  loading?          : boolean,
-  selected?         : boolean,
-  useIconPadding?   : boolean,
-  stretch?          : boolean,
-  justify?          : string,
-  contentPosition?  : string,
-  type?             : string,
-  size?             : string,
-  circle?           : boolean,
-  target?           : string,
-  icon?             : string,
-  image?            : string,
-  svg?              : string,
-  href?             : string,
-  isSubmit?         : boolean,
-  className?        : string,
-  children          : JSX.Element[] | string | null,
-  onClick?          : null | ((event:MouseEvent<any>) => void)
-}
+import { ButtonProps } from '../index';
+
 const Button = ({
   id              = v4(),
   disabled        = false,
@@ -48,7 +28,7 @@ const Button = ({
   className       = "",
   children        = null,
   onClick         = null,
-}:ButtonPropsType) => {
+}:ButtonProps) => {
 
   /**
    * 

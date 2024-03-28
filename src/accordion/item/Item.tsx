@@ -1,14 +1,7 @@
 import ArrowIcon from '../../icons/Arrow.jsx';
 import { Arrow, Wrapper } from './styled.components';
 import ALink from '../../alink/index';
-
-export type AccordionItemPropsType = {
-  link?       : string,
-  itemHeight? : number,
-  arrowSize?  : number,
-  active?     : boolean,
-  children?   : null | JSX.Element|JSX.Element[],
-}
+import { AccordionItemProps } from '../../index';
 
 const Item = ({
   link        = "",
@@ -16,7 +9,7 @@ const Item = ({
   arrowSize   = 20,
   active      = false,
   children    = null
-}:AccordionItemPropsType) => {
+}:AccordionItemProps) => {
 
   return (
     <li className="qtd-accordion-menu-content-item">

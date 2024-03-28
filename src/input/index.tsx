@@ -1,10 +1,11 @@
-import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle, KeyboardEvent, MutableRefObject } from 'react';
+import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle, KeyboardEvent } from 'react';
 import { v4 } from 'uuid';
 import InputMask from 'react-input-mask';
-import { NumericFormat } from 'react-number-format';
+import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
 import s from './style.module.scss';
 import { ErrorBorder, ErrorTooltip, Failed, HiddenVisually, LockIconWrapper, Middle, Prefix, Suffix, Wrapper } from './styled.components.js';
+import { InputProps, QTDImperativeFuncProps } from '../index';
 
 /**
  * https://github.com/sanniassin/react-input-mask
@@ -12,54 +13,7 @@ import { ErrorBorder, ErrorTooltip, Failed, HiddenVisually, LockIconWrapper, Mid
  * https://dev.to/adrianbdesigns/let-s-create-a-floating-label-input-with-html-and-css-only-4mo8
  */
 
-export type ImperativeFunctionsProps = {
-
-  setFocus    : () => void
-  reset       : (update:boolean, validation:boolean) => void,
-  setValue    : (value:any, update:boolean, validation:boolean) => void,
-  getValue    : () => void,
-  setError    : (message:string) => void,
-  forceUpdate : () => void,
-  clear       : () => void
-
-}
-
-export type InputPropsType = {
-
-  id?           : string,
-  placeholder?  : string, 
-  value         : string,
-  defaultValue? : string,
-  type?         : string,
-  className?    : string,
-  /* ------------ */
-  size?         : string,
-  variant?      : string,
-  /* ------------ */
-  prefix?       : null | JSX.Element,
-  suffix?       : null | JSX.Element,
-  status?       : null | JSX.Element,
-  /* ------------ */
-  maxLength?    : number,
-  disabled?     : boolean, 
-  floating?     : boolean,
-  locked?       : boolean, 
-  autoComplete? : boolean,
-  keepFocus?    : boolean,
-  focusRef?     : null | MutableRefObject<HTMLDivElement>,
-  mask?         : null | string,
-  /* ------------ */
-  onChange?     : ((value:any) => void) | null,
-  onUpdate?     : ((value:any, update:any, validation:boolean) => void) | null,
-  onFocus?      : ((event:any) => void) | null,
-  onBlur?       : ((event:React.FocusEventHandler<HTMLInputElement>) => void) | null,
-  onPressEnter? : ((event:KeyboardEvent) => void) | null,
-  onKeyDown?    : ((event:KeyboardEvent) => void) | null,
-  children?     : null | JSX.Element
-
-}
-
-const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwardedRef) => {
+const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRef) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -68,7 +22,7 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
   const [focused, SetFocused]                   = useState(false);
   const [keepFocused, SetKeepFocused]           = useState(false);
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
-  const [floatValue, SetFloatValue]             = useState("");
+  //const [floatValue, SetFloatValue]             = useState("");
   const [readOnly, SetReadOnly]                 = useState(true);
 
   /**
@@ -179,13 +133,13 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
       },
 
       reset(update = true, validation = true) {
-        SetFloatValue("");
+        SetCurrentValue("");
         SetErrorMessage("");
         sendUpdates("", update, validation);
       },
 
       setValue(value, update = true, validation = true) {
-        SetFloatValue(value);
+        SetCurrentValue(value);
         sendUpdates(value, update, validation);
       },
 
@@ -215,9 +169,7 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
    * 
    * @param e 
    */
-  const onHandleChange = (e:any) => {
-
-    let value = e.target.value;
+  const onHandleChange = (value:string) => {
 
     //SetErrorMessage("");
 
@@ -229,10 +181,14 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
 
   }
 
-  const handleAmountChange = (values:any) => {
+  const handleAmountChange = (values:NumberFormatValues) => {
 
-    sendUpdates(values.value, true, false);
-    SetFloatValue(values.formattedValue);
+    console.log("handleAmountChange");
+    console.log("values", values);
+    console.log("values.floatValue", values.floatValue);
+    onHandleChange(values.value);
+    //sendUpdates(values.floatValue, true, false);
+    //SetFloatValue(values.formattedValue);
 
   }
 
@@ -308,7 +264,7 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
    */
   const getInput = () => {
 
-    let inputProps: Partial<InputPropsType> | any = {
+    let inputProps: Partial<InputProps> | any = {
       id          : props.id,
       placeholder : props.placeholder,
       value       : currentValue,
@@ -344,7 +300,7 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
         mask            : props.mask, 
         maskPlaceholder : "_",
         alwaysShowMask  : false,
-        onChange        : onHandleChange,
+        onChange        : (e:any) => onHandleChange(e.target.value),
         //beforeMaskedValueChange:this.beforeMaskedValueChange
       }
 
@@ -360,15 +316,17 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
         inputProps = {
           ...inputProps,
           maxLength         : props.maxLength,
-          value             : floatValue,
-          thousandSeparator : ".",
-          decimalSeparator  : ",",
+          type              : "text",
+          allowLeadingZeros : false,
+          decimalSeparator  : ".",
+          thousandSeparator : ",",
+          decimalScale      : 2,
           getInputRef       : inputRef,
           onValueChange     : handleAmountChange,
         }
         
         return (
-          <NumericFormat
+          <NumericFormat 
             {...inputProps}
           />
         )
@@ -379,7 +337,7 @@ const Input = forwardRef<ImperativeFunctionsProps, InputPropsType>((props, forwa
         inputProps = {
           ...inputProps,
           maxLength : props.maxLength,
-          onChange  : onHandleChange,
+          onChange  : (e:any) => onHandleChange(e.target.value),
           ref       : inputRef
         }
           
