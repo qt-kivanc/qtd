@@ -41,7 +41,6 @@ const Group = forwardRef(({
 
   const sendUpdates = (value, update = true, validation = true) => {
 
-    if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
 
   }
@@ -76,6 +75,8 @@ const Group = forwardRef(({
     SetSelected(value);
     sendUpdates(value, true, false);
     SetErrorMessage("");
+
+    if ( onChange ) onChange(value);
 
   }
 

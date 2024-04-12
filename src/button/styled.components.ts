@@ -606,10 +606,10 @@ const Icon = styled.div<IIcon>`
 const SVG = styled.div<ISVG>`
 
   ${({ $singleIcon, $contentPosition, $justify }) => {
-      if ( !$singleIcon ) {
-        return getByContentPosition($contentPosition, $justify);
-      }
-    }}
+    if ( !$singleIcon ) {
+      return getByContentPosition($contentPosition, $justify);
+    }
+  }}
   
 `
 
@@ -625,12 +625,18 @@ const Image = styled(CoreImage)`
 `
 
 const Hide = styled.span<{$loading:string}>`
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 5px;
+  
   ${({ $loading }) =>
     $loading === "true" &&
     css`
       opacity: 0;
     `}
-  `
+
+`
 
 const WrapperContent = css<{$justify:string}>`
 

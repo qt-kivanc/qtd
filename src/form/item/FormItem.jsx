@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 
 import { CheckValidations } from '../validation/Validator';
 import Form from '../../form/index.jsx';
+import FormContext from '../../form/context/FormContext';
 
 export default function FormItem({
   name          = "",
@@ -25,7 +25,7 @@ export default function FormItem({
     getFieldValue, 
     getFieldInstance, 
     formId
-  } = Form.useForm();
+  } = useContext(FormContext);
 
   const [isRegistered, SetIsRegistered] = useState(false);
 
@@ -47,6 +47,14 @@ export default function FormItem({
 
   },[]);
 
+  /**
+   * 
+   * Eğer `useQueryString` kullanılıyor ise, `<Form.Item></Form.Item>`
+   * içerisinde native QTD component'ları kullanılmıyor ise, `onUpdate`
+   * fonksiyonunun çağırılması önemlidir. Aksi durumda `useQueryString`
+   * sistemi çalışmayacaktır.
+   * 
+   */
   const handleItemUpdate = (value, update = true, validation = true) => {
   
     if ( !isRegistered ) return;

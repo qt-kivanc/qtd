@@ -20,12 +20,12 @@ const InputPassword = forwardRef((props, ref) => {
 
     <Input {...{
       ...props,
-      type:getType(),
-      autoComplete:"on",
-      ref: ref,
+      type          : getType(),
+      autoComplete  : "on",
+      ref           :  ref,
       suffix: <div 
-        className={s.icon + " qt-web-" + getIcon()} 
-        onClick={() => SetShowPassword(!showPassword)}
+        className = {s.icon + " qt-web-" + getIcon()} 
+        onClick   = {() => SetShowPassword(!showPassword)}
       />
     }} />
 

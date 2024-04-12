@@ -1,4 +1,4 @@
-import styled, {css, keyframes} from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 const bounceAnimation = keyframes`
   0% { transform: scale(.2) rotate(42deg);}

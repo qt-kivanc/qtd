@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
+import { getFontSizeBySize, getImageSizeBySize, getOptionSizeBySize, getSelectSizeBySize } from './style.settings';
 
 const ICON_MARGIN_RIGHT = "7px";
 const ICON_SIZE_DEFAULT = "20px";
-const ICON_SIZE_MEDIUM = "16px";
-const BORDER_RADIUS = "5px";
+const BORDER_RADIUS     = "5px";
 
 /**
  * SIZE
@@ -31,7 +31,7 @@ const getLabelBySize = (size) => {
 
   const imageSize   = getImageSizeBySize(size);
   const selectSize  = getSelectSizeBySize(size);
-  const fontSize   = getFontSizeBySize(size);
+  const fontSize    = getFontSizeBySize(size);
 
   return css`
       
@@ -50,18 +50,18 @@ const getLabelBySize = (size) => {
 
         &.qtd-select-selection-item-single {
           span {
-            font-size: ${fontSize.fontSize};
-            line-height: ${fontSize.lineHeight};
-            font-weight: ${fontSize.fontWeight};
+            font-size   : ${fontSize.fontSize};
+            line-height : ${fontSize.lineHeight};
+            font-weight : ${fontSize.fontWeight};
           }
         }
 
         &.qtd-select-selection-item-floating {
 
           span {
-            font-size: ${fontSize.fontSize};
-            line-height: ${fontSize.lineHeight};
-            font-weight: ${fontSize.fontWeight};
+            font-size   : ${fontSize.fontSize};
+            line-height : ${fontSize.lineHeight};
+            font-weight : ${fontSize.fontWeight};
           }
 
           &[data-filled="true"] {
@@ -168,54 +168,6 @@ const getByDirection = () => {
     }
 
   `
-}
-
-const getImageSizeBySize = (size) => {
-
-  if ( size === "xs" )   return {width: "20px", height: "20px"};
-  if ( size === "sm" )   return {width: "20px", height: "20px"};
-  if ( size === "md" )   return {width: "16px", height: "16px"};
-  if ( size === "lg" )   return {width: "18px", height: "18px"};
-  if ( size === "xlg" )  return {width: "20px", height: "20px"};
-  
-  return {width: "20px", height: "20px"}
-  
-}
-
-const getOptionSizeBySize = (size) => {
-  
-  if ( size === "xs" )   return {padding: "0 15px 0 15px", height: "40px"};
-  if ( size === "sm" )   return {padding: "0 30px 0 15px", height: "40px"};
-  if ( size === "md" )   return {padding: "0 10px 0 10px", height: "30px"};
-  if ( size === "lg" )   return {padding: "0 15px 0 15px", height: "44px"};
-  if ( size === "xlg" )  return {padding: "0 30px 0 15px", height: "44px"};
-  
-  return {padding: "0 15px 0 15px", height: "40px"}
-  
-}
-
-const getSelectSizeBySize = (size) => {
-  
-  if ( size === "xs" )   return {padding: "0 15px 0 15px", height: "40px"};
-  if ( size === "sm" )   return {padding: "0 30px 0 15px", height: "40px"};
-  if ( size === "md" )   return {padding: "0 10px 0 10px", height: "30px"};
-  if ( size === "lg" )   return {padding: "0 15px 0 15px", height: "44px"};
-  if ( size === "xlg" )  return {padding: "0 30px 0 15px", height: "44px"};
-  
-  return {padding: "0 15px 0 15px", height: "40px"}
-  
-}
-
-const getFontSizeBySize = (size) => {
-  
-  if ( size === "xs" )   return {fontSize: "12px", lineHeight: "12px", fontWeight: "400"};
-  if ( size === "sm" )   return {fontSize: "12px", lineHeight: "12px", fontWeight: "400"};
-  if ( size === "md" )   return {fontSize: "12px", lineHeight: "12px", fontWeight: "500"};
-  if ( size === "lg" )   return {fontSize: "14px", lineHeight: "14px", fontWeight: "500"};
-  if ( size === "xlg" )  return {fontSize: "16px", lineHeight: "16px", fontWeight: "500"};
-  
-  return {padding: "12px", height: "12px", fontWeight: "400"}
-  
 }
 
 /**
@@ -328,9 +280,9 @@ const getToggleStyles = (size) => {
  */
 const getDropdownStyles = (size) => {
 
-  const imageSize = getImageSizeBySize(size);
-  const optionSize = getOptionSizeBySize(size);
-  const fontSize = getFontSizeBySize(size);
+  const imageSize   = getImageSizeBySize(size);
+  const optionSize  = getOptionSizeBySize(size);
+  const fontSize    = getFontSizeBySize(size);
 
   return css`
     .qtd-select-dropdown {

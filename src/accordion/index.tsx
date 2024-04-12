@@ -49,15 +49,15 @@ const Accordion: FunctionComponent<AMPropsType> & AMSubComponents = (
         React.Children.map(children, element => 
           React.cloneElement(element, {
             ...element.props,
-            useLink: useLink,
-            onlyOne: onlyOne,
-            subMenuLinkArrow: subMenuLinkArrow,
-            subMenuHeight: subMenuHeight,
-            itemHeight: itemHeight,
-            iconSize: iconSize,
-            arrowSize: arrowSize,
-            isSelected: selected === element.props.id,
-            onChange: handleOnChange
+            useLink           : useLink,
+            onlyOne           : onlyOne,
+            subMenuLinkArrow  : subMenuLinkArrow,
+            subMenuHeight     : subMenuHeight,
+            itemHeight        : itemHeight,
+            iconSize          : iconSize,
+            arrowSize         : arrowSize,
+            isSelected        : selected === element.props.id,
+            onChange          : handleOnChange
           })
         )
       }

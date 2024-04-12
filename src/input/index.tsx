@@ -30,7 +30,10 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
    */
   useEffect( () => {
 
-    sendUpdates(props.defaultValue);
+    if ( props.defaultValue ) {
+      sendUpdates(props.defaultValue);
+    }
+
     checkFocus();
 
     return () => {
@@ -106,10 +109,9 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
 
   }
 
-  const sendUpdates = (value, update = true, validation = true) => {
+  const sendUpdates = (value:string, update = true, validation = true) => {
 
     SetCurrentValue(value);
-    if ( props.onChange ) props.onChange(value);
     if ( props.onUpdate ) props.onUpdate(value, update, validation);
 
   }
@@ -179,13 +181,12 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
     
     sendUpdates(value, true, !validation);
 
+    if ( props.onChange ) props.onChange(value);
+
   }
 
   const handleAmountChange = (values:NumberFormatValues) => {
 
-    console.log("handleAmountChange");
-    console.log("values", values);
-    console.log("values.floatValue", values.floatValue);
     onHandleChange(values.value);
     //sendUpdates(values.floatValue, true, false);
     //SetFloatValue(values.formattedValue);
@@ -234,7 +235,9 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
     if ( props.mask ) {
       
       if ( currentValue.replace(/\D+/g, '').length < props.mask.replace(/\D+/g, '').length ) {
-        sendUpdates(props.defaultValue, true, false)
+        if ( props.defaultValue ) {
+          sendUpdates(props.defaultValue, true, false);
+        }
       }
 
     }

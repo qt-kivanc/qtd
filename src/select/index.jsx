@@ -20,7 +20,7 @@ const Select = forwardRef(
       direction     = "right",
       mode          = "single",
       size          = "default",
-      type          = "default",
+      variant       = "default",
       className     = "",
       placeholder   = "Please Select",
       icon          = "",
@@ -107,7 +107,6 @@ const Select = forwardRef(
    */
   const sendUpdates = (value, update = true, validation = true) => {
 
-    if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
 
   }
@@ -178,6 +177,8 @@ const Select = forwardRef(
       SetCurrentValue(v ? v : []);
     }
 
+    if ( onChange ) onChange(value);
+
   }
   
   const getOptions = () => {
@@ -202,13 +203,13 @@ const Select = forwardRef(
   }
 
   const getSize = () => {
-    if ( size === "default" )   return "";
-    if ( size === "x-small" )   return "xs";
-    if ( size === "small" )     return "sm";
-    if ( size === "medium" )    return "md";
-    if ( size === "large" )     return "lg";
-    if ( size === "x-large" )   return "xlg";
-    return "";
+    if (      size === "x-small"  ) return "xs";
+    else if ( size === "small"    ) return "sm";
+    else if ( size === "medium"   ) return "md";
+    else if ( size === "default"  ) return "df";
+    else if ( size === "large"    ) return "lg";
+    else if ( size === "x-large"  ) return "xlg";
+    else return "df";
   }
 
   const getProps = () => {
@@ -228,12 +229,12 @@ const Select = forwardRef(
 
     let names = "qtd-select";
 
-    names += " qtd-select-" + type;
+    names += " qtd-select-" + variant;
     names += " qtd-select-" + mode;
     names += " qtd-select-" + direction;
-    names += " qtd-select-" + position;
+    names += " qtd-select-" + direction;
+    names += " qtd-select-" + getSize();
     
-    if ( getSize() !== "" ) names += " qtd-select-" + getSize();
     if ( isOpen )           names += " qtd-select-open";
     if ( errorMessage )     names += " qtd-select-status-error";
     if ( icon !== "" )      names += " qtd-icon";
@@ -258,7 +259,6 @@ const Select = forwardRef(
         placeholder   = {placeholder}
         onChange      = {onHandleToggleChange}
         errorMessage  = {errorMessage}
-        type          = {type}
         size          = {size}
         icon          = {icon}
         image         = {image}

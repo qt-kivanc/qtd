@@ -70,9 +70,11 @@ export type { AccordionProps } from './types/AccordionProps';
 export type { AccordionSubMenuProps } from './types/AccordionSubMenuProps';
 export type { AccordionItemProps } from './types/AccordionItemProps';
 export type { InputProps } from './types/InputProps';
+export type { CheckboxProps } from './types/CheckboxProps';
 export type { QTDImperativeFuncProps } from './types/QTDImperativeFuncProps';
 export type { SingleQueryProps } from './types/SingleQueryProps';
 export type { ButtonProps } from './types/ButtonProps';
+export type { SwitchProps } from './types/SwitchProps';
 
 /*
 console.log("process.env.NODE_ENV: " + process.env.NPM_ENV);

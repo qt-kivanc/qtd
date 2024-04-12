@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 import TinyScrollbar from '../../tinyscrollbar/index.jsx';
-import useCreateStyledStyle from '../../hooks/useCreateStyledStyle.js';
+import useCreateStyledStyle from '../../hooks/useCreateStyledStyle';
 
 import { Wrapper, BodyWrapper, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive } from './styled.components';
 //import s from './style.module.scss';

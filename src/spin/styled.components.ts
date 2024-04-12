@@ -29,7 +29,7 @@ const SpinWrapper = styled.div<{$size:string}>`
   
 const Spinner = styled.div`
 
-  display: inline-block;
+  display: block;
   position: relative;
   width: 100%;
   height: 100%;

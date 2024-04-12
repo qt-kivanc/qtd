@@ -68,7 +68,7 @@ const doubleContent = [
   ].join(";");
 
 const errorStyle = [
-  "background-image: url('https://i.giphy.com/media/XKCdA6ERnXp6M/giphy.webp')",
+  "background-image: url('https://i.giphy.com/XKCdA6ERnXp6M.webp')",
   "background-size: 280px 200px",
   "background-repeat: no-repeat",
   "color: #000000",

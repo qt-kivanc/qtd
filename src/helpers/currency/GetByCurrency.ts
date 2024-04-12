@@ -6,6 +6,10 @@ export default function GetByCurrency(value: number, symbol = true, currency = "
     throw new Error("Currency Error: You must send the currency (EUR, USD, TRY, etc...");
   }
 
+  if (isNaN(value)) {
+    value = 0;
+  }
+
   let country = GetCountryCodeByCurrencyCode(currency);
 
   return  symbol 

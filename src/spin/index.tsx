@@ -3,14 +3,16 @@ import { useEffect } from 'react';
 import { Wrapper, ChildrenWrapper, Spinner, SpinWrapper } from './styled.components';
 
 interface ISpin {
-  updating? : boolean,
-  size?     : number,
-  children? : any
+  updating?   : boolean,
+  size?       : number,
+  className?  : string,
+  children?   : any
 }
 
 const Spin = ({
   updating  = true,
   size      = 24,
+  className = "",
   children  = null
 }:ISpin) => {
 
@@ -19,9 +21,20 @@ const Spin = ({
 
   }, []);
 
+  const getSpinnerClassNames = () => {
+
+    let names = "qtd-spin-spinner";
+
+    if (updating)   names += " " + "qtd-spin-updating";
+    if (className)  names += " " + className;
+
+    return names;
+
+  }
+
   const getSpin = () => (
 
-    <SpinWrapper $size={String(size)} className="qtd-spin-spinner">
+    <SpinWrapper $size={String(size)} className={getSpinnerClassNames()}>
       <Spinner>
         <div></div><div></div><div></div><div></div>
       </Spinner>
@@ -29,9 +42,20 @@ const Spin = ({
     
   );
 
+  const getWrapperClassNames = () => {
+
+    let names = "qtd-spin";
+
+    if (updating)   names += " " + "qtd-spin-updating";
+    if (className)  names += " " + className;
+
+    return names;
+
+  }
+
   const getWrapper = () => (
   
-    <Wrapper className="qtd-spin">
+    <Wrapper className={getWrapperClassNames()}>
       <ChildrenWrapper $updating={updating}>
         { children }
       </ChildrenWrapper>

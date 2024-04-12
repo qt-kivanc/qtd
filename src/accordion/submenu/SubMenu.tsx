@@ -197,9 +197,9 @@ export default function SubMenu({
         React.Children.map(children, (element:JSX.Element) => 
           React.cloneElement(element, {
             ...element.props,
-            itemHeight: itemHeight,
-            arrowSize: arrowSize,
-            active: location.pathname.indexOf(element.props.link) > -1
+            itemHeight  : itemHeight,
+            arrowSize   : arrowSize,
+            active      : location.pathname.indexOf(element.props.link) > -1
           })
         )
       }

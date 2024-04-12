@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { forwardRef, memo, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, memo, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { useLocation } from 'react-router';
 import isDeepEqual from 'fast-deep-equal/react';
 import { getChildrenDeep } from 'react-nanny';
@@ -7,23 +7,33 @@ import { getChildrenDeep } from 'react-nanny';
 import useMultiQuery from '../../hooks/useMultiQuery'
 import useSingleQuery from '../../hooks/useSingleQuery'
 import FormItem from '../item/FormItem';
+import FormContext from '../context/FormContext';
 
 const FormWrapper = forwardRef(({
-  name = "",
-  className = "",
-  initialValues = {},
-  useQueryString = false,
-  onUpdate = null,
-  onFinish = null,
-  onFinishFailed = null,
-  onValidated = null,
-  form = null,
-  children = null
+  name            = "",
+  className       = "",
+  initialValues   = {},
+  useQueryString  = false,
+  onUpdate        = null,
+  onFinish        = null,
+  onFinishFailed  = null,
+  onValidated     = null,
+  form            = null,
+  children        = null
 }, ref) => {
 
+  const { 
+    updated, 
+    setInitialValues, 
+    isFormValid, 
+    getValues, 
+    getFields, 
+    setFieldValueByName
+  } = useContext(FormContext);
+
   const singleQuery = useSingleQuery();
-  const { search } = useLocation();
-  const multiQuery = useMultiQuery();
+  const { search }  = useLocation();
+  const multiQuery  = useMultiQuery();
 
   const [queries, SetQueries] = useState([]);
   const [isValid, SetIsValid] = useState(false);
@@ -49,14 +59,14 @@ const FormWrapper = forwardRef(({
   useEffect(() => {
 
     if ( formItemsRegistered ) return;
-    if ( Object.keys(form.getFields()).length === 0 ) return;
+    if ( Object.keys(getFields()).length === 0 ) return;
     if ( formFields.length === 0 ) return;
 
-    if ( Object.keys(form.getFields()).length === formFields.length ) {
+    if ( Object.keys(getFields()).length === formFields.length ) {
       SetFormItemsRegistered(true);
     }
 
-  }, [form.getFields, formFields]);
+  }, [getFields(), formFields]);
 
   useEffect(() => {
     
@@ -71,26 +81,26 @@ const FormWrapper = forwardRef(({
   }, [search]);
 
   useEffect(() => {
-
+  
     if ( !initialized || !formItemsRegistered || !useQueryString ) {
       return;
     }
 
-    if ( Object.keys(form.updated).length > 0 ) {
-      setQueriesToFormValues(form.updated);
+    if ( Object.keys(updated).length > 0 ) {
+      setQueriesToFormValues(updated);
     }
 
-  }, [form.updated]);
+  }, [updated]);
 
   useEffect(() => {
 
-    if ( onValidated && form.isFormValid() !== isValid ) {
-      onValidated(form.isFormValid());
+    if ( onValidated && isFormValid() !== isValid ) {
+      onValidated(isFormValid());
     }
 
-    SetIsValid(form.isFormValid());
+    SetIsValid(isFormValid());
 
-  }, [form.isFormValid()]);
+  }, [isFormValid()]);
 
   const checkQSInitials = () => {
 
@@ -113,7 +123,7 @@ const FormWrapper = forwardRef(({
     if ( !formItemsRegistered ) return;
 
     if ( !useQueryString && !initialized ) {
-      setInitialValues();
+      setFormInitialValues();
     }
 
   }
@@ -126,7 +136,7 @@ const FormWrapper = forwardRef(({
    * @returns 
    * 
    */
-  const setInitialValues = () => {
+  const setFormInitialValues = () => {
 
     const isEmpty = !Object.values(initialValues).some(x => x !== null && x !== '');
     
@@ -139,7 +149,7 @@ const FormWrapper = forwardRef(({
 
     if ( !isEmpty && !initialized ){
       if ( onUpdate ) {
-        onUpdate(form.setInitialValues(initialValues, false));
+        onUpdate(setInitialValues(initialValues, false));
       }
       SetInitialized(true);
     }
@@ -157,10 +167,10 @@ const FormWrapper = forwardRef(({
    */
   const setQueryStringInitialValues = () => {
 
-    const fields = form.getFields();
-    const isEmpty = !Object.values(fields).some(x => singleQuery.get(x.query, "") !== "");
-    const isQueriesEmpty = Object.values(fields).some(x => x.query === null || x.query === '');;
-
+    const fields          = getFields();
+    const isEmpty         = !Object.values(fields).some(x => singleQuery.get(x.query, "") !== "");
+    const isQueriesEmpty  = Object.values(fields).some(x => x.query === null || x.query === '');
+    
     /**
      * Tüm form öğeleri arasında döner eğer herhangi birine "query" değeri yollanmamış
      * ise hata verir.
@@ -180,7 +190,7 @@ const FormWrapper = forwardRef(({
         }
       });
 
-      throw new Error(`Form Initial Fields Error: "useQueryString" is activated but "query" value is not passed to whole form elements! Invalid fields is ${invalidFields.toString()}`);
+      throw new Error(`QTD Form Initial Fields Error: "useQueryString" is activated but "query" value is not passed to whole form elements! Invalid fields are ${invalidFields.toString()}`);
 
     }
 
@@ -192,7 +202,7 @@ const FormWrapper = forwardRef(({
     }
 
     /**
-     * Query String değerleri boş değilse bunları "initialQueryValues"
+     * QueryString değerleri boş değilse bunları `initialQueryValues`
      * değişkenine ekler ve forma başlangıç değerleri olarak iletir.
      */
     if ( !isEmpty && !initialized ){
@@ -203,7 +213,7 @@ const FormWrapper = forwardRef(({
         initialQueryValues[key] = singleQuery.get(fields[key].query, "");
       });
 
-      form.setInitialValues(initialQueryValues, false);
+      setInitialValues(initialQueryValues, true);
       SetInitialized(true);
 
     }
@@ -213,7 +223,7 @@ const FormWrapper = forwardRef(({
   /**
    * 
    * Sadece form öğelerinin değeri kullanıcı kaynaklı değiştiğinde çağrılan
-   * "form.updated" güncellendiğinde çalışır.
+   * "updated" güncellendiğinde çalışır.
    * 
    * "formValues" değişkeninden gelen tüm değerleri "newQueries" değişkenine 
    * kayıt eder ve eski "queries" değişkeni ile "isDeepEqual" uygular. Eğer değerler
@@ -232,7 +242,7 @@ const FormWrapper = forwardRef(({
     let searchQueries = [];
     let newQueries = [];
 
-    const fields = form.getFields();
+    const fields = getFields();
 
     Object.keys(formValues).forEach(key => {
       newQueries.push(formValues[key]);
@@ -277,7 +287,7 @@ const FormWrapper = forwardRef(({
     let newQueries = [];
     let updatedFields = [];
       
-    const fields = form.getFields();
+    const fields = getFields();
 
     Object.keys(fields).forEach(key => {
       newQueries.push(singleQuery.get(fields[key].query, ""));
@@ -292,7 +302,7 @@ const FormWrapper = forwardRef(({
     });
 
     Object.keys(updatedFields).forEach((name) => {
-      form.setFieldValueByName(name, updatedFields[name], false, false);
+      setFieldValueByName(name, updatedFields[name], false, false);
     });
 
     let _values = {};
@@ -321,14 +331,14 @@ const FormWrapper = forwardRef(({
       event.stopPropagation();
     }
 
-    if ( form.isFormValid() ) {
+    if ( isFormValid() ) {
       if ( onFinish ) {
-        onFinish(form.getValues());
+        onFinish(getValues());
       }
     }
     else {
       if ( onFinishFailed ) {
-        onFinishFailed(form.getFields());
+        onFinishFailed(getFields());
       }
     }
 
@@ -373,10 +383,10 @@ const FormWrapper = forwardRef(({
 
   return (
     <form 
-      id={name} 
-      onSubmit={handleSubmit}
-      autoComplete="off"
-      className={className}
+      id            = {name} 
+      onSubmit      = {handleSubmit}
+      autoComplete  = "off"
+      className     = {className}
       noValidate
     >
       { children }

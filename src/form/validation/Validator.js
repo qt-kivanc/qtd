@@ -131,13 +131,13 @@ const checkRequired = (value) => {
 
 }
 
-Validator.checkPassword = checkPassword;
-Validator.checkEmail = checkEmail;
-Validator.checkMinLength = checkMinLength;
-Validator.checkMaxLength = checkMaxLength;
-Validator.checkExactLength = checkExactLength;
-Validator.checkRequired = checkRequired;
-Validator.checkSame = checkSame;
-Validator.checkTCIdentity = checkTCIdentity;
+Validator.checkPassword     = checkPassword;
+Validator.checkEmail        = checkEmail;
+Validator.checkMinLength    = checkMinLength;
+Validator.checkMaxLength    = checkMaxLength;
+Validator.checkExactLength  = checkExactLength;
+Validator.checkRequired     = checkRequired;
+Validator.checkSame         = checkSame;
+Validator.checkTCIdentity   = checkTCIdentity;
 
 export default Validator;

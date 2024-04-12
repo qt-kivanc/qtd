@@ -233,17 +233,21 @@ const Addon = styled.div`
   font-size: 14px;
   font-weight: 500;
 
+  span {
+    transition: color .3s ease-out;
+  }
+
 `
 
 const AddonBefore = styled(Addon)`
   
-  border-radius: 8px 0 0 8px;
+  border-radius: 6px 0 0 6px;
 
 `
 
 const AddonAfter = styled(Addon)`
   
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 6px 6px 0;
 
 `
 

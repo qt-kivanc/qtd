@@ -21,30 +21,16 @@ const Toggle = ({
   icon          = "",
   image         = "",
   size          = "default", 
-  type          = "default",
   selected      = {value: "", text: ""},
   onChange = () => null
 }) => {
 
   const [open, SetOpen]                         = useState(false);
-  const [sizeStyle, SetSizeStyle]               = useState("");
-  const [typeStyle, SetTypeStyle]               = useState("");
   const [showErrorTooltip, SetShowErrorTooltip] = useState(false);
 
   useEffect(() => {
 
     SetOpen(isOpen);
-    SetTypeStyle(type ? type : "default");
-
-    if ( labelType === "floating" ) {
-      SetSizeStyle("medium");
-    }
-    else if ( labelType === "single" && size ) {
-      SetSizeStyle(size);
-    }
-    else {
-      SetSizeStyle("default");
-    }
 
   }, []);
 
@@ -192,8 +178,6 @@ const Toggle = ({
   return(
 
     <Wrapper 
-      type      = {typeStyle}
-      size      = {sizeStyle}
       onClick   = {onButtonClick}
       className = "qtd-select-selector"
     >

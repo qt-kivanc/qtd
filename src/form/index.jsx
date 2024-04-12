@@ -57,8 +57,8 @@ const Form = forwardRef((props, ref) => {
 
 });
 
-const useForm = () => useContext(FormContext);
-const useFormAPI = () => form;
+const useForm     = () => useContext(FormContext);
+const useFormAPI  = () => form;
 
 Form.Item         = FormItem;
 Form.Group        = FieldGroup;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import useCreateStyledStyle from '../../hooks/useCreateStyledStyle.js';
-import useOnClickOutside from '../../hooks/useOnClickOutside.js';
-import useOnESCKeyDown from '../../hooks/useOnESCKeyDown.js';
+import useCreateStyledStyle from '../../hooks/useCreateStyledStyle';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
+import useOnESCKeyDown from '../../hooks/useOnESCKeyDown';
 
 import { Wrapper, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive } from './styled.components';
 

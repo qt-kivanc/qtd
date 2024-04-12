@@ -106,7 +106,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * 
    */
    function updateField(name = "", value = "", update = true, valid = true ) {
-    
+  
     if ( !hasField(name) ) {
       throw new Error(`Form Update Error: There is no field registered with this name: ${name}`);
     }
@@ -278,7 +278,6 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
   function setInvalidField(name = "", message = "") {
     
     setFieldError(name, message);
-
     checkFormIsValid();
 
   }

@@ -13,7 +13,7 @@ import {
   ModalEnter, ModalEnterActive, ModalExit, 
   ModalExitActive 
 } from './styled.components';
-import useCreateStyledStyle from "../hooks/useCreateStyledStyle.js";
+import useCreateStyledStyle from "../hooks/useCreateStyledStyle";
 
 /*
 https://stackoverflow.com/questions/41181372/chrome-mousedown-and-mouseup-events-no-longer-working-other-browsers-are-fine/41238807#41238807
@@ -117,7 +117,6 @@ const DatePicker = forwardRef((
 
     SetInputValue(isValid ? dateValue.localizated : "");
     
-    if ( onChange ) onChange(value);
     if ( onUpdate ) onUpdate(value, update, validation);
 
   }
@@ -140,9 +139,14 @@ const DatePicker = forwardRef((
       if ( enteredValue.global === value ) return;
 
       const date = {
-        localizated : value,
-        global      : moment(value, dateFormat, locale).format("YYYY-MM-DD")
+        localizated : moment(value).format(dateFormat),
+        global      : value
       };
+      
+      // const date = {
+      //   localizated : value,
+      //   global      : moment(value, dateFormat, locale).format("YYYY-MM-DD")
+      // };
       
       SetEnteredValue(date);
       sendUpdates(date, update, validation);
@@ -258,7 +262,9 @@ const DatePicker = forwardRef((
    
     SetIsOpen(false);
     SetEnteredValue(date);
-    sendUpdates(date);
+    sendUpdates(date, true);
+    
+    if ( onChange ) onChange(value);
 
   }
 
