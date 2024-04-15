@@ -1,4 +1,4 @@
-const BackToTop = ({ className, height, width }) => {
+const BackToTop = ({ className = "", height, width }) => {
   return (
     <svg
       className={className}

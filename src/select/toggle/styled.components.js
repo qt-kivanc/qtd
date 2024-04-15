@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import LockIcon from '../../icons/Lock.jsx';
+import LockIcon from '../../icons/Lock';
 
 const Wrapper = styled.div`
   

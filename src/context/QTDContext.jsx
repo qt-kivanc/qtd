@@ -1,19 +1,19 @@
 import React, { useState, createContext, useEffect } from "react";
 
-import { ModalProvider } from "../modal/index.jsx";
-import { NotificationProvider } from "../notification/index.jsx";
-import { TooltipProvider } from "../tooltip/index.jsx";
+import { ModalProvider } from "../modal/index";
+import { NotificationProvider } from "../notification/index";
+import { TooltipProvider } from "../tooltip/index";
 
 const QTDContext = createContext();
       QTDContext.displayName = "QTDContext";
 
-export const QTDProvider = ({ children }) => {
+export const QTDProvider = (props) => {
   
-  const [theme, SetTheme] = useState("dark");
-  const [dateFormat, SetDateFormat] = useState("");
-  const [locale, SetLocale] = useState("en-US");
-  const [language, SetLanguage] = useState("en");
-  const [brokenImage, SetBrokenImage] = useState("");
+  const [theme, SetTheme]                   = useState(props.theme ? props.theme : "dark");
+  const [dateFormat, SetDateFormat]         = useState("");
+  const [locale, SetLocale]                 = useState("en-US");
+  const [language, SetLanguage]             = useState("en");
+  const [brokenImage, SetBrokenImage]       = useState("");
   const [dummyTeamImage, SetDummyTeamImage] = useState("");
 
   const changeTheme = (value) => {
@@ -60,7 +60,7 @@ export const QTDProvider = ({ children }) => {
       <NotificationProvider>
         <TooltipProvider>
           <ModalProvider>
-            { children }
+            { props.children }
           </ModalProvider>
         </TooltipProvider>
       </NotificationProvider>

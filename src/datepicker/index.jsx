@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import moment from "moment";
 
 import Calendar from "../calendar/index.jsx";
-import Input from "../input/index.jsx";
+import Input from "../input/index";
 import QTDContext from "../context/QTDContext.jsx";
 import { 
   Wrapper, CalendarWrapper, Icon, 

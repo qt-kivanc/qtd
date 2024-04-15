@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Checkmark from '../../icons/Checkmark.jsx';
+import Checkmark from '../../icons/Checkmark';
 
 import s from './style.module.scss';
 

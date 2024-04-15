@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
   `
 
-const Overlay = styled.div`
+const Overlay = styled.div<{$show:boolean}>`
   
   background: #000000BF;
   position: fixed;

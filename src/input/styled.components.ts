@@ -7,27 +7,27 @@ const getInputSize = () => {
 
     /* X-SMALL */
     &.qtd-input-xs {
-      height: 24px;
+      height: 28px;
       .qtd-input-floating-input {
-        height: 24px; 
+        height: 28px; 
         padding-top: 13px;
       }
     }
 
     /* SMALL */
     &.qtd-input-sm {
-      height: 28px; 
+      height: 34px; 
       .qtd-input-floating-input {
-        height: 28px; 
+        height: 34px; 
         padding-top: 13px;
       }
     }
     
     /* MEDIUM */
     &.qtd-input-md {
-      height: 32px; 
+      height: 38px; 
       .qtd-input-floating-input {
-        height: 32px; 
+        height: 38px; 
         padding-top: 13px;
       }
     }

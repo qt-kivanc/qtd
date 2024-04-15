@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import useComponentSize from '../../hooks/useComponentSize.js';
+import useComponentSize from '../../hooks/useComponentSize';
 
 import Checkbox from '../checkbox/index.jsx';
 

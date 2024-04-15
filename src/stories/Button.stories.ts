@@ -14,7 +14,7 @@ const meta = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onClick: fn() },
@@ -24,29 +24,47 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    primary: true,
-    label: 'Button',
+    variant: "default",
+    children: "Button",
   },
 };
 
-export const Secondary: Story = {
+export const Solid: Story = {
   args: {
-    label: 'Button',
+    variant: "solid",
+    children: "Button",
   },
 };
 
-export const Large: Story = {
+export const Outline: Story = {
   args: {
-    size: 'large',
-    label: 'Button',
+    variant: "outline",
+    children: "Button",
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Button",
+  },
+};
+
+export const Link: Story = {
+  args: {
+    variant: "link",
+    children: "Button",
+    size:"small",
+    href:"http://www.google.com",
+    target:"_blank"
   },
 };
 
 export const Small: Story = {
   args: {
-    size: 'small',
-    label: 'Button',
+    size: "small",
+    children: "Button",
   },
 };

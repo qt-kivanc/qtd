@@ -10,7 +10,7 @@ import { MutableRefObject, useEffect } from "react";
  * 
  */
 const useOnClickOutside = (
-  ref     : MutableRefObject<HTMLDivElement>, 
+  ref     : MutableRefObject<HTMLDivElement | null>, 
   handler : (event:PointerEvent) => void
 ) => {
 
@@ -19,7 +19,8 @@ const useOnClickOutside = (
     const listener = (event:PointerEvent) => {
 
       if ( !event.target ) return;
-      if (!ref.current || ref.current.contains((event.target as Node))) {
+      if ( !ref ) return;
+      if ( !ref.current || ref.current.contains((event.target as Node))) {
         return;
       }
 

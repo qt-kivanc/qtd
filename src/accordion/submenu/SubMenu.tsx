@@ -194,7 +194,7 @@ export default function SubMenu({
       className = "qtd-accordion-menu-collapse"
     >
       {
-        React.Children.map(children, (element:JSX.Element) => 
+        React.Children.map(children as JSX.Element, (element:JSX.Element) => 
           React.cloneElement(element, {
             ...element.props,
             itemHeight  : itemHeight,

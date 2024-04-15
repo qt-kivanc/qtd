@@ -1,4 +1,4 @@
-import { Button } from './Button';
+import { Button } from '../index';
 import './header.css';
 
 type User = {
@@ -36,17 +36,23 @@ export const Header: React.FC<any> = ({ user, onLogin, onLogout, onCreateAccount
       </div>
       <div>
         {user ? (
-          <>
+          <div style={{display: "flex", flexDirection: "row"}}>
             <span className="welcome">
               Welcome, <b>{user.name}</b>!
             </span>
-            <Button size="small" onClick={onLogout} label="Log out" />
-          </>
+            <Button size="small" onClick={onLogout}>
+              Log out
+            </Button>
+          </div>
         ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-          </>
+          <div style={{display: "flex", flexDirection: "row"}}>
+            <Button size="small" onClick={onLogin}>
+              Log in
+            </Button>
+            <Button size="small" onClick={onCreateAccount}>
+              Sign up
+            </Button>
+          </div>
         )}
       </div>
     </div>

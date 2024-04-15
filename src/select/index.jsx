@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } f
 import Option from './option/Option';
 import Toggle from './toggle/Toggle';
 import Menu from './menu/Menu';
-import useOnClickOutside from '../hooks/useOnClickOutside.js';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 
 // https://github.com/ant-design/ant-design/blob/master/components/select/index.tsx#L3
 // https://github.com/react-component/select/blob/master/package.json

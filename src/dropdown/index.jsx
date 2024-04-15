@@ -34,7 +34,7 @@ export default function Modal(props) {
     SetIsShow(isOpen);
 
     if ( !isOpen )
-      props.onHideModal();
+      props.hideCurrentModal();
 
   }, [isOpen]);
 
@@ -129,7 +129,7 @@ export default function Modal(props) {
         <LazyLoad 
           file={props.modalPath}
           childProps={{
-            onHideModal: handleHideModalClick,
+            hideCurrentModal: handleHideModalClick,
             ...props.modalProps
           }}
         />

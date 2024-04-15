@@ -1,50 +1,41 @@
 import './button.css';
+import {Button as ButtonComponent, ButtonProps} from '../index';
+import {ButtonDefaultProps} from '../button/index';
+import { ButtonSize, ButtonVariant } from 'types/ButtonProps';
 
-interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
+interface StoryButtonProps extends ButtonProps {
+
+  variant   : ButtonVariant,
+  size      : ButtonSize,
+  children  : string
+
 }
 
-/**
- * Primary UI component for user interaction
- */
 export const Button: React.FC<any> = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
+  variant,
+  size,
+  children,
   ...props
-}: ButtonProps) => {
+}: StoryButtonProps) => {
 
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const style = {
+    width           : "500px",
+    display         : "flex",
+    justifyContent  : "center"
+  }
 
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+    <div style={{...style}}>
+      <ButtonComponent
+        variant = {variant}
+        size    = {size}
+        {...props}
+      >
+        {children}
+      </ButtonComponent>
+    </div>
   );
 
 };
+
+Button.defaultProps = ButtonDefaultProps;

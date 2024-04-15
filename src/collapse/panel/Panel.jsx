@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import ALink from '../../alink/index.tsx';
-import ArrowIcon from '../../icons/Arrow.jsx';
+import ALink from '../../alink/index';
+import ArrowIcon from '../../icons/Arrow';
 import { Wrapper, Title, Content } from './styled.components';
 
 import s from './style.module.scss';

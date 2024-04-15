@@ -1,56 +1,66 @@
 import { ReactSVG } from 'react-svg';
 
 import Spin from '../spin/index.jsx';
-import { SVG, Hide, Image, Link, A, ClickButton, Icon } from './styled.components';
-import React, { MouseEvent } from 'react';
+import { SVG, Hide, Image, Link, A, ClickButton, Icon, Element } from './styled.components';
+import React, { MouseEvent, useRef } from 'react';
 import { v4 } from 'uuid';
 
 import { ButtonProps } from '../index';
 import { isValidURL } from '../helpers/url/ValidURL';
 
+
 const Button = ({
-  id              = v4(),
-  disabled        = false,
-  loading         = false,
-  selected        = false,
-  circle          = false,
-  useIconPadding  = true,
-  stretch         = false,
-  justify         = "center",
-  contentPosition = "left",
-  type            = "button",
-  variant         = "default",
-  custom          = "",
-  size            = "default",
-  state           = null,
-  icon            = "",
-  href            = "",
-  target          = "_self",
-  className       = "",
-  children        = null,
-  onClick         = null,
+  id,
+  disabled,
+  loading,
+  selected,
+  circle,
+  strecth,
+  justify,
+  contentPosition,
+  type,
+  variant,
+  size,
+  state,
+  icon,
+  href,
+  target,
+  className,
+  children,
+  onClick
 }:ButtonProps) => {
 
+  const buttonRef = useRef<HTMLButtonElement & HTMLAnchorElement>(null);
+  
   /**
    * 
    * @returns 
    */
   const getIcon = () => {
 
-    if ( loading ) return null;
+    if ( loading || !icon ) return null;
 
     if ( React.isValidElement(icon) ) {
-      return icon;
+      return (
+        <Element
+          className         = "icon qtd-element"
+          $contentPosition  = {contentPosition}
+          $justify          = {justify}
+          $useIconPadding   = {children !== null}
+        >
+          {icon}   
+        </Element>
+      )
     }
 
     if ( typeof icon === "string" && isValidURL(icon) ) {
       return (
         <Image 
-          className         = "qtd-image" 
+          className         = "icon qtd-image"
           src               = {icon} 
           height            = {getImageSize()} 
           brokenHeight      = {getImageSize()}
-          $contentPosition  = {contentPosition}
+          $contentPosition  = {children !== null}
           $justify          = {justify}
         />
       )
@@ -59,18 +69,18 @@ const Button = ({
     if ( typeof icon === "string" ) {
       return (
         <Icon 
-          className         = {"qtd-icon " + icon} 
+          className         = {"icon qtd-icon " + icon} 
           $contentPosition  = {contentPosition}
           $justify          = {justify}
-          $useIconPadding   = {useIconPadding} 
+          $useIconPadding   = {children !== null}
         />
       )
     }
 
     if ( icon instanceof SVGElement ) {
       return (
-        <SVG 
-          className         = "qtd-svg" 
+        <SVG
+          className         = "icon qtd-svg" 
           $singleIcon       = {!children} 
           $contentPosition  = {contentPosition}
           $justify          = {justify}
@@ -167,6 +177,10 @@ const Button = ({
 
       names += " qtd-button-" + variant;
       names += " qtd-button-" + getSize();
+
+    if ( children === null ) {
+      names += " qtd-button-has-icon";
+    }
       
     if ( type !== "button" ) {
       names += " qtd-button-" + type;
@@ -176,14 +190,14 @@ const Button = ({
       names += " qtd-button-" + state;
     }
 
-    if ( variant === "custom" && custom ) {
-      names += " qtd-button-" + custom;
+    if ( variant === "custom" && state ) {
+      names += " qtd-button-" + state;
     }
 
     if ( selected )                     names += " qtd-button-selected";
-    if ( stretch )                      names += " qtd-button-stretch";
+    if ( strecth )                      names += " qtd-button-stretch";
     if ( circle )                       names += " qtd-button-circle";
-    if ( getIconType() === "element" )  names += " qtd-svg";
+    if ( getIconType() === "element" )  names += " qtd-element";
     if ( getIconType() === "svg" )      names += " qtd-svg";
     if ( getIconType() === "icon" )     names += " qtd-icon";
     if ( getIconType() === "image" )    names += " qtd-image";
@@ -195,7 +209,10 @@ const Button = ({
 
 
   const handleOnClick = (event:MouseEvent<any>) => {
-    
+
+    // remove focus-visible outline
+    buttonRef.current?.blur();
+
     if ( loading ) return;
     if ( onClick ) onClick(event);
 
@@ -223,6 +240,7 @@ const Button = ({
         <ClickButton 
           className = {getClassNames()} 
           onClick   = {handleOnClick}
+          ref       = {buttonRef}
           {...getProps()}
         >
           { getButtonContent() }
@@ -251,16 +269,12 @@ const Button = ({
     </Link>
 
   );
-
-  /**
-   * 
-   * @returns 
-   */
-  const submitButton = () => (
+    
+  const getButtonByType = (type:"submit" | "reset") => (
 
     <ClickButton
       className = {getClassNames()}
-      type      = "submit"
+      type      = {type}
       {...getProps()}
     >
       { getButtonContent() }
@@ -271,14 +285,13 @@ const Button = ({
   const getButton = () => {
     
     if ( type === "submit" ) {
-      return submitButton();
+      return getButtonByType("submit");
     }
 
-    /*
+    
     if ( type === "reset" ) {
-      return resetButton();
+      return getButtonByType("reset");
     }
-    */
 
     return href !== "" ? hrefButton() : clickButton();
 
@@ -287,5 +300,28 @@ const Button = ({
   return getButton();
 
 }
+
+export const ButtonDefaultProps = {
+  id              : v4(),
+  disabled        : false,
+  loading         : false,
+  selected        : false,
+  circle          : false,
+  strecth         : false,
+  justify         : "center",
+  contentPosition : "left",
+  type            : "button",
+  variant         : "default",
+  size            : "default",
+  state           : null,
+  icon            : null,
+  href            : "",
+  target          : "_self",
+  className       : "",
+  children        : null,
+  onClick         : null,
+} as Required<ButtonProps>;
+
+Button.defaultProps = ButtonDefaultProps;
 
 export default Button;

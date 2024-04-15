@@ -53,6 +53,7 @@
     "paths": {
       "context/*": ["src/context/*"],
       "types/*": ["src/types/*"],
+      "enums/*": ["src/enums/*"],
       "interfaces/*": ["src/interfaces/*"],
       "utils/*": ["src/utils/*"],
       "hooks/*": ["src/hooks/*"],

@@ -25,6 +25,10 @@ const SpinWrapper = styled.div<{$size:string}>`
   top: 50%;
   transform: translate(-50%, -50%);
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   `
   
 const Spinner = styled.div`

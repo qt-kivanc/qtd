@@ -9,7 +9,6 @@ import { Wrapper } from './styled.components';
 const Container = ({ notifications, onRemove }) => {
 
   const portalId = "qtd-notification-root";
-  const element = document.createElement('div');
 
   const [root, SetRoot] = useState(null);
 
@@ -18,7 +17,6 @@ const Container = ({ notifications, onRemove }) => {
     if (!document.getElementById(portalId)) {
       let _root = document.createElement('div');
           _root.id = portalId;
-          _root.appendChild(element);
       document.body.appendChild(_root);
       SetRoot(_root);
     }

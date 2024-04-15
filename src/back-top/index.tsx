@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Wrapper, Show } from './styled.components';
-import BackToTop from '../icons/BackToTop.jsx';
+import BackToTop from '../icons/BackToTop';
 
 export default function BackTop(props) {
 
@@ -23,11 +23,11 @@ export default function BackTop(props) {
 
   }, []);
 
-  const onScroll = (e) => {
+  const onScroll = () => {
     SetVisible((document['body'].scrollTop > window.innerHeight));
   };
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",

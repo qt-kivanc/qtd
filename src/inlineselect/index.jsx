@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-import useOnClickOutside from '../hooks/useOnClickOutside.js';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 import Option from './option/Option.jsx';
 import Menu from './menu/Menu.jsx';
 import Toggle from './toggle/Toggle.jsx';

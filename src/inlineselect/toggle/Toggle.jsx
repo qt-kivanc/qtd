@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import InlineSelectArrow from '../../icons/InlineSelectArrow.jsx';
+import InlineSelectArrow from '../../icons/InlineSelectArrow';
 
 import { Label, Container, Select, Selection } from './styled.components';
 

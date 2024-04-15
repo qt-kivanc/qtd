@@ -6,7 +6,6 @@ import { Wrapper } from './styled.components';
 const Container = ({ tooltips }) => {
 
   const portalId = "qtd-tooltip-root";
-  const element = document.createElement('div');
 
   const [root, SetRoot] = useState(null);
 
@@ -15,7 +14,6 @@ const Container = ({ tooltips }) => {
     if (!document.getElementById(portalId)) {
       let _root = document.createElement('div');
           _root.id = portalId;
-          _root.appendChild(element);
       document.body.appendChild(_root);
       SetRoot(_root);
     }

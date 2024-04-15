@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   visibility: hidden;
   `
 
-const Show = styled.a`
+const Show = styled.a<{$show:boolean}>`
 
   visibility: ${props => props.$show ? 'visible' : 'hidden'};
   animation: ${props => props.$show ? showBounceAnimation : 'none'} 0.5s;
