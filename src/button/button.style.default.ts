@@ -10,6 +10,7 @@ export const getDefaultButton = () => {
     &.qtd-button-default {
 
       background-color: #1b84ff;
+      border: 1px solid #00000000;
 
       span, div.icon {
         color: #ffffff;
@@ -33,7 +34,6 @@ export const getDefaultButton = () => {
       }
 
       &[disabled] {
-        border: 1px solid #505A7D4D;
         span, div.icon {
           color: #ffffff4D;
           fill: #ffffff4D;

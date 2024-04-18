@@ -12,6 +12,7 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import { terser } from 'rollup-plugin-terser';
 import dts from "rollup-plugin-dts";
+import image from '@rollup/plugin-image';
 
 import resolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
@@ -19,8 +20,8 @@ import localResolve from 'rollup-plugin-local-resolve';
 
 import pkg from "./package.json";
 
-const input = 'src/index.ts'
-const production = !process.env.ROLLUP_WATCH;
+const input       = 'src/index.ts'
+const production  = !process.env.ROLLUP_WATCH;
 
 const EXTERNALS = [
   'react',
@@ -31,15 +32,15 @@ const EXTERNALS = [
 
 var MODE = [
   { 
-    file: pkg.main,
-    format: 'cjs',
-    sourcemap: !production,
-    name: '@quan-tech/qt-design'
+    file      : pkg.main,
+    format    : 'cjs',
+    sourcemap : !production,
+    name      : '@quan-tech/qt-design'
   },
   { 
-    file: pkg.module,
-    format: 'esm',
-    sourcemap: !production
+    file      : pkg.module,
+    format    : 'esm',
+    sourcemap : !production
   }
 ]
 
@@ -68,17 +69,17 @@ MODE.forEach((m) => {
   var conf = {
     input: input,
     output: {
-      name: "qt-design",
-      file: `dist/index.${m.format}.js`,
-      entryFileNames: "[name].[hash].js",
+      name            : "qt-design",
+      file            : `dist/index.${m.format}.js`,
+      entryFileNames  : "[name].[hash].js",
       // Governs names of CSS files (for assets from CSS use `hash` option for url handler).
       // Note: using value below will put `.css` files near js,
       // but make sure to adjust `hash`, `assetDir` and `publicPath`
       // options for url handler accordingly.
-      assetFileNames: "[name]-[hash][extname]",
-      format: m.format,
-      exports: "named",
-      globals: {
+      assetFileNames  : "[name]-[hash][extname]",
+      format          : m.format,
+      exports         : "named",
+      globals         : {
         /*
         'react': 'React',
         'react-dom': 'ReactDOM',
@@ -107,8 +108,8 @@ MODE.forEach((m) => {
       }
     },
     // this externelizes react to prevent rollup from compiling it
-    external: getDependencies(),
-    plugins: [
+    external          : getDependencies(),
+    plugins           : [
 
       peerDepsExternal(),
 
@@ -122,6 +123,8 @@ MODE.forEach((m) => {
         exclude: ["src/**"],
         include: ["node_modules/**"]
       }),
+
+      image(),
 
       typescript({ tsconfig: "./tsconfig.json" }),
 

@@ -10,6 +10,7 @@ export const getGhostButton = () => {
     &.qtd-button-ghost {
 
       background-color: transparent;
+      border: 1px solid #00000000;
 
       span, div.icon {
         color: #252f4a;
@@ -39,10 +40,9 @@ export const getGhostButton = () => {
       }
 
       &[disabled] {
-        border: 1px solid #505A7D4D;
         span, div.icon {
-          color: #ffffff4D;
-          fill: #ffffff4D;
+          color: #0000004D;
+          fill: #0000004D;
         }
       }
       

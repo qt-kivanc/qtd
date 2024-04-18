@@ -402,7 +402,7 @@ const WrapperContent = css<{$justify:string}>`
   justify-content: ${({$justify}) => $justify};
   border-radius: ${BORDER_RADIUS};
   
-  transition-property: background-color, margin;
+  transition-property: background-color, margin, border-color, color;
   transition-duration: 800ms;
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 

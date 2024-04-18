@@ -58,6 +58,7 @@ export { default as InlineSelect } from './inlineselect/index.jsx';
 export { default as Image } from './image/index.jsx';
 export { default as ConsoleLog } from './logger/index.js';
 export { default as Button } from './button/index';
+export { default as Alert } from './alert/index';
 export { default as Result } from './result/index';
 export { default as ALink } from './alink/index';
 export { default as Spin } from './spin/index';
@@ -73,9 +74,10 @@ export type { InputProps } from './types/InputProps';
 export type { CheckboxProps } from './types/CheckboxProps';
 export type { QTDImperativeFuncProps } from './types/QTDImperativeFuncProps';
 export type { SingleQueryProps } from './types/SingleQueryProps';
-export type { ButtonProps } from './types/ButtonProps';
+export type { ButtonProps, ButtonType, ButtonVariant, ButtonState, ButtonSize, ButtonContentPosition } from './types/ButtonProps';
+export type { AlertProps, AlertType, AlertSize } from './types/AlertProps';
 export type { SwitchProps } from './types/SwitchProps';
-export type { ModalProps, ModalContentProps } from './types/ModalProps';
+export type { ModalProps, ModalContentProps, ModalRefProps } from './types/ModalProps';
 
 export { ModalState } from './enums/enum';
 

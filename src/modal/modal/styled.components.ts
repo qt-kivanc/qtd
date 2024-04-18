@@ -13,6 +13,12 @@ const Wrapper = styled.div`
 
   opacity: 1;
 
+  .qtd-spin-spinner {
+    >div>div {
+      border-color: #000000 transparent transparent;
+    }
+  }
+
 `
 const ModalInnerWrapper = styled.div`
   
@@ -23,7 +29,7 @@ const ModalInnerWrapper = styled.div`
   padding: 50px;
 `
 
-const ModalInnerBody = styled.div`
+const ModalBody = styled.div`
 
   margin: auto;
   height: max-content;
@@ -37,7 +43,7 @@ const ModalInnerBody = styled.div`
 
 `
 
-const ModalBody = styled.div`
+const ModalContent = styled.div`
 
 
 
@@ -45,6 +51,9 @@ const ModalBody = styled.div`
 
 const ModalInnerContent = styled.div`
 
+  transition-property: all;
+  transition-duration: 800ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   padding: 30px 20px;
 
 `
@@ -110,4 +119,4 @@ const ModalExitActive = styled.div`
 `
 
 
-export { Wrapper, ModalInnerWrapper, ModalInnerBody, ModalBody, ModalInnerContent, ModalHeader, ModalFooter, CloseButton, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive };
+export { Wrapper, ModalInnerWrapper, ModalBody, ModalContent, ModalInnerContent, ModalHeader, ModalFooter, CloseButton, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive };

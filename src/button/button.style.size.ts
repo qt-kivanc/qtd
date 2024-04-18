@@ -26,7 +26,7 @@ export const getSize = () => {
         padding: 10px 10px;
       }
 
-      span { font-size: 12px; line-height: 12px; font-weight: 400; }
+      span { font-size: 12px; line-height: 12px; font-weight: 500; }
     }
 
     /* SMALL */

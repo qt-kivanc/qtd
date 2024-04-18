@@ -1,32 +1,43 @@
 import React, { useEffect, useState, useRef, FC } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { ReactSVG } from "react-svg";
 
-import { useOnESCKeyDown, useOnClickOutside, useCreateStyledStyle } from 'hooks/index';
-import { ModalProps } from 'types/ModalProps';
 import { ModalState } from 'enums/enum';
+import { useOnESCKeyDown, useOnClickOutside, useCreateStyledStyle } from 'hooks/index';
+import { ModalProps, ModalRefProps } from 'types/ModalProps';
+
 import Button from '../../button/index';
+import CloseIcon from './closeicon.svg';
+import { Spin } from '../../index';
 
 import {
   Wrapper,
   ModalEnter, ModalEnterActive, ModalExit, ModalExitActive,
   ModalInnerWrapper, ModalInnerContent,
-  ModalInnerBody,
+  ModalBody,
   ModalHeader,
   CloseButton,
   ModalFooter,
-  ModalBody
+  ModalContent
 } from './styled.components';
 import { ModalContainerProps } from '../context/ModalContext';
 
-type ModalType = ModalProps & ModalContainerProps;
+type ModalExtraProps = {
+  isActive      : boolean
+}
+
+type ModalType = ModalProps & ModalContainerProps & ModalExtraProps;
 
 const Modal:FC<ModalType> = (props) => {
 
+  const modalRef    = useRef<ModalRefProps>(null);
   const contentRef  = useRef<HTMLDivElement | null>(null);
   const nodeRef     = useRef(null);
   
-  const [isOpen, SetIsOpen] = useState(true);
-  const [isShow, SetIsShow] = useState(false);
+  const [isOpen,        SetIsOpen]        = useState(true);
+  const [isShow,        SetIsShow]        = useState(false);
+  const [loading,       SetLoading]       = useState(false);
+  const [innerLoading,  SetInnerLoading]  = useState(false);
 
   /**
    * Styled Components
@@ -49,10 +60,12 @@ const Modal:FC<ModalType> = (props) => {
    */
    useEffect(() => {
 
+    if ( !props.isActive ) return;
+
     SetIsShow(isOpen);
 
     if ( !isOpen ) {
-      if ( props.onRemoveModal ) props.onRemoveModal();
+      if ( props.onRemoveModal) props.onRemoveModal(String(props.id));
     }
 
   }, [isOpen]);
@@ -61,7 +74,8 @@ const Modal:FC<ModalType> = (props) => {
    * 
    */
   useOnClickOutside(contentRef, () => {
-    if ( !props.closeOnClickOutside ) return;
+    if ( !props.isActive ) return;
+    if ( !props.closeOnClickOutside || loading || innerLoading ) return;
     SetIsShow(false);
   });
 
@@ -69,7 +83,8 @@ const Modal:FC<ModalType> = (props) => {
    * 
    */
   useOnESCKeyDown(() => {
-    if ( props.preventESC ) return;
+    if ( !props.isActive ) return;
+    if ( props.preventESC || loading || innerLoading ) return;
     SetIsShow(false);
   });
 
@@ -84,26 +99,38 @@ const Modal:FC<ModalType> = (props) => {
    * 
    */
   const handleHideModal = () => {
+    if ( !props.isActive ) return;
     SetIsShow(false);
   }
 
   const handleShowModal = (data:ModalProps) => {
+    if ( !props.isActive ) return;
     props.onShowModal(data);
   }
 
-  const handleEntered = () => {
-    props.onModalEvent(ModalState.ENTERED, props.id ? props.id : "");
+  const handleCloseButtonClick = () => {
+    SetIsShow(false)
   }
- 
-  const handleExited = () => {
-    SetIsOpen(false);
-    props.onModalEvent(ModalState.EXITED, props.id ? props.id : "");
+
+  const handleChangeLoadingState = (value:boolean) => {
+    SetLoading(value);
+  }
+
+  const handleChangeInnerLoadingState = (value:boolean) => {
+    SetInnerLoading(value);
   }
 
   const handleClickOK = () => {
 
+    if ( !props.isActive ) return;
+
     props.onModalEvent(ModalState.OK_CLICK, props.id ? props.id : "");
 
+    if ( modalRef.current ) {
+      modalRef.current.onClickOK && modalRef.current.onClickOK();
+      return;
+    }
+    
     if ( props.onOk ) {
       props.onOk();
       return;
@@ -115,7 +142,14 @@ const Modal:FC<ModalType> = (props) => {
 
   const handleClickCancel = () => {
     
+    if ( !props.isActive ) return;
+    
     props.onModalEvent(ModalState.CANCEL_CLICK, props.id ? props.id : "");
+
+    if ( modalRef.current ) {
+      modalRef.current.onClickCancel && modalRef.current.onClickCancel();
+      return;
+    }
 
     if ( props.onCancel ) {
       props.onCancel();
@@ -126,47 +160,97 @@ const Modal:FC<ModalType> = (props) => {
 
   }
 
-  const getDynamicContent = () => {
+  /**
+   * 
+   */
+  const handleEntered = () => {
+    props.onModalEvent(ModalState.ENTERED, props.id ? props.id : "");
+  }
+  
+  const handleExited = () => {
+    SetIsOpen(false);
+    props.onModalEvent(ModalState.EXITED, props.id ? props.id : "");
+  }
 
-    if ( !props.Content ) return;
+  const cloneProps = (props:ModalProps) => {
 
-    return  React.cloneElement(props.Content as JSX.Element, {
-                className         : "qtd-modal-body",
-                hideCurrentModal  : handleHideModal,
-                showAnotherModal  : handleShowModal,
-                modalProps        : {...props.customProps},
-            });
+    /**
+     * TODO: Comment here
+     */
+    if ( props.content ) {
+      if ( Object(props.content).props && Object.keys(Object(props.content).props).length > 0 ) {
+        return {}
+      }
+    }
+    
+    let newProps:any = {
+      hideCurrentModal        : handleHideModal,
+      showAnotherModal        : handleShowModal,
+      changeLoadingState      : handleChangeLoadingState,
+      changeInnerLoadingState : handleChangeInnerLoadingState,
+      modalProps              : {...props.customProps},
+      context                 : {...props.context}
+    }
+
+    if ( props.checkAutoRef ) {
+        
+      if ((props.content as JSX.Element).type.hasOwnProperty("$$typeof") ) {
+        if ( (props.content as JSX.Element).type.$$typeof.toString() === "Symbol(react.forward_ref)") {
+          newProps.ref = modalRef;
+        }
+      }
+
+    }
+
+    if ( props.useRef ) {
+      newProps.ref = modalRef;
+    }
+
+    return newProps;
 
   }
 
-  const CloseIcon = <svg
-                      width   = "10px"
-                      height  = "10px"
-                      viewBox = "0 0 329.26933 329"
-                      xmlns   = "http://www.w3.org/2000/svg"
-                    >
-                      <path d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"></path>
-                    </svg>;
+  const getDynamicContent = () => {
+
+    if ( !props.content ) return;
+
+    return  React.cloneElement(
+              props.content as JSX.Element,
+              cloneProps(props)
+            );
+
+  }
 
   const getHeader = () => (
-    <ModalHeader>
+    <ModalHeader className="qtd-modal-header">
       { props.title }
     </ModalHeader>
   )
 
   const getFooter = () => (
-    <ModalFooter>
+    <ModalFooter className="qtd-modal-footer">
       {
         props.showCancelButton
         &&
-        <Button variant="solid" size="small" onClick={handleClickCancel}>
+        <Button
+          variant   = "solid"
+          size      = "small"
+          onClick   = {handleClickCancel}
+          disabled  = {loading || innerLoading || !props.isActive}
+        >
           {props.cancelButtonText}
         </Button>
       }
       {
         props.showOkButton
         &&
-        <Button variant="default" size="small" onClick={handleClickOK}>
+        <Button
+          variant   = "default"
+          size      = "small"
+          onClick   = {handleClickOK}
+          loading   = {loading}
+          disabled  = {innerLoading || !props.isActive}
+        >
           {props.okButtonText}
         </Button>
       }
@@ -175,33 +259,38 @@ const Modal:FC<ModalType> = (props) => {
 
   const getContent = () => (
 
-    <ModalInnerWrapper>
-      <ModalInnerBody ref={contentRef}>
-        <ModalBody>
+    <ModalInnerWrapper className="qtd-modal-inner-wrapper">
+      <ModalBody className="qtd-modal-body" ref={contentRef}>
+        <ModalContent className="qtd-modal-content">
           
-          {
-            props.showCloseButton !== false
-            &&
-            <CloseButton>
-              <Button
-                size    = "x-small"
-                variant = "ghost"
-                onClick = {() => SetIsShow(false)}
-                icon    = {CloseIcon}
-              />
-            </CloseButton>
-          }
+          <Spin updating={innerLoading}>
+              
+            {
+              props.showCloseButton !== false
+              &&
+              <CloseButton className="qtd-modal-close-button">
+                <Button
+                  size      = "x-small"
+                  variant   = "ghost"
+                  onClick   = {handleCloseButtonClick}
+                  icon      = {<ReactSVG src={CloseIcon} />}
+                  disabled  = {loading || innerLoading || !props.isActive}
+                />
+              </CloseButton>
+            }
 
-          { props.title ? getHeader() : null }
-          
-          <ModalInnerContent>
-            { getDynamicContent() }
-          </ModalInnerContent>
-          
-          { props.showOkButton || props.showCancelButton ? getFooter() : null }
+            { props.title ? getHeader() : null }
+            
+            <ModalInnerContent className="qtd-modal-middle-content">
+              { getDynamicContent() }
+            </ModalInnerContent>
+            
+            { props.showOkButton || props.showCancelButton ? getFooter() : null }
 
-        </ModalBody>
-      </ModalInnerBody>
+          </Spin>
+
+        </ModalContent>
+      </ModalBody>
     </ModalInnerWrapper>
 
   )

@@ -207,7 +207,6 @@ const Button = ({
 
   }
 
-
   const handleOnClick = (event:MouseEvent<any>) => {
 
     // remove focus-visible outline

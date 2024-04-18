@@ -7,7 +7,7 @@ import { ModalState } from "enums/enum";
 import { ModalProps } from "types/ModalProps";
 
 const initialModal:Required<ModalProps> = {
-  id                    : v4(),
+  id                    : "",
   title                 : "",
   closeOnClickOutside   : true,
   preventESC            : false,
@@ -17,16 +17,19 @@ const initialModal:Required<ModalProps> = {
   okButtonText          : "OK",
   cancelButtonText      : "Cancel",
   customProps           : {},
+  context               : {},
   onOk                  : null,
   onCancel              : null,
-  Content               : null
+  useRef                : false,
+  checkAutoRef          : false,
+  content               : null,
 };
 
 export const ModalProvider = ({children}) => {
 
-  const [modal, SetModal]             = useState<ModalProps>(initialModal);
-  const [isShow, SetIsShow]           = useState(false);
-  const [modalEvent, SetModalEvent]   = useState<{event: ModalState, id: string}>({event: ModalState.NOT_SHOW, id: ""});
+  const [modals, SetModals]               = useState<ModalProps[]>([]);
+  const [visibleModals, SetVisibleModals] = useState<string[]>([]);
+  const [modalEvent, SetModalEvent]       = useState<{event: ModalState, id: string}>({event: ModalState.NOT_SHOW, id: ""});
 
   /**
    * 
@@ -49,28 +52,60 @@ export const ModalProvider = ({children}) => {
 
   };
 
+  const isVisible = (id:string) => {
+
+    return visibleModals.includes(id);
+
+  }
+
   const showModal = useCallback((props:ModalProps) => {
 
-    SetModal({
+    const modalProps = {
       ...initialModal,
       ...props
-    });
+    };
 
-    SetIsShow(true);
+    if ( modalProps.id === "" ) {
+      modalProps.id = v4();
+    }
+    
+    SetModals([
+      ...modals,
+      {
+        ...initialModal,
+        ...props
+      }
+    ]);
 
-  }, [modal]);
+    SetVisibleModals([
+      ...visibleModals,
+      modalProps.id
+    ])
+
+  }, [modals]);
 
   /**
    * 
    * 
    * 
    */
-  const removeModal = useCallback(() => {
+  const removeModal = useCallback((id:string) => {
 
-    SetModal(initialModal);
-    SetIsShow(false);
+    const visibleIndex = visibleModals.findIndex(modalId => modalId === id);
 
-  }, [modal]);
+    if (visibleIndex !== -1) {
+      const updatedVisibleModals = [...visibleModals.slice(0, visibleIndex), ...visibleModals.slice(visibleIndex + 1)];
+      SetVisibleModals(updatedVisibleModals);
+    }
+
+    const modalIndex = modals.findIndex(modal => modal.id === id);
+
+    if (modalIndex !== -1) {
+      const updatedModals = [...modals.slice(0, modalIndex), ...modals.slice(modalIndex + 1)];
+      SetModals(updatedModals);
+    }
+
+  }, [modals]);
   
   return (
 
@@ -79,7 +114,7 @@ export const ModalProvider = ({children}) => {
         showModal,
         removeModal,
         modalEvent,
-        isShow
+        isVisible
       }}
     >
       {children}
@@ -87,7 +122,7 @@ export const ModalProvider = ({children}) => {
         onShowModal   = {showModal}
         onRemoveModal = {removeModal}
         onModalEvent  = {handleModalEvent}
-        {...modal}
+        modals        = {modals}
       />
     </ModalContext.Provider>
     

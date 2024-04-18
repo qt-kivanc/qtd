@@ -1,5 +1,5 @@
 Arguments: 
-  /opt/homebrew/Cellar/node/21.7.1/bin/node /Users/kivancgumus/Development/QT/QTD/.yarn/releases/yarn-classic.cjs remove @types/react @types/react-dom
+  /opt/homebrew/Cellar/node/21.7.1/bin/node /Users/kivancgumus/Development/QT/QTD/.yarn/releases/yarn-classic.cjs add @rollup/plugin-image -D
 
 PATH: 
   /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/homebrew/bin:/opt/homebrew/sbin
@@ -19,7 +19,7 @@ Trace:
 npm manifest: 
   {
     "name": "@quan-tech/qt-design",
-    "version": "1.3.552",
+    "version": "1.3.578",
     "description": "Quan Tech Design libraries for desktop applications.",
     "author": "Kivanc",
     "license": "ISC",
@@ -104,6 +104,8 @@ npm manifest:
       "@testing-library/jest-dom": "6.4.2",
       "@testing-library/react": "14.2.2",
       "@testing-library/user-event": "14.5.2",
+      "@types/react": "^18.2.77",
+      "@types/react-dom": "^18.2.25",
       "@vitejs/plugin-react": "^4.0.0",
       "babel-plugin-styled-components": "2.1.4",
       "copy-webpack-plugin": "12.0.2",

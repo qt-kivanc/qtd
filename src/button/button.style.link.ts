@@ -10,7 +10,7 @@ export const getLinkButton = () => {
     &.qtd-button-link {
 
       background-color: transparent;
-      border: transparent;
+      border: 1px solid #00000000;
 
       span, div.icon {
         color: #071437;

@@ -10,6 +10,7 @@ export const getSolidButton = () => {
     &.qtd-button-solid {
 
       background-color: #f9f9f9;
+      border: 1px solid #00000000;
 
       span, div.icon {
         color: #071437;
@@ -37,9 +38,10 @@ export const getSolidButton = () => {
 
       &[disabled] {
         border: 1px solid #505A7D4D;
+        outline-offset: -1px;
         span, div.icon {
-          color: #ffffff4D;
-          fill: #ffffff4D;
+          color: #0000004D;
+          fill: #0000004D;
         }
       }
       
