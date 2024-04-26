@@ -66,8 +66,8 @@ export const CustomButtonHandlers: Story = {
     customProps : {
       content: "I came from the props...",
     },
-    onOk        : () => {console.log("onOk")},
-    onCancel    : () => {console.log("onCancel")}
+    onOk        : () => {console.log("onOk");},
+    onCancel    : () => {console.log("onCancel");}
   },
 };
 

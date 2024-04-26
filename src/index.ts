@@ -59,13 +59,13 @@ export { default as Image } from './image/index.jsx';
 export { default as ConsoleLog } from './logger/index.js';
 export { default as Button } from './button/index';
 export { default as Alert } from './alert/index';
+export { default as Upload } from './upload/index';
 export { default as Result } from './result/index';
 export { default as ALink } from './alink/index';
 export { default as Spin } from './spin/index';
 export { default as BackTop } from './back-top/index';
 export { default as Status } from './status/index.jsx';
 export { default as TinyScrollbar } from './tinyscrollbar/index.jsx';
-
 
 export type { AccordionProps } from './types/AccordionProps';
 export type { AccordionSubMenuProps } from './types/AccordionSubMenuProps';
@@ -78,8 +78,9 @@ export type { ButtonProps, ButtonType, ButtonVariant, ButtonState, ButtonSize, B
 export type { AlertProps, AlertType, AlertSize } from './types/AlertProps';
 export type { SwitchProps } from './types/SwitchProps';
 export type { ModalProps, ModalContentProps, ModalRefProps } from './types/ModalProps';
+export type { UploadProps, UploadProgressProps, UploadResultMessageProps } from './types/UploadProps';
 
-export { ModalState } from './enums/enum';
+export { ModalState, FileExtensions, FileTypes } from './enums/enum';
 
 /*
 console.log("process.env.NODE_ENV: " + process.env.NPM_ENV);

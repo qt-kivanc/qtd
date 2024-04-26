@@ -74,8 +74,10 @@ const Modal:FC<ModalType> = (props) => {
    * 
    */
   useOnClickOutside(contentRef, () => {
-    if ( !props.isActive ) return;
     if ( !props.closeOnClickOutside || loading || innerLoading ) return;
+    if ( !props.isActive ) return;
+    props.onModalEvent(ModalState.OUTSIDE_CLICK, props.id ? props.id : "");
+    cancelCallback();
     SetIsShow(false);
   });
 
@@ -83,8 +85,10 @@ const Modal:FC<ModalType> = (props) => {
    * 
    */
   useOnESCKeyDown(() => {
-    if ( !props.isActive ) return;
     if ( props.preventESC || loading || innerLoading ) return;
+    if ( !props.isActive ) return;
+    props.onModalEvent(ModalState.ESC_CLICK, props.id ? props.id : "");
+    cancelCallback();
     SetIsShow(false);
   });
 
@@ -108,10 +112,6 @@ const Modal:FC<ModalType> = (props) => {
     props.onShowModal(data);
   }
 
-  const handleCloseButtonClick = () => {
-    SetIsShow(false)
-  }
-
   const handleChangeLoadingState = (value:boolean) => {
     SetLoading(value);
   }
@@ -120,23 +120,20 @@ const Modal:FC<ModalType> = (props) => {
     SetInnerLoading(value);
   }
 
+  const handleCloseButtonClick = () => {
+    props.onModalEvent(ModalState.CLOSE_CLICK, props.id ? props.id : "");
+    cancelCallback();
+    SetIsShow(false)
+  }
+  
   const handleClickOK = () => {
 
     if ( !props.isActive ) return;
 
     props.onModalEvent(ModalState.OK_CLICK, props.id ? props.id : "");
 
-    if ( modalRef.current ) {
-      modalRef.current.onClickOK && modalRef.current.onClickOK();
-      return;
-    }
-    
-    if ( props.onOk ) {
-      props.onOk();
-      return;
-    }
-
-    handleHideModal();
+    okCallback();
+    SetIsShow(false);
 
   }
 
@@ -146,17 +143,36 @@ const Modal:FC<ModalType> = (props) => {
     
     props.onModalEvent(ModalState.CANCEL_CLICK, props.id ? props.id : "");
 
+    cancelCallback();
+    SetIsShow(false);
+
+  }
+
+  const okCallback = () => {
+
+    if ( modalRef.current ) {
+      modalRef.current.onClickOK && modalRef.current.onClickOK();
+      return;
+    }
+    
+    if ( props.onOk ) {
+      const closeAfter = props.onOk();
+      if ( !closeAfter ) return;
+    }
+    
+  }
+
+  const cancelCallback = () => {
+    
     if ( modalRef.current ) {
       modalRef.current.onClickCancel && modalRef.current.onClickCancel();
       return;
     }
 
     if ( props.onCancel ) {
-      props.onCancel();
-      return;
+      const closeAfter = props.onCancel();
+      if ( !closeAfter ) return;
     }
-    
-    handleHideModal();
 
   }
 
@@ -237,6 +253,7 @@ const Modal:FC<ModalType> = (props) => {
           size      = "small"
           onClick   = {handleClickCancel}
           disabled  = {loading || innerLoading || !props.isActive}
+          {...props.cancelButtonProps}
         >
           {props.cancelButtonText}
         </Button>
@@ -250,6 +267,7 @@ const Modal:FC<ModalType> = (props) => {
           onClick   = {handleClickOK}
           loading   = {loading}
           disabled  = {innerLoading || !props.isActive}
+          {...props.okButtonProps}
         >
           {props.okButtonText}
         </Button>

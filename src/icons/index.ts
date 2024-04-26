@@ -4,3 +4,7 @@ export { default as UploadIcon } from './Upload';
 export { default as BackToTop } from './BackToTop';
 export { default as Checkmark } from './Checkmark';
 export { default as InlineSelectArrow } from './InlineSelectArrow';
+export { default as Trash } from './Trash';
+export { default as ZoomIn } from './ZoomIn';
+export { default as ZoomOut } from './ZoomOut';
+export { default as Picture } from './Picture';

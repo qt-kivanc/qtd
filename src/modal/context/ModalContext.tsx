@@ -11,7 +11,7 @@ export type ModalContextType = {
    * @param data Contains the desired parameters for opening a new modal `ModalProps`.
    * @returns 
    */
-  showModal     : (data:ModalProps) => void,
+  showModal       : (data:ModalProps) => void,
 
   /**
    * Dismisses the currently open modal with the ID of the modal to be closed.
@@ -19,12 +19,18 @@ export type ModalContextType = {
    * @param id ID of the modal to be dismissed.
    * @returns 
    */
-  removeModal   : (id:string) => void,
+  removeModal     : (id:string) => void,
+
+  /**
+   * 
+   * @returns 
+   */
+  removeAllModals : () => void,
 
   /**
    * Triggered whenever any event related to modals occurs.
    */
-  modalEvent    : {event: ModalState, id: string},
+  modalEvent      : {event: ModalState, id: string},
 
   /**
    * Returns whether a modal is visible or not.
@@ -32,7 +38,7 @@ export type ModalContextType = {
    * @param id The visibility information of the desired modal with its ID.
    * @returns 
    */
-  isVisible     : (id:string) => boolean
+  isVisible       : (id:string) => boolean
 
 };
 

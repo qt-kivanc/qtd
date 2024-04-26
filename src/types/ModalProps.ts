@@ -42,9 +42,19 @@ export type ModalProps = {
   okButtonText?         : string,
 
   /**
-   * Text for the Cancel button.
+   * The cancel button props.
    */
   cancelButtonText?     : string,
+
+  /**
+   * The ok button props.
+   */
+  okButtonProps?        : ModalProps | null,
+
+  /**
+   * ModalProps for the Cancel button.
+   */
+  cancelButtonProps?    : ModalProps | null,
   
   /**
    * Custom properties to be passed to the modal.
@@ -62,7 +72,7 @@ export type ModalProps = {
    * but the modal does not automatically close.
    * @returns 
    */
-  onOk?                 : (() => void) | null,
+  onOk?                 : (() => boolean | null) | null,
 
   /**
    * Called when the Cancel button is clicked. If this
@@ -70,7 +80,7 @@ export type ModalProps = {
    * but the modal does not automatically close.
    * @returns 
    */
-  onCancel?             : (() => void) | null,
+  onCancel?             : (() => boolean | null) | null,
 
   /**
    * ModalManager can find its own ref, but some libraries

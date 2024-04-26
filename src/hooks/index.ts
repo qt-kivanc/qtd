@@ -10,3 +10,4 @@ export { default as useMultiQuery } from './useMultiQuery';
 export { default as useOnResize } from './useOnResize';
 export { default as useConnectionStatus } from './useConnectionStatus';
 export { default as useComponentSize } from './useComponentSize';
+export { default as useCoreFetch } from './useCoreFetch';

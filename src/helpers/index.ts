@@ -15,4 +15,8 @@ export { default as AddZero } from './math/AddZero';
 export { default as RemoveUnits } from './remover/RemoveUnits';
 export { default as ChunkArray } from './array/ChunkArray';
 export { default as FileChecker } from './checker/FileChecker';
+export { default as CheckFileURL } from './checker/CheckFileURL';
 export { default as UniUpperCase } from './string/UniUpperCase';
+export { default as FormatBytes } from './binary/FormatBytes';
+export { default as GetTypeByFileType } from './binary/GetTypeByFileType';
+export { default as Wait } from './promise/Wait';

@@ -12,12 +12,17 @@ export const ModalManager: React.FC<any> = (props: ModalProps) => {
   useEffect(() => {
     if ( modalEvent.event === ModalState.NOT_SHOW) return;
     console.log("modalEvent", modalEvent);
-  }, [modalEvent])
+  }, [modalEvent]);
 
   const InnerModalContent = () => {
 
+    const { removeAllModals } = ModalManagerComponent.useModal();
+
     return (
-      <div>I'm an another Modal</div>
+      <div>
+        <div>I'm an another Modal</div>
+        <span>Click <a onClick={removeAllModals}>here</a> to close manually all modals.</span>
+      </div>
     )
 
   };

@@ -16,6 +16,8 @@ const initialModal:Required<ModalProps> = {
   showCloseButton       : true,
   okButtonText          : "OK",
   cancelButtonText      : "Cancel",
+  okButtonProps         : null,
+  cancelButtonProps     : null,
   customProps           : {},
   context               : {},
   onOk                  : null,
@@ -71,16 +73,13 @@ export const ModalProvider = ({children}) => {
     
     SetModals([
       ...modals,
-      {
-        ...initialModal,
-        ...props
-      }
+      {...modalProps}
     ]);
 
     SetVisibleModals([
       ...visibleModals,
       modalProps.id
-    ])
+    ]);
 
   }, [modals]);
 
@@ -106,6 +105,18 @@ export const ModalProvider = ({children}) => {
     }
 
   }, [modals]);
+
+  /**
+   * 
+   */
+  const removeAllModals = () => {
+
+    SetVisibleModals([]);
+    SetModals([]);
+
+    handleModalEvent(ModalState.ALL_REMOVED, "");
+
+  }
   
   return (
 
@@ -113,6 +124,7 @@ export const ModalProvider = ({children}) => {
       value={{
         showModal,
         removeModal,
+        removeAllModals,
         modalEvent,
         isVisible
       }}
