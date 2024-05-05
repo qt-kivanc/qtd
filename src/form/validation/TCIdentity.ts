@@ -1,4 +1,8 @@
-export default function TCIdentity(identity) {
+function isNumeric(value:string) {
+  return /^-?\d+$/.test(value);
+}
+
+export default function TCIdentity(identity:string) {
 
   var single = 0,
       double = 0,
@@ -6,9 +10,9 @@ export default function TCIdentity(identity) {
       totalNumber = 0,
       i = 0;
 
-    if (identity.length != 11) return false;
-    if (isNaN(identity)) return false;
-    if (identity[0] == 0) return false;
+    if (identity.length != 11)    return false;
+    if (isNumeric(identity))      return false;
+    if (Number(identity[0]) == 0) return false;
 
     single  = parseInt(identity[0]) 
             + parseInt(identity[2]) 
@@ -25,13 +29,13 @@ export default function TCIdentity(identity) {
 
     result = Math.abs(single - double);
     
-    if (result % 10 != identity[9]) return false;
+    if (result % 10 != Number(identity[9])) return false;
 
     for (var i = 0; i < 10; i++) {
       totalNumber += parseInt(identity[i]);
     }
 
-    if (totalNumber % 10 != identity[10]) return false;
+    if (totalNumber % 10 != Number(identity[10])) return false;
 
     return true;
 

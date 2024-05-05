@@ -132,7 +132,7 @@ const Wrapper = styled.div`
 const ErrorBorder = styled.div`
 
   position: absolute;
-  border: 1px solid #870f0f;
+  border: 1px solid #f8285a;
   width: 100%;
   height: 100%;
   border-radius: 6px;

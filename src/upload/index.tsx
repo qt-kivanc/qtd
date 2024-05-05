@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { AxiosProgressEvent } from "axios";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "antd";
@@ -8,7 +8,8 @@ import {
   Picture, UploadProps, UploadProgressProps, UploadResultMessageProps,
   GetTypeByFileType,
   UploadIcon,
-  Wait
+  Wait,
+  QTDImperativeFuncProps
 } from "../index";
 import { v4 } from "uuid";
 
@@ -33,28 +34,35 @@ type HideProgressProps = {
  * @returns 
  * 
  */
-const Upload = ({
-  resultFileName      = null,
-  action              = "",
-  filePath            = "",
-  binaryName          = "file",
-  showDeleteIcon      = false,
-  showPreviewIcon     = false,
-  padding             = 10,
-  fileHeight          = 50,
-  previewFileHeight   = 120,
-  requestMethod       = "put",
-  maxFileSize         = 1024,
-  disabled            = false,
-  extraFormData       = {},
-  extraQueryString    = {},
-  fileTypes           = [FileTypes.JPG, FileTypes.PNG, FileTypes.SVG, FileTypes.PDF],
-  removeAction        = "",
-  removeExtraFormData = {},
+const Upload = forwardRef<
+  QTDImperativeFuncProps, UploadProps
+>(({
+  resultFileName          = null,
+  action                  = "",
+  filePath                = "",
+  binaryName              = "file",
+  showDeleteIcon          = false,
+  showPreviewIcon         = false,
+  padding                 = 10,
+  fileHeight              = 50,
+  previewFileHeight       = 120,
+  requestMethod           = "put",
+  maxFileSize             = 1024,
+  disabled                = false,
+  extraFormData           = {},
+  extraQueryString        = {},
+  extraHeader             = {},
+  fileTypes               = [FileTypes.JPG, FileTypes.PNG, FileTypes.SVG, FileTypes.PDF],
+  removeAction            = "",
+  removeExtraFormData     = {},
+  removeExtraQueryString  = {},
+  removeExtraHeader       = {},
+  onUpdate,
   onUploadSuccess,
   onUploadFailed,
   onRemoveFileSuccess,
-}:UploadProps) => {
+  onRemoveFileFailed
+}:UploadProps, forwardedRef) => {
 
   const { addNotification } = Notification.useNotifications();
   const { showModal }       = ModalManager.useModal();
@@ -67,8 +75,9 @@ const Upload = ({
   const [isOverlayOver,       SetIsOverlayOver]       = useState<boolean>(false);
   const [isDragOver,          SetIsDragOver]          = useState<boolean>(false);
   const [isFocusOver,         SetIsFocusOver]         = useState<boolean>(false);
-  const [hasFile,             SetHasFile]             = useState<boolean>(false);
-  const [currentFilePath,     SetCurrentFilePath]     = useState<string>("");
+  const [hasFile,             SetHasFile]             = useState<boolean | null>(null);
+  const [currentFilePath,     SetCurrentFilePath]     = useState<string | null>(null);
+  const [errorMessage,        SetErrorMessage]        = useState<string>("");
   
   const [isUploading,         SetIsUploading]         = useState<boolean>(false);
   const [uploadProgress,      SetUploadProgress]      = useState<UploadProgressProps | null>(null);
@@ -88,13 +97,18 @@ const Upload = ({
   }, [disabled]);
 
   useEffect(() => {
+    console.log("filePath", filePath)
     SetCurrentFilePath(filePath ? filePath.split("?")[0] : "");
   }, [filePath]);
 
   useEffect(() => {
-    if ( currentFilePath !== null ) {
-      checkFile();
+    console.log("currentFilePath", currentFilePath)
+    if ( currentFilePath === null ) return; 
+    if ( currentFilePath === undefined ) {
+      SetFirstCheck(false);
+      return;
     }
+    checkFile();
   }, [currentFilePath]);
 
   /**
@@ -125,6 +139,62 @@ const Upload = ({
     });
   };
 
+  const sendUpdates = (value:string, update = true, validation = true) => {
+    if ( onUpdate ) onUpdate(value, update, validation);
+  }
+
+  /**
+   * 
+   * 
+   * 
+   */
+  useImperativeHandle(
+    
+    forwardedRef,
+    () => ({
+
+      setFocus() {
+        console.log("Upload > setFocus");
+        SetIsFocusOver(true)
+      },
+
+      reset(update = false, validation = false) {
+        console.log("Upload > reset");
+        resetUpload();
+        SetCurrentFilePath(null);
+        SetErrorMessage("");
+        sendUpdates("", update, validation);
+      },
+
+      setValue(value, update = true, validation = true) {
+        console.log("Upload > setValue");
+        SetCurrentFilePath(value);
+        sendUpdates(value, update, validation);
+      },
+
+      getValue() {
+        console.log("Upload > getValue");
+        return currentFilePath ? currentFilePath : "";
+      },
+
+      setError(message:string) {
+        console.log("Upload > setError");
+        SetErrorMessage(message);
+      },
+
+      forceUpdate() {
+        console.log("Upload > forceUpdate");
+        sendUpdates(currentFilePath ? currentFilePath : "");
+      },
+
+      clear() {
+        console.log("Upload > clear");
+        SetCurrentFilePath("");
+      }
+  
+    }
+  ));
+
   const checkFile = async () => {
 
     let hasFileFound: boolean = false;
@@ -137,6 +207,16 @@ const Upload = ({
       
       SetHasFile(hasFileFound);
 
+      if (hasFileFound) {
+        sendUpdates(currentFilePath);
+      }
+      else {
+        sendUpdates("", true, true);
+      }
+
+      console.log("hasFileFound", hasFileFound);
+      console.log("firstCheck", firstCheck);
+
       if ( !firstCheck ) {
         SetFirstCheck(true);
       }
@@ -145,29 +225,53 @@ const Upload = ({
 
     }
 
+    if ( currentFilePath === "" && !firstCheck ) {
+      SetFirstCheck(true);
+    }
+
+    if ( currentFilePath === "" && firstCheck ) {
+      sendUpdates("", true, true);
+    }
+
   }
 
   const resetUpload = () => {
     SetUploadResultMessage(null);
     SetUploadProgress(null);
     SetShowUploadComplete(false);
-    SetCurrentFilePath("");
-    SetFirstCheck(false);
+    SetHasFile(null);
+    //SetFirstCheck(false);
+    //SetCurrentFilePath("");
   }
 
   const removeUploadedFile = () => {
 
     if ( !removeAction ) {
       resetUpload();
+      sendUpdates("", true, true);
+      onRemoveFileSuccess && onRemoveFileSuccess();
     }
     else {
 
       fetch({
         action    : removeAction,
         params    : removeExtraFormData,
-        onFetched : (data) => {
-          resetUpload();
-          onRemoveFileSuccess && onRemoveFileSuccess(data);
+        queries   : removeExtraQueryString,
+        headers   : removeExtraHeader,
+        onFetched : (result) => {
+          
+          if ( result.data.success ) {
+            resetUpload();
+            sendUpdates("", true, true);
+            onRemoveFileSuccess && onRemoveFileSuccess(result.data.data);
+          }
+          else {
+            onRemoveFileFailed && onRemoveFileFailed();
+          }
+          
+        },
+        onError   : () => {
+          onRemoveFileFailed && onRemoveFileFailed();
         }
       });
 
@@ -320,7 +424,7 @@ const Upload = ({
     if ( path) {
       onUploadSuccess && onUploadSuccess(path);
     }
-    else if ( errorMessage) {
+    else if ( errorMessage ) {
       onUploadFailed && onUploadFailed(errorMessage, errorCode ? errorCode : 0);
     }
 
@@ -346,6 +450,7 @@ const Upload = ({
       requestMethod : requestMethod,
       params        : formData,
       queries       : extraQueryString,
+      headers       : extraHeader,
       onFetched     : (result:any) => {
 
         console.log("result", result);
@@ -369,6 +474,7 @@ const Upload = ({
             status  : "error"
           });
           
+          sendUpdates("", true, true);
           hideProgress({errorMessage: t("uploader.fileUploadFailed")});
 
         }
@@ -382,6 +488,7 @@ const Upload = ({
           status    : "error"
         });
 
+        sendUpdates("", true, true);
         hideProgress({
           errorMessage  : message,
           errorCode     : code
@@ -484,7 +591,7 @@ const Upload = ({
     return (
       <Tooltip title={t("uploader.delete")}>
         <span>
-          <Button variant="solid" size="small" circle
+          <Button variant="solid" size="small" type="button" circle
             onClick   = {handleOnRemove}
             disabled  = {isDisabled}
             icon      = {
@@ -505,7 +612,7 @@ const Upload = ({
     return (
       <Tooltip title={t("uploader.preview")}>
         <span>
-          <Button variant="solid" size="small" circle
+          <Button variant="solid" size="small" type="button" circle
             onClick   = {previewFile}
             disabled  = {isDisabled}
             icon      = {
@@ -529,19 +636,9 @@ const Upload = ({
    */
   const getFile = () => {
 
-    /**
-     * Eğer henüz ilk yükleme yapılmadıysa ve yüklenecek bir dosya
-     * varsa hiçbir şey gösterme.
-     */
-    if ( !firstCheck && currentFilePath !== "" ) {
-      return;
-    }
+    if ( !firstCheck ) return;
 
-    /**
-     * Eğer henüz ilk yükleme yapılmadıysa ve yüklenecek bir dosya
-     * yoksa upload ikonunu gösterir.
-     */
-    if ( !firstCheck && currentFilePath === "" ) {
+    if ( hasFile === null ) {
       return <UploadIcon width={30} height={30} />;
     }
 
@@ -549,7 +646,7 @@ const Upload = ({
      * Eğer yüklenecek dosya yüklenemiyor ise bozuk dosya
      * görselini göster.
      */
-    if ( !hasFile ) {
+    if ( hasFile === false ) {
       return <Picture width={40} height={40} />;
     }
 
@@ -675,6 +772,7 @@ const Upload = ({
         <FileContent
           $showBorder   = {isDragOver}
           $padding      = {padding}
+          $hasError     = {errorMessage !== ""}
           className     = "qtd-upload-content"
         >
           { getFile() }
@@ -692,6 +790,6 @@ const Upload = ({
 
   return getContent();
 
-}
+});
 
 export default Upload;

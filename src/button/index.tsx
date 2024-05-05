@@ -5,7 +5,7 @@ import { SVG, Hide, Image, Link, A, ClickButton, Icon, Element } from './styled.
 import React, { MouseEvent, useRef } from 'react';
 import { v4 } from 'uuid';
 
-import { ButtonProps } from '../index';
+import { ButtonProps, ButtonType } from '../index';
 import { isValidURL } from '../helpers/url/ValidURL';
 
 
@@ -177,13 +177,10 @@ const Button = ({
 
       names += " qtd-button-" + variant;
       names += " qtd-button-" + getSize();
-
+      names += " qtd-button-" + type;
+      
     if ( children === null ) {
       names += " qtd-button-has-icon";
-    }
-      
-    if ( type !== "button" ) {
-      names += " qtd-button-" + type;
     }
 
     if ( variant === "statable" && state ) {
@@ -239,6 +236,7 @@ const Button = ({
         <ClickButton 
           className = {getClassNames()} 
           onClick   = {handleOnClick}
+          type      = "button"
           ref       = {buttonRef}
           {...getProps()}
         >
@@ -269,7 +267,7 @@ const Button = ({
 
   );
     
-  const getButtonByType = (type:"submit" | "reset") => (
+  const getButtonByType = (type:ButtonType) => (
 
     <ClickButton
       className = {getClassNames()}
@@ -286,8 +284,7 @@ const Button = ({
     if ( type === "submit" ) {
       return getButtonByType("submit");
     }
-
-    
+ 
     if ( type === "reset" ) {
       return getButtonByType("reset");
     }

@@ -208,7 +208,7 @@ const getToggleStyles = (size) => {
       }
 
       .qtd-select-status-error {
-        border: 1px solid #870f0f;
+        border: 1px solid #f8285a;
         border-radius: ${BORDER_RADIUS};
       }
 

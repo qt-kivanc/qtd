@@ -1,0 +1,23 @@
+{
+  "success": "Success",
+  "error": "Error",
+  "uploader": {
+    "header": "Drag and drop an file",
+    "hint": "or Browse to choose a file",
+    "fileUploading": "File uploading...",
+    "info": "Total: {{- total}} - {{- estimated}} s remaining.",
+    "delete": "Delete",
+    "preview": "Preview",
+    "error": "Error",
+    "fileFormatError": "You can only upload {{fileFormat}} file",
+    "fileSizeError": "File must smaller than {{fileSize}}",
+    "fileUploadSuccess": "File successfully uploaded.",
+    "fileUploadFailed": "File upload failed!",
+    "browserDoesntSupportDND": "Browser doesn't support drag and drop!",
+    "calculating": "Calculating...",
+    "removeFile": "Remove File",
+    "areYouSureToDeleteThisFile": "Are you sure to delete this file?",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
+import i18next from 'i18next';
 
 import { ModalProvider } from "../modal/index";
 import { NotificationProvider } from "../notification/index";
@@ -38,6 +39,7 @@ export const QTDProvider = (props) => {
 
   const changeLanguage = (value) => {
     SetLanguage(value);
+    i18next.changeLanguage(value);
   };
 
   const value = {

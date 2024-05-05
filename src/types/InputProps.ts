@@ -4,7 +4,7 @@ export type InputProps = {
 
   id?           : string,
   placeholder?  : string, 
-  value         : string,
+  value?        : string,
   defaultValue? : string,
   type?         : string,
   className?    : string,

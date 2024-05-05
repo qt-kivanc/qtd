@@ -1,19 +1,25 @@
-import React from 'react';
-
+import { ChildrenProps } from 'types/ChildrenProps';
 import { Wrapper } from './styled.components';
 
 /**
  * 
  * FORM FIELD GROUP
  * 
- * 
- * @param {*} props 
+ * @param className 
+ * @param children 
  * @returns 
+ * 
  */
-export default function FieldGroup({
-  className = "",
-  children = null
-}) {
+
+export type GroupProps = {
+  className? : string,
+  children?  : ChildrenProps
+}
+
+export default function Group({
+  className,
+  children
+}:GroupProps) {
 
   const getStyle = () => {
     let style = ""

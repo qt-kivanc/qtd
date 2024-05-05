@@ -1,0 +1,23 @@
+{
+  "success": "Başarılı",
+  "error": "Hata",
+  "uploader": {
+    "header": "Bir resmi sürükleyip bırakın",
+    "hint": "ya da bir dosya seçmek için tıklayın.",
+    "fileUploading": "Dosya yükleniyor...",
+    "info": "Toplam: {{- total}} - {{- estimated}} sn kaldı.",
+    "delete": "Sil",
+    "preview": "Önizleme",
+    "error": "Hata",
+    "fileFormatError": "Yalnızca {{fileFormat}} dosyası yükleyebilirsiniz.",
+    "fileSizeError": "Dosya boyutu {{fileSize}}'den küçük olmalıdır.",
+    "fileUploadSuccess": "Dosya başarıyla yüklendi.",
+    "fileUploadFailed": "Dosya yüklenemedi!",
+    "browserDoesntSupportDND": "Tarayıcı taşı&bırak özelliğini desteklemiyor!",
+    "calculating": "Hesaplanıyor...",
+    "removeFile": "Dosya Silme",
+    "areYouSureToDeleteThisFile": "Bu dosyayı silmek istediğinize emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır"
+  }
+}

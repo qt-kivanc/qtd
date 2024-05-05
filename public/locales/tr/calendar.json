@@ -1,0 +1,30 @@
+{
+  "weekdaysLong":[
+    "Pazar",
+    "Pazartesi",
+    "Salı",
+    "Çarşamba",
+    "Perşembe",
+    "Cuma",
+    "Cumartesi"
+  ],
+  "weekdaysShort":[
+    "Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"
+  ],
+  "months":[
+    "Ocak",
+    "Şubat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık"
+  ],
+  "firstDay": 1,
+  "format": "DD/MM/YYYY"
+}

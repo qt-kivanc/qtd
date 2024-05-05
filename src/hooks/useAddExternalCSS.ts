@@ -8,9 +8,8 @@ import { useEffect } from 'react';
  * olan css dosyası daha önce eklenmiş ise tekrar yüklemez. Bunu yükleyen
  * component ekrandan silinirse yüklediği yazı da silinir.
  * 
- * 
- * @param {*} link 
- * @param {*} temporary 
+ * @param link      string
+ * @param temporary boolean
  * 
  */
 const useAddExternalCSS = (link: string, temporary = false) => {

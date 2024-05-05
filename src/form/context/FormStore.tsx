@@ -1,10 +1,27 @@
 import { useCallback, useState } from "react";
 import isDeepEqual from 'fast-deep-equal/react';
 
-function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = null, useQueryString = false) {
+import { FormValueProps, FormItemProps } from "../../index";
+import { FormContextType } from "./FormContext";
 
-  const [fields, SetFields] = useState({});
-  const [formId, SetFormId] = useState(name);
+export type FormStoreProps = {
+  name            : string,
+  onUpdate?       : ({}) => void,
+  onFieldUpdate?  : ({}) => void,
+  onReset?        : () => void,
+  useQueryString? : boolean
+}
+
+function FormStore({
+  name            = "",
+  useQueryString  = false,
+  onUpdate,
+  onReset,
+  onFieldUpdate,
+}:FormStoreProps):FormContextType {
+  
+  const [fields, SetFields]   = useState<{ [key: string]: FormItemProps }>({});
+  const [formId, SetFormId]   = useState(name);
   const [isValid, SetIsValid] = useState(false);
   const [updated, SetUpdated] = useState({});
   
@@ -14,20 +31,20 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * kayıt ederler. Kendini kayıt etmeyen bir eleman olursa herhangi bir 
    * güncelleme esnasında hata verecektir.
    * 
-   * @param {*} name 
-   * @param {*} ref  
-   * 
    */
-  function register(name, ref, valid, query = null, reset = []) {
+  function register(item:FormItemProps) {
 
-    fields[name] = {
-      field: ref,
-      value: ref.current.getValue(),
-      valid: valid,
-      query: query,
-      reset: reset,
-      errors: []
-    };
+    console.log("register>", item)
+
+    fields[item.name] = {
+      name  : item.name,
+      field : item.field,
+      value : item.field.current?.getValue(),
+      valid : item.valid,
+      query : item.query,
+      reset : item.reset,
+      error : item.error
+    }
 
   }
 
@@ -39,7 +56,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} name 
    * 
    */
-  function setName(name) {
+  function setName(name:string) {
     SetFormId(name);
   }
 
@@ -52,7 +69,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @returns
    * 
    */
-  function hasField(name) {
+  function hasField(name:string) {
     return fields.hasOwnProperty(name) && fields[name] !== undefined;
   }
 
@@ -91,7 +108,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @returns 
    * 
    */
-  function isFieldValid(name) {
+  function isFieldValid(name:string) {
     return fields[name].valid;
   }
   
@@ -105,7 +122,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} valid 
    * 
    */
-   function updateField(name = "", value = "", update = true, valid = true ) {
+   function updateField(name:string, value:FormValueProps, update:boolean, valid:boolean) {
   
     if ( !hasField(name) ) {
       throw new Error(`Form Update Error: There is no field registered with this name: ${name}`);
@@ -137,10 +154,10 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
          * ve gereksiz bir istek yolluyor.
          */
         if ( fields[name].reset.length > 0 ) {
-          fields[name].reset.forEach(name => {
+          fields[name].reset.forEach((name:string) => {
             fields[name].value = "";
             fields[name].valid = false;
-            getFieldInstance(name).reset(false);
+            fields[name].field.current?.reset(false);
           });
         }
 
@@ -150,7 +167,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
         };
 
         if ( fields[name].reset.length > 0 ) {
-          fields[name].reset.forEach(name => {
+          fields[name].reset.forEach((name:string) => {
             _values[name] = "";
           });
         }
@@ -170,7 +187,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} names 
    * @returns 
    */
-  function isFieldsValid(names = []) {
+  function isFieldsValid(names:string[]) {
     
     let valid = true;
 
@@ -187,10 +204,10 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} name 
    * @returns 
    */
-  function getFieldValue(name) {
+  function getFieldValue(name:string):FormValueProps {
     return  !hasField(name)
             ? ""
-            : typeCheck(fields[name].value);
+            : typeCheck(fields[name].value as FormValueProps);
   }
 
   /**
@@ -198,9 +215,9 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} name 
    * @returns 
    */
-  function getFieldInstance(name) {
+  function getFieldInstance(name:string) {
     return  !hasField(name)
-            ? {} 
+            ? null 
             : fields[name].field.current;
   }
 
@@ -210,9 +227,9 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    */
   function getFields() {
 
-    let result = {};
+    let result:{[key: string]: FormItemProps} = {};
 
-    Object.keys(fields).forEach((property, i) => {
+    Object.keys(fields).forEach((property) => {
       result[property] = fields[property];
     });
 
@@ -228,7 +245,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
 
     let result = {};
 
-    Object.keys(fields).forEach((property, i) => {
+    Object.keys(fields).forEach((property) => {
       result[property] = fields[property].field.current;
     });
 
@@ -240,7 +257,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * 
    * @returns 
    */
-  function getValues() {
+  function getValues():{} {
 
     let result = {};
 
@@ -252,7 +269,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
 
   }
 
-  function setInitialValues(initialFields, update = true, validation = true,) {
+  function setInitialValues(initialFields:{}, update:boolean = true, validation:boolean = false) {
 
     Object.keys(initialFields).forEach((name) => {
       setFieldValueByName(name, initialFields[name], update, validation);
@@ -292,45 +309,47 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
 
   }
 
-  function setFieldValue(name, value) {
+  function setFieldValue(name:string, value:FormValueProps) {
 
     if ( !hasField(name) ) {
       throw new Error(`Form Error: There is no field registered with this name: ${name}`);
     }
 
     fields[name].valid = false;
-    fields[name].field.current.setValue(value);
+    fields[name].field.current?.setValue(value);
 
   }
 
-  function setFieldError(name, message, validation = true) {
+  function setFieldError(name:string, message:string, validation:boolean = false) {
 
     if ( !hasField(name) ) return;
     if ( !fields[name].field.current ) return;
 
     fields[name].valid = false;
+    fields[name].error = message;
 
-    if ( !fields[name].field.current.hasOwnProperty("setError") ) {
-      throw new Error("Reference Error: You must declare the 'setError' function on the component!");
+    if ( !fields[name].field.current?.hasOwnProperty("setError") ) {
+      throw new Error(`Reference Error: You must declare the 'setError' function on the field "${name}"`);
     }
 
-    fields[name].field.current.setError(validation ? message : "");
+    fields[name].field.current?.setError(validation ? message : "");
 
   }
 
-  function removeFieldError(name) {
+  function removeFieldError(name:string) {
 
     if ( !hasField(name) ) {
       throw new Error(`Form Error: There is no field registered with this name: ${name}`);
     }
 
     fields[name].valid = true;
+    fields[name].error = "";
     
-    if ( fields[name].field.current.hasOwnProperty("setError") ) {
-      fields[name].field.current.setError("");
+    if ( fields[name].field.current?.hasOwnProperty("setError") ) {
+      fields[name].field.current?.setError("");
     }
     else {
-      throw new Error("Reference Error: You must declare the 'setError' function on the component!");
+      throw new Error(`Reference Error: You must declare the 'setError' function on the field "${name}"`);
     }
 
   }
@@ -342,7 +361,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    * @param {*} value 
    * @returns 
    */
-  function typeCheck(value) {
+  function typeCheck(value:FormValueProps) {
     return value instanceof Object ? JSON.stringify(value) : value
   }
 
@@ -353,7 +372,7 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
     
     let valid = true;
 
-    Object.keys(fields).forEach((name, i) => {
+    Object.keys(fields).forEach((name) => {
 
       if (!fields[name].valid) {
         valid = false;
@@ -374,28 +393,26 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
    function resetFields(update = false, validation = false) {
 
     Object.keys(fields).forEach((name) => {
-      if ( fields[name].field.current.hasOwnProperty("reset")) {
-        fields[name].field.current.reset(update, validation);
+      if ( fields[name].field.current?.hasOwnProperty("reset")) {
+        fields[name].field.current?.reset(update, validation);
       }
       else {
-        throw new Error("Reference Error: You must declare the 'reset' function on the component!");
+        throw new Error(`Reference Error: You must declare the 'reset' function on the field "${name}"`);
       }
     });
 
-    if ( onReset ) {
-      onReset(getValues());
-    }
+    onReset && onReset();
 
   }
 
-  function getFieldValueByName(name) {
+  function getFieldValueByName(name:string) {
 
     if ( hasField(name) ) {
-      if ( fields[name].field.current.hasOwnProperty("getValue")) {
-        return fields[name].field.current.getValue();
+      if ( fields[name].field.current?.hasOwnProperty("getValue")) {
+        return fields[name].field.current?.getValue();
       }
       else {
-        throw new Error("Reference Error: You must declare the 'getValue' function on the component!");
+        throw new Error(`Reference Error: You must declare the 'getValue' function on the field "${name}"`);
       }
     }
     else {
@@ -404,10 +421,10 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
 
   }
 
-  function setFieldValueByName(name, value, update, validation) {
+  function setFieldValueByName(name:string, value:FormValueProps, update:boolean, validation:boolean) {
 
     if ( hasField(name) ) {
-      if ( fields[name].field.current.hasOwnProperty("setValue")) {
+      if ( fields[name].field.current?.hasOwnProperty("setValue")) {
         
         let currentValue = getFieldValueByName(name);
         let isSame = false;
@@ -423,12 +440,12 @@ function FormStore(name = "", onUpdate = null, onReset = null, onFieldUpdate = n
         }
 
         if ( !isSame ) {
-          fields[name].field.current.setValue(value, update, validation);
+          fields[name].field.current?.setValue(value, update, validation);
         }
 
       }
       else {
-        throw new Error("Reference Error: You must declare the 'setValue' function on the component!");
+        throw new Error(`Reference Error: You must declare the 'setValue' function on the field "${name}"`);
       }
     }
     else {

@@ -27,3 +27,19 @@ export enum FileExtensions {
   PDF = '.pdf',
   OTF = '.otf',
 }
+
+export enum FormValidations {
+  REQUIRED      = "required",
+  TYPE          = "type"
+}
+
+export enum FormValidationTypes {
+  MIN_LENGTH    = "minLength",
+  MAX_LENGTH    = "maxLength",
+  EXACT_LENGTH  = "exactLength",
+  SAME          = "same",
+  TC_IDENTITY   = "TCIdentity",
+  PASSWORD      = "password",
+  EMAIL         = "email",
+  USERNAME      = "username"
+}

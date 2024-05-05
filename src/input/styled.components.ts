@@ -253,7 +253,7 @@ const AddonAfter = styled(Addon)`
 
 const LockIconWrapper = styled(LockIcon)`
   
-  fill: #ffffff80;
+  fill: #00000080;
 
 `
 
@@ -272,7 +272,7 @@ const ErrorTooltip = styled.span`
   right: 0px;
   bottom: 43px;
   color: #ffffff;
-  background: #870f0f;
+  background: #f8285a;
   width: max-content;
   max-width: 210px;
 
@@ -288,7 +288,7 @@ const ErrorTooltip = styled.span`
     right: 17px;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-top: 10px solid #870f0f;
+    border-top: 10px solid #f8285a;
 
   }
 
@@ -297,7 +297,7 @@ const ErrorTooltip = styled.span`
 const ErrorBorder = styled.div`
 
   position: absolute;
-  border: 1px solid #870f0f;
+  border: 1px solid #f8285a;
   width: calc(100% + 2px);
   height: calc(100% + 2px);
   border-radius: 6px;
@@ -324,12 +324,16 @@ const HiddenVisually = styled.span`
 
 const StatusCore = styled.div`
 
-  color: #ffffffCC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #000000CC;
   font-size: 10px;
   cursor: pointer;
 
   &:hover {
-    color: #ffffff;
+    color: #000000;
   }
 
   &[data-icon="i"] {
@@ -352,7 +356,7 @@ const Warning = styled(StatusCore)`
 const Failed = styled(StatusCore)`
 
   &::before {
-    background-color: #870F0F;
+    background-color: #f8285a;
   }
 
 `

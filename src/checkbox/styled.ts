@@ -64,7 +64,7 @@ const Wrapper = styled.label`
 
   &.qtd-checkbox-error {
     .qtd-checkbox-checkmark {
-      border: 1px solid #870f0f;
+      border: 1px solid #f8285a;
     }
   }
 
@@ -113,7 +113,7 @@ const ErrorTooltip = styled.span`
   left: 0px;
   bottom: 50px;
   color: #ffffff;
-  background: #870f0f;
+  background: #f8285a;
   width: max-content;
   max-width: 300px;
   margin-bottom: 5px;
@@ -128,7 +128,7 @@ const ErrorTooltip = styled.span`
     left: 3px;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-top: 10px solid #870f0f;
+    border-top: 10px solid #f8285a;
 
   }
 

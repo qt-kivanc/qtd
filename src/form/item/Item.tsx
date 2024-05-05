@@ -1,23 +1,41 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 
-import { CheckValidations } from '../validation/Validator';
-import Form from '../../form/index.jsx';
-import FormContext from '../../form/context/FormContext';
+import { ChildrenProps } from 'types/ChildrenProps';
 
-export default function FormItem({
+import { CheckValidations } from '../validation/Validator';
+import FormContext from '../context/FormContext';
+import { FormRuleProps, FormValueProps, QTDImperativeFuncProps } from '../../index';
+
+export type ItemProps = {
+  name          : string,
+  label?        : string,
+  placeholder?  : string,
+  error?        : string,
+  rules?        : FormRuleProps[],
+  mask?         : string | null,
+  locked?       : boolean,
+  dependency?   : string,
+  reset?        : [],
+  query?        : string,
+  children      : ChildrenProps
+}
+
+export default function Item({
   name          = "",
   label         = "",
   placeholder   = "",
+  error         = "",
   rules         = [],
   mask          = null,
   locked        = false,
   dependency    = '',
   reset         = [],
-  query         = null,
+  query         = "",
   children      = null
-}) {
+}:ItemProps):ChildrenProps {
 
-  const ref = useRef();
+  const ref = useRef<QTDImperativeFuncProps>(null);
+
   const { 
     register, 
     updateField, 
@@ -31,13 +49,14 @@ export default function FormItem({
 
   useEffect( () => {
 
-    register(
-      name, 
-      ref,
-      checkIsValid(ref.current.getValue()),
-      query,
-      reset
-    );
+    register({
+      name  : name, 
+      field : ref,
+      valid : checkIsValid(ref.current?.getValue()),
+      query : query,
+      reset : reset,
+      error : error
+    });
 
     SetIsRegistered(true);
 
@@ -55,7 +74,7 @@ export default function FormItem({
    * sistemi çalışmayacaktır.
    * 
    */
-  const handleItemUpdate = (value, update = true, validation = true) => {
+  const handleItemUpdate = (value:FormValueProps, update = true, validation = true) => {
   
     if ( !isRegistered ) return;
     
@@ -70,7 +89,7 @@ export default function FormItem({
     
   };
 
-  const checkIsValid = (value, validation = true) => {
+  const checkIsValid = (value:FormValueProps, validation = true) => {
 
     const errors = CheckValidations(rules, value, getFieldValue);
 
@@ -79,7 +98,7 @@ export default function FormItem({
       return false;
     }
 
-    setFieldError(name, "");
+    setFieldError(name, "",);
     return true;
 
   };
@@ -92,13 +111,16 @@ export default function FormItem({
     if ( getFieldValue(dependency) === "" )
       return;
 
-    getFieldInstance(dependency).forceUpdate();
+    const instance = getFieldInstance(dependency);
+    instance && instance.forceUpdate && instance.forceUpdate();
 
   }
 
   const getFormItem = () => {
 
-    const props = {
+    if ( !children ) return null;
+    
+    const props:any = {
       label       : label,
       placeholder : placeholder,
       id          : formId + "_" + name,
@@ -106,11 +128,11 @@ export default function FormItem({
       ref         : ref
     }
 
-    if ( mask )   props.mask = mask;
-    if ( locked ) props.locked = locked;
+    if ( mask )   props.mask    = mask;
+    if ( locked ) props.locked  = locked;
 
-    return React.cloneElement(children, {
-      ...children.props,
+    return React.cloneElement(children as JSX.Element, {
+      ...(children as JSX.Element).props,
       ...props
     });
 

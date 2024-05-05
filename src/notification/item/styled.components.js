@@ -5,7 +5,7 @@ const getByType = (type) => {
 
   if ( type === "error" ) {
     return (css`
-      background: #870f0f;
+      background: #f8285a;
       ${Title} { color: #ffffff; }
       ${Description} { color: #ffffffBF; }
     `)
@@ -28,7 +28,7 @@ const getByType = (type) => {
   }
 
   return (css`
-    background: #870f0f;
+    background: #f8285a;
     ${Title} { color: #ffffff; }
     ${Description} { color: #ffffffBF; }
   `)

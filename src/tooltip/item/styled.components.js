@@ -28,7 +28,7 @@ const getByStatus = (status) => {
 
   if ( status === "error" ) {
     return (css`
-      background: #870f0f;
+      background: #f8285a;
       ${Title} { color: #ffffff; }
     `)
   }

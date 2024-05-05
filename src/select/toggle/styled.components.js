@@ -71,7 +71,7 @@ const Warning = styled(StatusCore)`
 const Failed = styled(StatusCore)`
 
   &::before {
-    background-color: #870F0F;
+    background-color: #f8285a;
   }
 
 `
@@ -107,7 +107,7 @@ const ErrorTooltip = styled.span`
   right: 0px;
   bottom: 43px;
   color: #ffffff;
-  background: #870f0f;
+  background: #f8285a;
   width: max-content;
   max-width: 210px;
 
@@ -123,7 +123,7 @@ const ErrorTooltip = styled.span`
     right: 17px;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-top: 10px solid #870f0f;
+    border-top: 10px solid #f8285a;
 
   }
 
@@ -132,7 +132,7 @@ const ErrorTooltip = styled.span`
 const ErrorBorder = styled.div`
 
   position: absolute;
-  border: 1px solid #870f0f;
+  border: 1px solid #f8285a;
   width: 100%;
   height: 100%;
   border-radius: 6px;

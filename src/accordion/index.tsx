@@ -6,32 +6,30 @@ import { AccordionProps } from '../index';
 
 import { Wrapper } from './styled.components.js';
 
-type AMSubComponents = {
+type AccordionMenuSubComponents = {
   SubMenu : typeof SubMenu,
   Item    : typeof Item
 }
 
-type AMPropsType =  AccordionProps & { 
-                      wrapperClassName?: string
-                    };
+type AccordionMenuProps =  AccordionProps & 
+                            { 
+                              className?: string
+                            };
 
-const Accordion: FunctionComponent<AMPropsType> & AMSubComponents = (
+const Accordion: FunctionComponent<AccordionMenuProps> & AccordionMenuSubComponents = (
   {
-
-    /* ---------- */
     useLink           = false,
     onlyOne           = false,
     subMenuLinkArrow  = true,
-    /* ---------- */
     subMenuHeight     = 60,
     itemHeight        = 40,
     iconSize          = 22, 
     arrowSize         = 20,
-    wrapperClassName  = "",
+    className         = "",
     onChange          = null,
     children
   
-  }: AMPropsType
+  }: AccordionMenuProps
 ) => {
 
   const [selected, SetSelected] = useState("");
@@ -43,7 +41,7 @@ const Accordion: FunctionComponent<AMPropsType> & AMSubComponents = (
 
   return (
 
-    <Wrapper className={"qtd-accordion-menu" + " " + wrapperClassName}>
+    <Wrapper className={"qtd-accordion-menu" + " " + className}>
       
       {
         React.Children.map(children, element => 

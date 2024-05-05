@@ -1,9 +1,120 @@
 //import { StrictMode } from "react";
 //import { createRoot } from "react-dom/client";
 
+import i18next from 'i18next';
+//import resourcesToBackend from 'i18next-resources-to-backend';
+//import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from "react-i18next";
+
 //import App from './App.js';
 //import reportWebVitals from './reportWebVitals';
 
+/*
+I18NLoader(
+  "/locales/{{lng}}/{{ns}}.json",
+  ["tr", "en"],
+  ["translation"],
+  () => {}
+);
+*/
+i18next
+  //.use(LanguageDetector)
+  .use(initReactI18next)
+  // .use(
+  //   resourcesToBackend(
+  //     (language:string, namespace:string) => import(`./locales/${language}/${namespace}.json`)
+  //   )
+  // )
+  .init({
+    preload       : ["en", "tr"],
+    fallbackLng   : ["en", "tr"],
+    lng           : "en-US",
+    load          : "languageOnly",
+    ns            : ["translation"],
+    defaultNS     : ["translation"],
+    initImmediate : false,
+    debug         : false,
+    resources: {} 
+  });
+
+i18next.addResourceBundle(
+  "en", 
+  "translation", {
+    success: "Success",
+    error: "Error",
+    errors: {
+      required: "This field is required!",
+      minLength: "Should contain at least {{- length}} characters",
+      maxLength: "Is too long. Max size is {{- length}}",
+      passwordRule: "Should contain upper and lower-case English letters, at least one digit and no spaces.",
+      invalidEmailAddress: "Invalid email address",
+      passwordsDontMatch: "The two passwords that you entered do not match!",
+      usernameRule: "Only English letters, digits and symbols (-_). No space is allowed",
+      wrongTCIdentity: "Wrong TC Identity Number",
+      fieldMustBeTheSame: "This field must be the same as: {{- fields}}",
+    },
+    uploader: {
+      header: "Drag and drop an file",
+      hint: "or Browse to choose a file",
+      fileUploading: "File uploading...",
+      info: "Total: {{- total}} - {{- estimated}} s remaining.",
+      delete: "Delete",
+      preview: "Preview",
+      error: "Error",
+      fileFormatError: "You can only upload {{fileFormat}} file",
+      fileSizeError: "File must smaller than {{fileSize}}",
+      fileUploadSuccess: "File successfully uploaded.",
+      fileUploadFailed: "File upload failed!",
+      removeFileSuccess: "File successfully delete!",
+      browserDoesntSupportDND: "Browser doesn't support drag and drop!",
+      calculating: "Calculating...",
+      removeFile: "Remove File",
+      areYouSureToDeleteThisFile: "Are you sure to delete this file?",
+      yes: "Yes",
+      no: "No"
+    }
+  }
+);
+
+i18next.addResourceBundle(
+  "tr", 
+  "translation", {
+    success: "Başarılı",
+    error: "Hata",
+    errors: {
+      required: "Bu alan zorunludur!",
+      minLength: "En az {{- length}} karakter olmalıdır",
+      maxLength: "Çok uzun. Maks uzunluk {{- length}} karakter olmalıdır.",
+      exactLength: "This field must be {{- length}} characters long.",
+      passwordRule: "En az bir rakam, büyük-küçük harf olmalıdır ve boşluk kullanılmamalıdır",
+      invalidEmailAddress: "Geçersiz e-posta adresi",
+      passwordsDontMatch: "Girdiğiniz şifreler birbirleriyle uyuşmuyor!",
+      usernameRule: "Harf, sayı ve bazı özel karakterlerden oluşmalıdır (-_). Boşluk kullanılmamalıdır",
+      wrongTCIdentity: "TC Kimlik Numarası Yanlış",
+      fieldMustBeTheSame: "Bu alan şunlarla aynı olmalıdır: {{- fields}}",
+    },
+    uploader: {
+      header: "Bir resmi sürükleyip bırakın",
+      hint: "ya da bir dosya seçmek için tıklayın.",
+      fileUploading: "Dosya yükleniyor...",
+      info: "Toplam: {{- total}} - {{- estimated}} sn kaldı.",
+      delete: "Sil",
+      preview: "Önizleme",
+      error: "Hata",
+      fileFormatError: "Yalnızca {{fileFormat}} dosyası yükleyebilirsiniz.",
+      fileSizeError: "Dosya boyutu {{fileSize}}'den küçük olmalıdır.",
+      fileUploadSuccess: "Dosya başarıyla yüklendi.",
+      fileUploadFailed: "Dosya yüklenemedi!",
+      removeFileSuccess: "Dosya başarıyla silindi!",
+      browserDoesntSupportDND: "Tarayıcı taşı&bırak özelliğini desteklemiyor!",
+      calculating: "Hesaplanıyor...",
+      removeFile: "Dosya Silme",
+      areYouSureToDeleteThisFile: "Bu dosyayı silmek istediğinize emin misiniz?",
+      yes: "Evet",
+      no: "Hayır"
+    }
+  }
+);
 
 /**
  * CONTEXT PROVIDER
@@ -75,6 +186,8 @@ export type { CheckboxProps } from './types/CheckboxProps';
 export type { QTDImperativeFuncProps } from './types/QTDImperativeFuncProps';
 export type { SingleQueryProps } from './types/SingleQueryProps';
 export type { ButtonProps, ButtonType, ButtonVariant, ButtonState, ButtonSize, ButtonContentPosition } from './types/ButtonProps';
+export type { FormProps, FormRuleProps, FormValueProps, FormItemProps, FormSubComponentProps, FieldUpdateProps } from './types/FormProps';
+export type { FormContextType } from './form/context/FormContext';
 export type { AlertProps, AlertType, AlertSize } from './types/AlertProps';
 export type { SwitchProps } from './types/SwitchProps';
 export type { ModalProps, ModalContentProps, ModalRefProps } from './types/ModalProps';

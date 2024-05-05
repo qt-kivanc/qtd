@@ -1,26 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { forwardRef, memo, useContext, useEffect, useImperativeHandle, useState } from 'react';
+import { FormEvent, forwardRef, memo, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { useLocation } from 'react-router';
 import isDeepEqual from 'fast-deep-equal/react';
 import { getChildrenDeep } from 'react-nanny';
 
+import { ChildrenProps } from 'types/ChildrenProps';
+
 import useMultiQuery from '../../hooks/useMultiQuery'
 import useSingleQuery from '../../hooks/useSingleQuery'
-import FormItem from '../item/FormItem';
+import Item from '../item/Item';
 import FormContext from '../context/FormContext';
+import { FormItemProps } from '../../index';
+
+type FormWrapperProps = {
+  name            : string,
+  className?      : string,
+  initialValues?  : {},
+  useQueryString? : boolean,
+  onUpdate?       : (values:{}) => void,
+  onFinish?       : (values:{}) => void,
+  onFinishFailed? : (values:{}) => void,
+  onReset?        : () => void,
+  onValidated?    : (validate:boolean) => void,
+  children        : ChildrenProps
+}
 
 const FormWrapper = forwardRef(({
   name            = "",
   className       = "",
   initialValues   = {},
   useQueryString  = false,
-  onUpdate        = null,
-  onFinish        = null,
-  onFinishFailed  = null,
-  onValidated     = null,
-  form            = null,
-  children        = null
-}, ref) => {
+  onUpdate,
+  onFinish,
+  onFinishFailed,
+  onValidated,
+  onReset,
+  children        
+}:FormWrapperProps, ref) => {
 
   const { 
     updated, 
@@ -28,18 +44,19 @@ const FormWrapper = forwardRef(({
     isFormValid, 
     getValues, 
     getFields, 
-    setFieldValueByName
+    setFieldValueByName,
+    resetFields
   } = useContext(FormContext);
 
   const singleQuery = useSingleQuery();
   const { search }  = useLocation();
   const multiQuery  = useMultiQuery();
 
-  const [queries, SetQueries] = useState([]);
-  const [isValid, SetIsValid] = useState(false);
-  const [formFields, SetFormFields] = useState([]);
-  const [formItemsRegistered, SetFormItemsRegistered] = useState(false);
-  const [initialized, SetInitialized] = useState(false);
+  const [queries, SetQueries]           = useState<string[]>([]);
+  const [isValid, SetIsValid]           = useState(false);
+  const [formFields, SetFormFields]     = useState<{}[]>([]);
+  const [registered, SetRegistered]     = useState(false);
+  const [initialized, SetInitialized]   = useState(false);
 
   useEffect(() => {
 
@@ -54,16 +71,16 @@ const FormWrapper = forwardRef(({
     checkQSInitials();
     checkInitials();
 
-  }, [formItemsRegistered]);
+  }, [registered]);
 
   useEffect(() => {
 
-    if ( formItemsRegistered ) return;
+    if ( registered ) return;
     if ( Object.keys(getFields()).length === 0 ) return;
     if ( formFields.length === 0 ) return;
 
     if ( Object.keys(getFields()).length === formFields.length ) {
-      SetFormItemsRegistered(true);
+      SetRegistered(true);
     }
 
   }, [getFields(), formFields]);
@@ -82,7 +99,7 @@ const FormWrapper = forwardRef(({
 
   useEffect(() => {
   
-    if ( !initialized || !formItemsRegistered || !useQueryString ) {
+    if ( !initialized || !registered || !useQueryString ) {
       return;
     }
 
@@ -94,6 +111,7 @@ const FormWrapper = forwardRef(({
 
   useEffect(() => {
 
+
     if ( onValidated && isFormValid() !== isValid ) {
       onValidated(isFormValid());
     }
@@ -104,7 +122,7 @@ const FormWrapper = forwardRef(({
 
   const checkQSInitials = () => {
 
-    if ( !formItemsRegistered ) return;
+    if ( !registered ) return;
 
     if ( useQueryString ) {
       
@@ -120,7 +138,7 @@ const FormWrapper = forwardRef(({
 
   const checkInitials = () => {
 
-    if ( !formItemsRegistered ) return;
+    if ( !registered ) return;
 
     if ( !useQueryString && !initialized ) {
       setFormInitialValues();
@@ -168,8 +186,8 @@ const FormWrapper = forwardRef(({
   const setQueryStringInitialValues = () => {
 
     const fields          = getFields();
-    const isEmpty         = !Object.values(fields).some(x => singleQuery.get(x.query, "") !== "");
-    const isQueriesEmpty  = Object.values(fields).some(x => x.query === null || x.query === '');
+    const isEmpty         = !Object.values(fields).some(formItem => singleQuery.get(formItem.query, "") !== "");
+    const isQueriesEmpty  = Object.values(fields).some(formItem => formItem.query === null || formItem.query === '');
     
     /**
      * Tüm form öğeleri arasında döner eğer herhangi birine "query" değeri yollanmamış
@@ -177,7 +195,7 @@ const FormWrapper = forwardRef(({
      */
     if ( isQueriesEmpty ) {
       
-      let invalidFields = [];
+      let invalidFields:string[] = [];
 
       Object.keys(fields).forEach(field => {
         if ( fields[field].hasOwnProperty("query") ) {
@@ -213,7 +231,7 @@ const FormWrapper = forwardRef(({
         initialQueryValues[key] = singleQuery.get(fields[key].query, "");
       });
 
-      setInitialValues(initialQueryValues, true);
+      setInitialValues(initialQueryValues, true, true);
       SetInitialized(true);
 
     }
@@ -237,10 +255,10 @@ const FormWrapper = forwardRef(({
    * @returns 
    * 
    */
-  const setQueriesToFormValues = (formValues) => {
+  const setQueriesToFormValues = (formValues:{}) => {
 
-    let searchQueries = [];
-    let newQueries = [];
+    let searchQueries :{type:string, value: string}[] = [];
+    let newQueries    :FormItemProps[]                = [];
 
     const fields = getFields();
 
@@ -253,8 +271,8 @@ const FormWrapper = forwardRef(({
     Object.keys(fields).forEach(key => {
       searchQueries.push(
         {
-          type: fields[key].query, 
-          value: formValues[key]
+          type  : fields[key].query, 
+          value : formValues[key]
         }
       );
     });
@@ -284,13 +302,14 @@ const FormWrapper = forwardRef(({
    */
   const saveQueries = () => {
 
-    let newQueries = [];
-    let updatedFields = [];
+    let newQueries:string[] = [];
+    let updatedFields       = [];
       
     const fields = getFields();
 
-    Object.keys(fields).forEach(key => {
-      newQueries.push(singleQuery.get(fields[key].query, ""));
+    Object.keys(fields).forEach((key:string) => {
+      let query = String(singleQuery.get(fields[key].query, ""));
+      newQueries.push(query);
     });
 
     if ( isDeepEqual(newQueries, queries) ) return;
@@ -324,7 +343,7 @@ const FormWrapper = forwardRef(({
    * @param {*} event 
    * 
    */
-  const handleSubmit = (event = null) => {
+  const handleSubmit = (event:FormEvent) => {
 
     if ( event ) {
       event.preventDefault();
@@ -332,15 +351,24 @@ const FormWrapper = forwardRef(({
     }
 
     if ( isFormValid() ) {
-      if ( onFinish ) {
-        onFinish(getValues());
-      }
+      onFinish && onFinish(getValues());
     }
     else {
-      if ( onFinishFailed ) {
-        onFinishFailed(getFields());
-      }
+      onFinishFailed && onFinishFailed(getFields());
     }
+
+  }
+
+  const handleReset = (event:FormEvent) => {
+
+    if ( event ) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    resetFields(true, false);
+    
+    onReset && onReset();
 
   }
 
@@ -354,19 +382,21 @@ const FormWrapper = forwardRef(({
    */
   const setChildrens = () => {
 
-    let items = [];
+    let items:{}[] = [];
 
-    getChildrenDeep(children, (child) => {
+    getChildrenDeep(children, ((child:JSX.Element) => {
       
       if ( child.hasOwnProperty("type") ) {
-        if ( child.type === FormItem ) {
+        if ( child.type === Item ) {
           items.push({
             [child.props.name]: child
           });
         }
       }
+
+      return true;
       
-    });
+    }));
 
     SetFormFields(items);
 
@@ -374,7 +404,7 @@ const FormWrapper = forwardRef(({
 
   useImperativeHandle(ref, () => ({
 
-    fieldUpdate(data) {
+    fieldUpdate(data:any) {
       console.log("fieldUpdate");
       console.log(data);
     }
@@ -385,6 +415,7 @@ const FormWrapper = forwardRef(({
     <form 
       id            = {name} 
       onSubmit      = {handleSubmit}
+      onReset       = {handleReset}
       autoComplete  = "off"
       className     = {className}
       noValidate

@@ -18,7 +18,9 @@ import {
   ModalHeader,
   CloseButton,
   ModalFooter,
-  ModalContent
+  ModalContent,
+  ModalInnerContentBefore,
+  ModalInnerContentAfter
 } from './styled.components';
 import { ModalContainerProps } from '../context/ModalContext';
 
@@ -132,8 +134,9 @@ const Modal:FC<ModalType> = (props) => {
 
     props.onModalEvent(ModalState.OK_CLICK, props.id ? props.id : "");
 
-    okCallback();
-    SetIsShow(false);
+    if ( okCallback() ) {
+      SetIsShow(false);
+    }
 
   }
 
@@ -143,8 +146,9 @@ const Modal:FC<ModalType> = (props) => {
     
     props.onModalEvent(ModalState.CANCEL_CLICK, props.id ? props.id : "");
 
-    cancelCallback();
-    SetIsShow(false);
+    if ( cancelCallback() ) {
+      SetIsShow(false);
+    }
 
   }
 
@@ -156,8 +160,10 @@ const Modal:FC<ModalType> = (props) => {
     }
     
     if ( props.onOk ) {
-      const closeAfter = props.onOk();
-      if ( !closeAfter ) return;
+      return props.onOk();
+    }
+    else {
+      return true;
     }
     
   }
@@ -170,8 +176,10 @@ const Modal:FC<ModalType> = (props) => {
     }
 
     if ( props.onCancel ) {
-      const closeAfter = props.onCancel();
-      if ( !closeAfter ) return;
+      return props.onCancel();
+    }
+    else {
+      return true;
     }
 
   }
@@ -226,17 +234,6 @@ const Modal:FC<ModalType> = (props) => {
 
   }
 
-  const getDynamicContent = () => {
-
-    if ( !props.content ) return;
-
-    return  React.cloneElement(
-              props.content as JSX.Element,
-              cloneProps(props)
-            );
-
-  }
-
   const getHeader = () => (
     <ModalHeader className="qtd-modal-header">
       { props.title }
@@ -251,6 +248,7 @@ const Modal:FC<ModalType> = (props) => {
         <Button
           variant   = "solid"
           size      = "small"
+          type      = "button"
           onClick   = {handleClickCancel}
           disabled  = {loading || innerLoading || !props.isActive}
           {...props.cancelButtonProps}
@@ -264,6 +262,7 @@ const Modal:FC<ModalType> = (props) => {
         <Button
           variant   = "default"
           size      = "small"
+          type      = "button"
           onClick   = {handleClickOK}
           loading   = {loading}
           disabled  = {innerLoading || !props.isActive}
@@ -274,6 +273,53 @@ const Modal:FC<ModalType> = (props) => {
       }
     </ModalFooter>
   )
+
+  const getDynamicContent = () => {
+
+    if ( !props.content ) return;
+
+    return (
+      <div className = "qtd-modal-middle-content-body">
+        {
+          React.cloneElement(
+            props.content as JSX.Element,
+            cloneProps(props)
+          )
+        }
+      </div>
+    )
+
+  }
+
+  const getAddContentBefore = () => {
+    
+    if ( !props.addContentBefore ) return;
+    
+    return (
+      <ModalInnerContentBefore
+        className = "qtd-modal-middle-content-before"
+        $padding  = {props.beforeContentPadding}
+      >
+        { props.addContentBefore }
+      </ModalInnerContentBefore>
+    )
+
+  }
+
+  const getAddContentAfter = () => {
+
+    if ( !props.addContentAfter ) return;
+    
+    return (
+      <ModalInnerContentAfter
+        className = "qtd-modal-middle-content-after"
+        $padding  = {props.afterContentPadding}
+      >
+        { props.addContentAfter }
+      </ModalInnerContentAfter>
+    )
+
+  }
 
   const getContent = () => (
 
@@ -299,9 +345,16 @@ const Modal:FC<ModalType> = (props) => {
 
             { props.title ? getHeader() : null }
             
-            <ModalInnerContent className="qtd-modal-middle-content">
+            { getAddContentBefore() }
+
+            <ModalInnerContent
+              className = "qtd-modal-middle-content"
+              $padding  = {props.contentPadding}
+            >
               { getDynamicContent() }
             </ModalInnerContent>
+
+            { getAddContentAfter() }
             
             { props.showOkButton || props.showCancelButton ? getFooter() : null }
 

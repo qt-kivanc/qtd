@@ -64,7 +64,7 @@ const useCoreFetch = () => {
   
   const fetch = async ({
     action          = "",
-    requestMethod   = "post",
+    requestMethod   = "",
     addOrigin       = true,
     params          = {}, 
     queries         = {},
@@ -97,11 +97,11 @@ const useCoreFetch = () => {
     }
 
     let fetchType:any = axios.post;
-
-    if      ( requestMethod === "POST" )  fetchType = axios.post;
-    else if ( requestMethod === "GET" )   fetchType = axios.get;
-    else if ( requestMethod === "PUT" )   fetchType = axios.put;
-    else if ( requestMethod === "PATCH" ) fetchType = axios.patch;
+    
+    if      ( requestMethod.toLocaleLowerCase() === "post" )  fetchType = axios.post;
+    else if ( requestMethod.toLocaleLowerCase() === "get" )   fetchType = axios.get;
+    else if ( requestMethod.toLocaleLowerCase() === "put" )   fetchType = axios.put;
+    else if ( requestMethod.toLocaleLowerCase() === "patch" ) fetchType = axios.patch;
 
     await fetchType(
         action + _queries, 
@@ -123,12 +123,6 @@ const useCoreFetch = () => {
 
         console.log("error", error);
         console.log("error.message", error.message);
-
-        console.error(
-          "useCoreFetchError - " + 
-          "message: " + error.response.data.error.message,
-          "code: " + error.response.data.error.code
-        );
 
         if (axios.isCancel(error.message)) {
           onCanceled && onCanceled(error.message);

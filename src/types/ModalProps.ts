@@ -1,3 +1,4 @@
+import { ButtonProps } from "./ButtonProps"
 import { ChildrenProps } from "./ChildrenProps"
 
 export type ModalProps = {
@@ -49,12 +50,12 @@ export type ModalProps = {
   /**
    * The ok button props.
    */
-  okButtonProps?        : ModalProps | null,
+  okButtonProps?        : ButtonProps | null,
 
   /**
    * ModalProps for the Cancel button.
    */
-  cancelButtonProps?    : ModalProps | null,
+  cancelButtonProps?    : ButtonProps | null,
   
   /**
    * Custom properties to be passed to the modal.
@@ -106,7 +107,32 @@ export type ModalProps = {
   /**
    * Content of the modal. Any content you want to display in the modal.
    */
-  content               : ChildrenProps | null
+  content               : ChildrenProps | null,
+
+  /**
+   * 
+   */
+  addContentBefore?     : ChildrenProps,
+
+  /**
+   * 
+   */
+  addContentAfter?      : ChildrenProps
+
+  /**
+   * 
+   */
+  contentPadding?       : string,
+
+  /**
+   * 
+   */
+  beforeContentPadding? : string,
+
+  /**
+   * 
+   */
+  afterContentPadding?  : string
 
 }
 

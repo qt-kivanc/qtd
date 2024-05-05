@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
 
-const FileContent = styled.div<{$showBorder:boolean, $padding:number}>`
+const FileContent = styled.div<{
+  $showBorder :boolean,
+  $hasError   :boolean,
+  $padding    :number
+}>`
 
-  border: 1px solid #cccccc80;
+  border: 1px solid ${props => props.$hasError ? "#f8285a" : "#cccccc80"};
   border-radius: 6px;
   padding: ${props => props.$padding + "px"};
   overflow: hidden;
@@ -206,4 +210,18 @@ const UploadStatusBox = styled.div<{
   width             : ${props => props.$progress + "%"};
 `
 
-export { Wrapper, FileContent, Icons, Label, CenterContent, Overlay, OverlayContent, Uploading, UploadStatusBox}
+const ErrorBorder = styled.div`
+
+  position: absolute;
+  border: 1px solid #f8285a;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border-radius: 6px;
+  top: -1px;
+  left: -1px;
+  pointer-events: none;
+  z-index: 1;
+
+`
+
+export { Wrapper, FileContent, Icons, Label, CenterContent, Overlay, OverlayContent, Uploading, UploadStatusBox, ErrorBorder }

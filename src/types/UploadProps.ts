@@ -1,10 +1,12 @@
 import { FileTypes } from "../index"
 
 export type UploadProps = {
-  action                    : string,
+  action?                   : string,
   filePath?                 : string | null,
-  removeAction              : string,
+  removeAction?             : string,
   removeExtraFormData?      : {},
+  removeExtraQueryString?   : {},
+  removeExtraHeader?        : {},
   binaryName?               : string,
   resultFileName?           : string | null,
   
@@ -20,12 +22,16 @@ export type UploadProps = {
   requestMethod?            : "put" | "post",
   extraFormData?            : {},
   extraQueryString?         : {},
+  extraHeader?              : {},
   
   disabled?                 : boolean,
 
+  onChange?                 : ((value:any) => void) | null,
+  onUpdate?                 : ((value:any, update:any, validation:boolean) => void) | null,
   onUploadSuccess?          : (path:string) => void
   onUploadFailed?           : (message: string, code: number) => void
-  onRemoveFileSuccess?      : (data:any) => void
+  onRemoveFileSuccess?      : (data?:any) => void
+  onRemoveFileFailed?       : () => void
 }
 
 export type UploadProgressProps = {

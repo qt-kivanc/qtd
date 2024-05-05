@@ -25,6 +25,11 @@ const initialModal:Required<ModalProps> = {
   useRef                : false,
   checkAutoRef          : false,
   content               : null,
+  contentPadding        : "30px 20px",
+  beforeContentPadding  : "30px 20px 0",
+  afterContentPadding   : "0 20px 30px",
+  addContentAfter       : null,
+  addContentBefore      : null
 };
 
 export const ModalProvider = ({children}) => {

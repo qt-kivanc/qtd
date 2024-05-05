@@ -32,3 +32,9 @@ a {
 strong {
   font-weight: 500;
 }
+
+input {
+  &:focus-visible { 
+    outline: none;
+  }
+}

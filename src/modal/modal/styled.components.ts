@@ -27,6 +27,7 @@ const ModalInnerWrapper = styled.div`
   height: 100vh;
   display: flex;
   padding: 50px;
+
 `
 
 const ModalBody = styled.div`
@@ -45,16 +46,23 @@ const ModalBody = styled.div`
 
 const ModalContent = styled.div`
 
-
-
 `
 
-const ModalInnerContent = styled.div`
+const ModalInnerContentBefore = styled.div<{$padding?:string}>`
+  padding: ${props => props.$padding};
+`
+
+const ModalInnerContentAfter = styled.div<{$padding?:string}>`
+  padding: ${props => props.$padding};
+`
+
+const ModalInnerContent = styled.div<{$padding?:string}>`
 
   transition-property: all;
   transition-duration: 800ms;
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  padding: 30px 20px;
+
+  padding: ${props => props.$padding};
 
 `
 
@@ -119,4 +127,19 @@ const ModalExitActive = styled.div`
 `
 
 
-export { Wrapper, ModalInnerWrapper, ModalBody, ModalContent, ModalInnerContent, ModalHeader, ModalFooter, CloseButton, ModalEnter, ModalEnterActive, ModalExit, ModalExitActive };
+export {
+  Wrapper,
+  ModalInnerWrapper,
+  ModalBody,
+  ModalContent,
+  ModalInnerContent, 
+  ModalInnerContentBefore,
+  ModalInnerContentAfter,
+  ModalHeader,
+  ModalFooter,
+  CloseButton,
+  ModalEnter,
+  ModalEnterActive,
+  ModalExit,
+  ModalExitActive
+};

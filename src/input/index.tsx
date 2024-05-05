@@ -13,7 +13,9 @@ import { InputProps, QTDImperativeFuncProps } from '../index';
  * https://dev.to/adrianbdesigns/let-s-create-a-floating-label-input-with-html-and-css-only-4mo8
  */
 
-const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRef) => {
+const Input = forwardRef<
+  QTDImperativeFuncProps, InputProps
+>((props, forwardedRef) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -51,7 +53,7 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
    */
   useEffect( () => {
 
-    sendUpdates(props.value, true, props.value !== "");
+    sendUpdates(String(props.value), true, props.value !== "");
 
   },[props.value]);
 
@@ -135,7 +137,7 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
       },
 
       reset(update = true, validation = true) {
-        SetCurrentValue("");
+        SetCurrentValue(props.defaultValue ? props.defaultValue : "");
         SetErrorMessage("");
         sendUpdates("", update, validation);
       },
@@ -473,6 +475,22 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
 
   }
 
+  const infoIcon = (
+    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <g id="Error" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="ErrorGroup" fillRule="nonzero">
+          <circle id="ErrorBackground" fill="#F8285A" cx="10" cy="10" r="10"></circle>
+          <path
+            d="M10.0355339,8.6213203 L12.863961,5.79289322 C13.2544853,5.40236893 13.8876503,5.40236893 14.2781746,5.79289322 C14.6686989,6.18341751 14.6686989,6.81658249 14.2781746,7.20710678 L11.4497475,10.0355339 
+            L14.2781746,12.863961 C14.6686989,13.2544853 14.6686989,13.8876503 14.2781746,14.2781746 C13.8876503,14.6686989 13.2544853,14.6686989 12.863961,14.2781746 L10.0355339,11.4497475 L7.20710678,14.2781746
+            C6.81658249,14.6686989 6.18341751,14.6686989 5.79289322,14.2781746 C5.40236893,13.8876503 5.40236893,13.2544853 5.79289322,12.863961 L8.6213203,10.0355339 L5.79289322,7.20710678 C5.40236893,6.81658249
+            5.40236893,6.18341751 5.79289322,5.79289322 C6.18341751,5.40236893 6.81658249,5.40236893 7.20710678,5.79289322 L10.0355339,8.6213203 Z"
+            id="ErrorIcon" fill="#FFFFFF"
+          />
+        </g>
+      </g>
+    </svg>
+  )
   /**
    * 
    */
@@ -486,10 +504,6 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
       onPointerOut  : () => SetShowErrorTooltip(false)
     }
 
-    if ( !props.status ) {
-      _props["data-icon"] = "i";
-    }
-    
     return (
 
       <Failed {..._props} >
@@ -500,7 +514,7 @@ const Input = forwardRef<QTDImperativeFuncProps, InputProps>((props, forwardedRe
             </ErrorTooltip>
           : null
         }
-        { props.status ? props.status : null }
+        { props.status ? props.status : infoIcon }
       </Failed>
 
     );

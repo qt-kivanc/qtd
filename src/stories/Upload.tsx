@@ -19,7 +19,7 @@ export const Upload: React.FC<any> = ({
 
   const addNotificationSuccess = (message = "") => {
     addNotification({
-      title: t("notifications.success"),
+      title: t("success"),
       description: message,
       type: "success"
     });
@@ -27,7 +27,7 @@ export const Upload: React.FC<any> = ({
 
   const addNotificationError = (error = "") => {
     addNotification({
-      title: t("notifications.error"),
+      title: t("error"),
       description: error,
       type: "error"
     });
@@ -37,9 +37,9 @@ export const Upload: React.FC<any> = ({
     <div style={{...style}}>
       <UploadComponent
         {...props}
-        onUploadSuccess         = {() => {addNotificationSuccess("notifications.uploadSuccess")}}
-        onUploadFailed          = {() => {addNotificationError("notifications.uploadFailed")}}
-        onRemoveFileSuccess     = {() => {addNotificationSuccess("notifications.removeFileSuccess")}}
+        onUploadSuccess         = {() => {addNotificationSuccess("fileUploadSuccess")}}
+        onUploadFailed          = {() => {addNotificationError("fileUploadFailed")}}
+        onRemoveFileSuccess     = {() => {addNotificationSuccess("removeFileSuccess")}}
       />
     </div>
   );
