@@ -56,19 +56,17 @@ export const Form: React.FC<any> = ({
   }
 
   const onReset = () => {
-    console.log("onReset")
+    console.log("onReset");
+    //form.current?.setFieldError("image", "asdsadasd")
   }
 
   const onFieldUpdate = (update:FieldUpdateProps) => {
-    console.log("onFieldUpdate", update);
+    //console.log("onFieldUpdate", update);
 
     if ( update.name === "password" ) {
       SetDisableSamePassword(!update.valid);
     }
 
-    console.log("form", form)
-    console.log("isFieldsValid", form.current?.isFieldsValid(["username"]))
-    console.log("getFields", form.current?.getFields())
     //console.log("isFieldsValid", isFieldsValid(["username"]))
     // SetIsValid(
     //   isFieldsValid(checkFields)
@@ -86,11 +84,12 @@ export const Form: React.FC<any> = ({
         onFieldUpdate   = {onFieldUpdate}
         onReset         = {onReset}
         ref             = {form}
+        useQueryString  = {true}
         {...props}
       >
         <Group>
 
-          <Item name="username" rules={[
+          <Item name="username" query="username" rules={[
             {
               required: true
             },
@@ -109,7 +108,7 @@ export const Form: React.FC<any> = ({
             <Input placeholder='Name' floating={false} />
           </Item>
 
-          <Item name="email" rules={[
+          <Item name="email" query="email" rules={[
             {
               required: true
             },
@@ -130,6 +129,7 @@ export const Form: React.FC<any> = ({
 
           <Item
             name  = "password"
+            query = "password"
             rules = {[
               {
                 required: true
@@ -144,6 +144,7 @@ export const Form: React.FC<any> = ({
 
           <Item
             name  = "password2"
+            query = "password2"
             rules = {[
               {
                 required: true
@@ -172,6 +173,7 @@ export const Form: React.FC<any> = ({
 
           <Item
             name  = "image"
+            query = "image"
             rules = {[
               {
                 required: true

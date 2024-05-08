@@ -10,24 +10,24 @@ import { isValidURL } from '../helpers/url/ValidURL';
 
 
 const Button = ({
-  id,
-  disabled,
-  loading,
-  selected,
-  circle,
-  strecth,
-  justify,
-  contentPosition,
-  type,
-  variant,
-  size,
-  state,
-  icon,
-  href,
-  target,
-  className,
-  children,
-  onClick
+  id              = v4(),
+  disabled        = false,
+  loading         = false,
+  selected        = false,
+  circle          = false,
+  strecth         = false,
+  justify         = "center",
+  contentPosition = "left",
+  type            = "button",
+  variant         = "default",
+  size            = "default",
+  state           = null,
+  icon            = null,
+  href            = "",
+  target          = "_self",
+  className       = "",
+  children        = null,
+  onClick         = null
 }:ButtonProps) => {
 
   const buttonRef = useRef<HTMLButtonElement & HTMLAnchorElement>(null);
@@ -296,28 +296,5 @@ const Button = ({
   return getButton();
 
 }
-
-export const ButtonDefaultProps = {
-  id              : v4(),
-  disabled        : false,
-  loading         : false,
-  selected        : false,
-  circle          : false,
-  strecth         : false,
-  justify         : "center",
-  contentPosition : "left",
-  type            : "button",
-  variant         : "default",
-  size            : "default",
-  state           : null,
-  icon            : null,
-  href            : "",
-  target          : "_self",
-  className       : "",
-  children        : null,
-  onClick         : null,
-} as Required<ButtonProps>;
-
-Button.defaultProps = ButtonDefaultProps;
 
 export default Button;

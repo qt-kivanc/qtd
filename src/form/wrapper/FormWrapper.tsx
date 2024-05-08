@@ -20,7 +20,6 @@ type FormWrapperProps = {
   onUpdate?       : (values:{}) => void,
   onFinish?       : (values:{}) => void,
   onFinishFailed? : (values:{}) => void,
-  onReset?        : () => void,
   onValidated?    : (validate:boolean) => void,
   children        : ChildrenProps
 }
@@ -34,7 +33,6 @@ const FormWrapper = forwardRef(({
   onFinish,
   onFinishFailed,
   onValidated,
-  onReset,
   children        
 }:FormWrapperProps, ref) => {
 
@@ -366,9 +364,14 @@ const FormWrapper = forwardRef(({
       event.stopPropagation();
     }
 
+    let fields:{type:string, value:string}[] = [];
+
+    Object.keys(getFields()).map((key:string) => {
+      fields.push({type: key, value: ""});
+    })
+
+    multiQuery.set(fields);
     resetFields(true, false);
-    
-    onReset && onReset();
 
   }
 

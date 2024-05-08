@@ -77,7 +77,7 @@ export default function Item({
   const handleItemUpdate = (value:FormValueProps, update = true, validation = true) => {
   
     if ( !isRegistered ) return;
-    
+
     updateField(
       name,
       value,

@@ -7,7 +7,7 @@ export default function GetCurrencyFormat(value: string, currency = "") {
   }
 
   if ( value === "" ) return "";
-  value = `${GetCurrencySymbol(currency)} ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  value = `${GetCurrencySymbol(currency)}${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
   return value;
     

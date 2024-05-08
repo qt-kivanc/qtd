@@ -1,4 +1,4 @@
-import { FormEvent, forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { FormEvent, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { AxiosProgressEvent } from "axios";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "antd";
@@ -15,7 +15,10 @@ import { v4 } from "uuid";
 
 import {
   CenterContent, Icons, FileContent, Label, Overlay, OverlayContent,
-  Uploading, Wrapper, UploadStatusBox
+  Uploading, Wrapper, UploadStatusBox,
+  Failed,
+  ErrorTooltip,
+  IconsWrapper
 } from "./styled";
 
 type HideProgressProps = {
@@ -64,6 +67,8 @@ const Upload = forwardRef<
   onRemoveFileFailed
 }:UploadProps, forwardedRef) => {
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const { addNotification } = Notification.useNotifications();
   const { showModal }       = ModalManager.useModal();
   const { fetch, cancel }   = useCoreFetch();
@@ -78,6 +83,7 @@ const Upload = forwardRef<
   const [hasFile,             SetHasFile]             = useState<boolean | null>(null);
   const [currentFilePath,     SetCurrentFilePath]     = useState<string | null>(null);
   const [errorMessage,        SetErrorMessage]        = useState<string>("");
+  const [showErrorTooltip,    SetShowErrorTooltip]    = useState(false);
   
   const [isUploading,         SetIsUploading]         = useState<boolean>(false);
   const [uploadProgress,      SetUploadProgress]      = useState<UploadProgressProps | null>(null);
@@ -97,12 +103,10 @@ const Upload = forwardRef<
   }, [disabled]);
 
   useEffect(() => {
-    console.log("filePath", filePath)
     SetCurrentFilePath(filePath ? filePath.split("?")[0] : "");
   }, [filePath]);
 
   useEffect(() => {
-    console.log("currentFilePath", currentFilePath)
     if ( currentFilePath === null ) return; 
     if ( currentFilePath === undefined ) {
       SetFirstCheck(false);
@@ -154,12 +158,10 @@ const Upload = forwardRef<
     () => ({
 
       setFocus() {
-        console.log("Upload > setFocus");
-        SetIsFocusOver(true)
+        SetIsFocusOver(true);
       },
 
       reset(update = false, validation = false) {
-        console.log("Upload > reset");
         resetUpload();
         SetCurrentFilePath(null);
         SetErrorMessage("");
@@ -167,28 +169,23 @@ const Upload = forwardRef<
       },
 
       setValue(value, update = true, validation = true) {
-        console.log("Upload > setValue");
         SetCurrentFilePath(value);
         sendUpdates(value, update, validation);
       },
 
       getValue() {
-        console.log("Upload > getValue");
         return currentFilePath ? currentFilePath : "";
       },
 
       setError(message:string) {
-        console.log("Upload > setError");
         SetErrorMessage(message);
       },
 
       forceUpdate() {
-        console.log("Upload > forceUpdate");
         sendUpdates(currentFilePath ? currentFilePath : "");
       },
 
       clear() {
-        console.log("Upload > clear");
         SetCurrentFilePath("");
       }
   
@@ -213,9 +210,6 @@ const Upload = forwardRef<
       else {
         sendUpdates("", true, true);
       }
-
-      console.log("hasFileFound", hasFileFound);
-      console.log("firstCheck", firstCheck);
 
       if ( !firstCheck ) {
         SetFirstCheck(true);
@@ -347,7 +341,6 @@ const Upload = forwardRef<
   const handleFileChange = (event:FormEvent) => {
 
     SetIsDragOver(false);
-    SetIsFocusOver(false);
 
     const target              = event.target as HTMLInputElement;
     const selectedFile: File  = (target.files as FileList)[0];
@@ -408,10 +401,6 @@ const Upload = forwardRef<
 
   const hideProgress = async ({path, errorMessage, errorCode}:HideProgressProps) => {
 
-    console.log("hideProgress > path", path);
-    console.log("hideProgress > errorMessage", errorMessage);
-    console.log("hideProgress > errorCode", errorCode);
-
     await Wait(1000);
 
     SetUploadProgress(null);
@@ -452,8 +441,6 @@ const Upload = forwardRef<
       queries       : extraQueryString,
       headers       : extraHeader,
       onFetched     : (result:any) => {
-
-        console.log("result", result);
         
         if ( result.data.success ) {
           
@@ -482,7 +469,6 @@ const Upload = forwardRef<
       },
       onError     : (message:string, code:number) => {
 
-        console.log("onError");
         SetUploadResultMessage({
           message   : t("uploader.fileUploadFailed"),
           status    : "error"
@@ -496,7 +482,7 @@ const Upload = forwardRef<
 
       },
       onProgress  : (event:AxiosProgressEvent) => {
-        console.log("onProgress");
+        
         /**
          * It listens to the `AxiosProgressEvent` returned from *Axios*
          * and converts the file upload progress information into
@@ -624,6 +610,50 @@ const Upload = forwardRef<
       </Tooltip>
     )
   
+  }
+
+  const infoIcon = (
+    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <g id="Error" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="ErrorGroup" fillRule="nonzero">
+          <circle id="ErrorBackground" fill="#F8285A" cx="10" cy="10" r="10"></circle>
+          <path
+            d="M10.0355339,8.6213203 L12.863961,5.79289322 C13.2544853,5.40236893 13.8876503,5.40236893 14.2781746,5.79289322 C14.6686989,6.18341751 14.6686989,6.81658249 14.2781746,7.20710678 L11.4497475,10.0355339 
+            L14.2781746,12.863961 C14.6686989,13.2544853 14.6686989,13.8876503 14.2781746,14.2781746 C13.8876503,14.6686989 13.2544853,14.6686989 12.863961,14.2781746 L10.0355339,11.4497475 L7.20710678,14.2781746
+            C6.81658249,14.6686989 6.18341751,14.6686989 5.79289322,14.2781746 C5.40236893,13.8876503 5.40236893,13.2544853 5.79289322,12.863961 L8.6213203,10.0355339 L5.79289322,7.20710678 C5.40236893,6.81658249
+            5.40236893,6.18341751 5.79289322,5.79289322 C6.18341751,5.40236893 6.81658249,5.40236893 7.20710678,5.79289322 L10.0355339,8.6213203 Z"
+            id="ErrorIcon" fill="#FFFFFF"
+          />
+        </g>
+      </g>
+    </svg>
+  )
+
+  const getErrorStatus = () => {
+
+    if ( errorMessage === "" ) return;
+
+    let _props = {
+      className     : "qtd-upload-failed",
+      onPointerOver : () => SetShowErrorTooltip(true),
+      onPointerOut  : () => SetShowErrorTooltip(false)
+    }
+
+    return (
+
+      <Failed {..._props} >
+        {
+          showErrorTooltip ?
+            <ErrorTooltip className="qtd-upload-error-tooltip">
+              {errorMessage}
+            </ErrorTooltip>
+          : null
+        }
+        { infoIcon }
+      </Failed>
+
+    );
+
   }
 
   /**
@@ -757,10 +787,16 @@ const Upload = forwardRef<
         id        = {id}
         accept    = {acceptedFileTypes}
         onChange  = {handleFileChange}
-        onFocus   = {() => SetIsFocusOver(isUploading ? false : true)}
+        onFocus   = {() => SetIsFocusOver(true)}
         onBlur    = {() => SetIsFocusOver(false)}
-        onClick   = {() => SetIsFocusOver(false)}
+        onClick   = {() => {
+          //SetIsFocusOver(false);
+          //SetIsDragOver(false);
+          //SetIsOverlayOver(false);
+          inputRef.current?.blur();
+        }}
         disabled  = {isUploading || isDisabled}
+        ref       = {inputRef}
         //hidden
         //multiple
       />
@@ -770,7 +806,7 @@ const Upload = forwardRef<
         className     = "qtd-upload-label"
       >
         <FileContent
-          $showBorder   = {isDragOver}
+          $showBorder   = {(isDragOver || isOverlayOver) && !isUploading}
           $padding      = {padding}
           $hasError     = {errorMessage !== ""}
           className     = "qtd-upload-content"
@@ -778,10 +814,13 @@ const Upload = forwardRef<
           { getFile() }
           { getUploading() }
           { getOverlay() }
-          <Icons className="qtd-upload-icons">
-            { getDeleteIcon() }
-            { getPreviewIcon() }
-          </Icons>
+          <IconsWrapper>
+            <Icons className="qtd-upload-icons">
+              { getDeleteIcon() }
+              { getPreviewIcon() }
+            </Icons>
+            { getErrorStatus() }
+          </IconsWrapper>
         </FileContent>
       </Label>
     </Wrapper>

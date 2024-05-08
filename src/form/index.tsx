@@ -70,7 +70,6 @@ const Form = forwardRef((
         useQueryString  = {useQueryString}
         onUpdate        = {onUpdate}
         onFinish        = {onFinish}
-        onReset         = {onReset}
         onFinishFailed  = {onFinishFailed}
         onValidated     = {onValidated}
         name            = {name} 

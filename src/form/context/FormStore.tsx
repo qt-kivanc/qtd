@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
 import isDeepEqual from 'fast-deep-equal/react';
 
-import { FormValueProps, FormItemProps } from "../../index";
+import { FormValueProps, FormItemProps, FieldUpdateProps } from "../../index";
 import { FormContextType } from "./FormContext";
 
 export type FormStoreProps = {
   name            : string,
-  onUpdate?       : ({}) => void,
-  onFieldUpdate?  : ({}) => void,
+  onUpdate?       : (values:{}) => void,
+  onFieldUpdate?  : (update:FieldUpdateProps) => void,
   onReset?        : () => void,
   useQueryString? : boolean
 }
@@ -33,8 +33,6 @@ function FormStore({
    * 
    */
   function register(item:FormItemProps) {
-
-    console.log("register>", item)
 
     fields[item.name] = {
       name  : item.name,
@@ -131,7 +129,7 @@ function FormStore({
     fields[name].value = value;
     fields[name].valid = valid;
 
-    if ( update) {
+    if ( update ) {
 
       /**
        * Her güncellemede iletilmesi önemli
@@ -139,42 +137,45 @@ function FormStore({
       if ( onFieldUpdate ) {
             
         onFieldUpdate({
-          name: name,
-          value: value,
-          valid: valid
+          name  : name,
+          value : value,
+          valid : valid
         });
 
       }
-
-      if ( onUpdate ) {
-          
-        /**
-         * Sadece "update" talebi geldiyse "reset" öğelerinin
-         * resetlenmesi önemli. Aksi durumda sıralamayı bozuyor
-         * ve gereksiz bir istek yolluyor.
-         */
-        if ( fields[name].reset.length > 0 ) {
-          fields[name].reset.forEach((name:string) => {
-            fields[name].value = "";
-            fields[name].valid = false;
-            fields[name].field.current?.reset(false);
-          });
-        }
-
-        let _values = {
-          ...getValues(),
-          [name]: value
-        };
-
-        if ( fields[name].reset.length > 0 ) {
-          fields[name].reset.forEach((name:string) => {
-            _values[name] = "";
-          });
-        }
-
-        useQueryString ? SetUpdated(_values) : onUpdate(_values);
-
+      
+      /**
+       * Sadece "update" talebi geldiyse "reset" öğelerinin
+       * resetlenmesi önemli. Aksi durumda sıralamayı bozuyor
+       * ve gereksiz bir istek yolluyor.
+       */
+      if ( fields[name].reset.length > 0 ) {
+        fields[name].reset.forEach((name:string) => {
+          fields[name].value = "";
+          fields[name].valid = false;
+          fields[name].field.current?.reset(false);
+        });
       }
+
+      let _values = {
+        ...getValues(),
+        [name]: value
+      };
+
+      if ( fields[name].reset.length > 0 ) {
+        fields[name].reset.forEach((name:string) => {
+          _values[name] = "";
+        });
+      }
+
+      /**
+       * Eğer valid kontrolü yapılmazsa ve form useQueryString ile
+       * çalışıyor ise ilk field resetlendiği sırada yeni bir update
+       * yollayacak ve reset sistemini durduracaktır.
+       */
+      useQueryString && valid && SetUpdated(_values);
+      
+      onUpdate && onUpdate(_values);
 
     }
     
@@ -281,9 +282,11 @@ function FormStore({
       _values[name] = initialFields[name];
     });
 
-    if ( onUpdate && update ) {
-      onUpdate(_values);
-      SetUpdated(_values);
+    if ( update ) {
+
+      useQueryString && SetUpdated(_values);
+      onUpdate && onUpdate(_values)
+      
     }
 
     checkFormIsValid();
@@ -320,7 +323,7 @@ function FormStore({
 
   }
 
-  function setFieldError(name:string, message:string, validation:boolean = false) {
+  function setFieldError(name:string, message:string, validation:boolean = true) {
 
     if ( !hasField(name) ) return;
     if ( !fields[name].field.current ) return;

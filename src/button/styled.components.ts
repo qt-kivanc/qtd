@@ -313,7 +313,7 @@ const getFocusVisible = () => {
   return css`
     &:focus-visible {
       outline: 2px solid #1b84ff;
-      outline-offset: 2px;
+      outline-offset: 1px;
     }
   `
 }

@@ -1,15 +1,31 @@
 import styled, { css } from "styled-components";
 
+const Wrapper = styled.div`
+
+  position: relative;
+  width: 100%;
+
+  input[type="file"] {
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    
+  }
+
+`
+
 const FileContent = styled.div<{
   $showBorder :boolean,
   $hasError   :boolean,
   $padding    :number
 }>`
 
-  border: 1px solid ${props => props.$hasError ? "#f8285a" : "#cccccc80"};
+  border: 1px solid ${props => props.$hasError ? "#f8285a" : (props.$showBorder ? "#4F5871" : "#cccccc80")};
   border-radius: 6px;
   padding: ${props => props.$padding + "px"};
-  overflow: hidden;
+  //overflow: hidden;
 
   display: flex;
   justify-content: center;
@@ -20,28 +36,11 @@ const FileContent = styled.div<{
 
   position: relative;
 
-  outline: ${props => props.$showBorder ? "2px solid #1b84ff" : "2px solid #1b84ff00"};
-  outline-offset: -1px;
-
-  transition-property: outline-color;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-
-`
-
-const Wrapper = styled.div`
-
-  width: 100%;
-
-  input[type="file"] {
-    width: 0;
-    position: absolute;
-    opacity: 0;
-  }
-
 `
 
 const Label = styled.label<{$showFocus:boolean}>`
+
+  display: block;
 
   outline: ${props => props.$showFocus ? "2px solid #1b84ff" : "2px solid #1b84ff00"};
   outline-offset: 1px;
@@ -53,12 +52,20 @@ const Label = styled.label<{$showFocus:boolean}>`
 
 `
 
-const Icons = styled.div`
+const IconsWrapper = styled.div`
 
   position: absolute;
   top: 50%;
   right: 15px;
   transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+`
+
+const Icons = styled.div`
 
   display: flex;
   flex-direction: column;
@@ -223,5 +230,73 @@ const ErrorBorder = styled.div`
   z-index: 1;
 
 `
+const StatusCore = styled.div`
 
-export { Wrapper, FileContent, Icons, Label, CenterContent, Overlay, OverlayContent, Uploading, UploadStatusBox, ErrorBorder }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #000000CC;
+  font-size: 10px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    color: #000000;
+  }
+
+  &[data-icon="i"] {
+    &::before {
+      padding: 4px;
+      border-radius: 50px;
+    }
+  }
+
+`
+
+const Failed = styled(StatusCore)`
+
+  &::before {
+    background-color: #f8285a;
+  }
+
+`
+
+const ErrorTooltip = styled.span`
+  
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  font-size: 12px;
+  line-height: 14px;
+
+  border-radius: 5px;
+  padding: 10px 7px;
+  right: -14px;
+  bottom: 32px;
+  color: #ffffff;
+  background: #f8285a;
+  width: max-content;
+  max-width: 210px;
+
+  z-index: 2;
+
+  &::after {
+
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -6px;
+    right: 17px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #f8285a;
+
+  }
+
+`
+
+export { Wrapper, FileContent, IconsWrapper, Icons, Label, CenterContent, Overlay, OverlayContent, Uploading, UploadStatusBox, ErrorBorder, ErrorTooltip, Failed }

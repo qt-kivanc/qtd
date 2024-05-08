@@ -1,8 +1,9 @@
-import { useSearchParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 
 const useMultiQuery = () => {
 
   const [searchParams, SetSearchParams] = useSearchParams();
+  const navigate                        = useNavigate();
 
   const set = (queries = [{type: '', value: ''}]) => {
 
@@ -26,6 +27,9 @@ const useMultiQuery = () => {
     });
     
     SetSearchParams(searchParams);
+    navigate({
+      search: createSearchParams(searchParams).toString(),
+    }, {replace: true});
 
   }
 

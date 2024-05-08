@@ -1,6 +1,5 @@
 import './button.css';
 import {Button as ButtonComponent, ButtonProps} from '../index';
-import {ButtonDefaultProps} from '../button/index';
 import { ButtonSize, ButtonVariant } from 'types/ButtonProps';
 
 interface StoryButtonProps extends ButtonProps {
@@ -37,5 +36,3 @@ export const Button: React.FC<any> = ({
   );
 
 };
-
-Button.defaultProps = ButtonDefaultProps;

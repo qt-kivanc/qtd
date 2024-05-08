@@ -25,7 +25,7 @@ export type FormValueProps = string | number | object | boolean;
 
 export type FieldUpdateProps = {
   name        : string,
-  value       : string | number,
+  value       : FormValueProps,
   valid       : boolean,
 }
 
