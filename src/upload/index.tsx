@@ -47,8 +47,8 @@ const Upload = forwardRef<
   showDeleteIcon          = false,
   showPreviewIcon         = false,
   padding                 = 10,
-  fileHeight              = 50,
-  previewFileHeight       = 120,
+  fileHeight              = "100%",
+  previewFileHeight       = 240,
   requestMethod           = "put",
   maxFileSize             = 1024,
   disabled                = false,
@@ -482,7 +482,7 @@ const Upload = forwardRef<
 
       },
       onProgress  : (event:AxiosProgressEvent) => {
-        
+
         /**
          * It listens to the `AxiosProgressEvent` returned from *Axios*
          * and converts the file upload progress information into
@@ -631,7 +631,7 @@ const Upload = forwardRef<
 
   const getErrorStatus = () => {
 
-    if ( errorMessage === "" ) return;
+    if ( errorMessage === "" || isUploading ) return;
 
     let _props = {
       className     : "qtd-upload-failed",
@@ -808,7 +808,7 @@ const Upload = forwardRef<
         <FileContent
           $showBorder   = {(isDragOver || isOverlayOver) && !isUploading}
           $padding      = {padding}
-          $hasError     = {errorMessage !== ""}
+          $hasError     = {errorMessage !== "" && !isUploading}
           className     = "qtd-upload-content"
         >
           { getFile() }

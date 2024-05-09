@@ -72,8 +72,10 @@ const getInputVariant = () => {
 
       background-color: #0E153180;
       
-      &:hover, &:focus-within {
-        background-color: #0E1531BF;
+      &:not(.qtd-input-disabled) {
+        &:hover, &:focus-within {
+          background-color: #0E1531BF;
+        }
       }
     
     }
@@ -88,7 +90,7 @@ const getInputVariant = () => {
       &::after {
         content: '';
         position: absolute;
-        border: 1px dashed #505A7D99;
+        border: 1px dashed #DBDFE9;
         width: 100%;
         height: 100%;
         border-radius: 6px;
@@ -98,9 +100,11 @@ const getInputVariant = () => {
         transition: all .3 ease-out;
       }
     
-      &:hover, &:focus-within {
-        &::after {
-          border-color: #505A7D;
+      &:not(.qtd-input-disabled) {
+        &:hover, &:focus-within {
+          &::after {
+            border-color: #505A7D;
+          }
         }
       }
     
@@ -109,12 +113,22 @@ const getInputVariant = () => {
     /* DEFAULT */
     &.qtd-input-default
     {
-      border: 1px solid #505A7D99;
-      transition: all .3s ease-out;
+
+      border: 1px solid #DBDFE9;
+      transition-property: all;
+      transition-duration: 500ms;
+      transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
       
-      &:hover, &:focus-within {
-        border-color: #3598FE;
+      &.qtd-input-disabled {
+        border-color: #DBDFE990;
       }
+
+      &:not(.qtd-input-disabled) {
+        &:hover, &:focus-within {
+          border-color: #3598FE;
+        }
+      }
+
     }
 
   `
@@ -137,6 +151,7 @@ const Wrapper = styled.div`
     display: block;
     width: 100%;
     border: none;
+    font-weight: 500;
   }
 
   /* ------------------------ */

@@ -155,7 +155,7 @@ const FormWrapper = forwardRef(({
   const setFormInitialValues = () => {
 
     const isEmpty = !Object.values(initialValues).some(x => x !== null && x !== '');
-    
+
     /**
      * Eğer Query String değerleri boş ise başlatır.
      */
@@ -164,9 +164,7 @@ const FormWrapper = forwardRef(({
     }
 
     if ( !isEmpty && !initialized ){
-      if ( onUpdate ) {
-        onUpdate(setInitialValues(initialValues, false));
-      }
+      setInitialValues(initialValues, false);
       SetInitialized(true);
     }
     
@@ -328,9 +326,7 @@ const FormWrapper = forwardRef(({
       _values[name] = updatedFields[name];
     });
 
-    if ( onUpdate ) {
-      onUpdate(_values);
-    }
+    onUpdate && onUpdate(_values);
 
   }
 

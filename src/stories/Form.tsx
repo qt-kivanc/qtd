@@ -1,28 +1,38 @@
 import { useTranslation } from "react-i18next";
 import {Form as FormComponent, Input, Button, FieldUpdateProps, Upload} from "../index";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormContextType } from '../form/context/FormContext';
 import { FileTypes, FormValidationTypes } from "enums/enum";
 
 interface StoryFormProps {
-  
+  name            : string,
+  useQueryString  : boolean,
+  initialValues   : {}
 }
 
 export const Form: React.FC<any> = ({
-  ...props
+  name,
+  useQueryString,
+  initialValues
 }: StoryFormProps) => {
   
   //const { addNotification }     = Notification.useNotifications();
   const { t }                   = useTranslation();
   const [isValid, SetIsValis]   = useState(false);
+  const form                    = useRef<FormContextType>(null);
   
   const [disableSamePassword, SetDisableSamePassword]   = useState(true);
 
-  const form = useRef<FormContextType>(null);
-  
   const style = {
-    width: "500px",
+    width: "400px",
   }
+
+  useEffect(() => {
+    console.log("initialValues", initialValues);
+    if ( Object.keys(initialValues).length > 0 ) {
+      //form.current?.setInitialValues(initialValues);
+    }
+  }, [initialValues]);
 
   // const addNotificationSuccess = (message = "") => {
   //   addNotification({
@@ -77,15 +87,15 @@ export const Form: React.FC<any> = ({
   return (
     <div style={{...style}}>
       <FormComponent
-        name            = "example-form"
+        name            = {name}
         onFinish        = {onFinish}
         onFinishFailed  = {onFinishFailed}
         onValidated     = {onValidated}
         onFieldUpdate   = {onFieldUpdate}
         onReset         = {onReset}
         ref             = {form}
-        useQueryString  = {true}
-        {...props}
+        useQueryString  = {useQueryString}
+        initialValues   = {initialValues}
       >
         <Group>
 
@@ -128,9 +138,10 @@ export const Form: React.FC<any> = ({
           </Item>
 
           <Item
-            name  = "password"
-            query = "password"
-            rules = {[
+            name        = "password"
+            query       = "password"
+            dependency  = "password2"
+            rules       = {[
               {
                 required: true
               },

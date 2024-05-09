@@ -22,7 +22,11 @@ const FileContent = styled.div<{
   $padding    :number
 }>`
 
-  border: 1px solid ${props => props.$hasError ? "#f8285a" : (props.$showBorder ? "#4F5871" : "#cccccc80")};
+  transition-property: border-color;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  border: 1px solid ${props => props.$hasError ? "#f8285a" : (props.$showBorder ? "#3498FE" : "#DBDFE9")};
   border-radius: 6px;
   padding: ${props => props.$padding + "px"};
   //overflow: hidden;
@@ -47,7 +51,7 @@ const Label = styled.label<{$showFocus:boolean}>`
   border-radius: 6px;
 
   transition-property: outline-color;
-  transition-duration: 300ms;
+  transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
 `
@@ -103,13 +107,13 @@ const OverlayContent = styled.div<{$isHover:boolean}>`
   
   span {
     &:nth-child(1) {
-      color: #ffffff;
+      color: #000000;
       font-weight: 600; 
       font-size: 14px;
       text-align: center;
     }
     &:nth-child(2) {
-      color: #ffffff90;
+      color: #00000090;
       font-weight: 500;
       font-size: 12px;
       text-align: center;
@@ -138,7 +142,7 @@ const Overlay = styled.div<{$isHover:boolean}>`
 
   width: 100%;
   height: 100%;
-  background-color: #07143700;
+  background-color: #ffffff00;
   backdrop-filter: blur(0px);
   border-radius: 5px;
   overflow: hidden;
@@ -147,7 +151,7 @@ const Overlay = styled.div<{$isHover:boolean}>`
     $isHover &&
     css`
       backdrop-filter: blur(2px);
-      background-color: #071437b5;
+      background-color: #ffffff90;
     `}
 
 `

@@ -467,7 +467,7 @@ const Input = forwardRef<
    */
   const getErrorBorder = () => {
 
-    if ( errorMessage === "" ) return;
+    if ( errorMessage === "" || props.disabled ) return;
 
     return (
       <ErrorBorder className={"qtd-error-border"} />
@@ -497,7 +497,7 @@ const Input = forwardRef<
    */
   const getErrorStatus = () => {
 
-    if ( errorMessage === "" ) return;
+    if ( errorMessage === "" || props.disabled ) return;
 
     let _props = {
       className     : "qtd-input-failed",
@@ -566,6 +566,8 @@ const Input = forwardRef<
     if ( getSize() !== "" )       names += " qtd-input-" + getSize();
     if ( getVariant() !== "" )    names += " qtd-input-" + getVariant();
     if ( props.mask )             names += " qtd-input-masked";
+    if ( props.disabled )         names += " qtd-input-disabled";
+    if ( props.locked )           names += " qtd-input-locked";
     if ( props.className !== "" ) names += " " + props.className;
     if ( focused )                names += " focused";
 
