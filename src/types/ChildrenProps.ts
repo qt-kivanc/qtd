@@ -1,1 +1,0 @@
-export type ChildrenProps = string | JSX.Element | JSX.Element[] | null;

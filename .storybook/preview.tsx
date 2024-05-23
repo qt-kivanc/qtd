@@ -2,8 +2,8 @@ import React, { StrictMode } from "react";
 import type { Preview } from "@storybook/react";
 
 import { BrowserRouter } from 'react-router-dom';
-import { QTDProvider } from '../src/context/QTDContext';
-import StoryRoot from '../src/stories/root/index';
+import { QTDProvider } from '../lib/context/QTDContext';
+import StoryRoot from '../lib/stories/root/index';
 
 const preview: Preview = {
   parameters: {
@@ -20,7 +20,7 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <BrowserRouter>
-        <QTDProvider theme="dark">
+        <QTDProvider theme="light">
           <StoryRoot>
             <Story />
           </StoryRoot>

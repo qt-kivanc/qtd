@@ -10,7 +10,7 @@ Thanks!
 
 If you get an error like this;
 `[!] (plugin styles) Error: You must provide the URL of lib/mappings.wasm by calling SourceMapConsumer.initialize({ 'lib/mappings.wasm': ... }) before using SourceMapConsumer`
-`src/multiselect/style.module.scss`
+`lib/multiselect/style.module.scss`
 
 You must use this command on terminal:
 `export NODE_OPTIONS=--no-experimental-fetch`
